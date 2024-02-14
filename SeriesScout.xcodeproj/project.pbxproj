@@ -14,6 +14,10 @@
 		2FC48A532B7D1F2C0042485E /* SeriesScoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A522B7D1F2C0042485E /* SeriesScoutTests.swift */; };
 		2FC48A5D2B7D1F2C0042485E /* SeriesScoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A5C2B7D1F2C0042485E /* SeriesScoutUITests.swift */; };
 		2FC48A5F2B7D1F2C0042485E /* SeriesScoutUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A5E2B7D1F2C0042485E /* SeriesScoutUITestsLaunchTests.swift */; };
+		2FC48A6F2B7D20250042485E /* UtellyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A6E2B7D20250042485E /* UtellyModel.swift */; };
+		2FC48A712B7D207B0042485E /* SeriesScoutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A702B7D207B0042485E /* SeriesScoutRepository.swift */; };
+		2FC48A732B7D20C50042485E /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A722B7D20C50042485E /* ModelTests.swift */; };
+		2FC48A762B7D223F0042485E /* UtellySampleResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 2FC48A752B7D223F0042485E /* UtellySampleResponse.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,10 @@
 		2FC48A582B7D1F2C0042485E /* SeriesScoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeriesScoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC48A5C2B7D1F2C0042485E /* SeriesScoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutUITests.swift; sourceTree = "<group>"; };
 		2FC48A5E2B7D1F2C0042485E /* SeriesScoutUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2FC48A6E2B7D20250042485E /* UtellyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtellyModel.swift; sourceTree = "<group>"; };
+		2FC48A702B7D207B0042485E /* SeriesScoutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutRepository.swift; sourceTree = "<group>"; };
+		2FC48A722B7D20C50042485E /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		2FC48A752B7D223F0042485E /* UtellySampleResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UtellySampleResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +103,9 @@
 		2FC48A3F2B7D1F2C0042485E /* SeriesScout */ = {
 			isa = PBXGroup;
 			children = (
+				2FC48A6D2B7D1FE30042485E /* View */,
+				2FC48A6C2B7D1FDA0042485E /* ViewModel */,
+				2FC48A6B2B7D1FCE0042485E /* Model */,
 				2FC48A402B7D1F2C0042485E /* SeriesScoutApp.swift */,
 				2FC48A422B7D1F2C0042485E /* ContentView.swift */,
 				2FC48A442B7D1F2C0042485E /* Assets.xcassets */,
@@ -115,7 +126,9 @@
 		2FC48A512B7D1F2C0042485E /* SeriesScoutTests */ = {
 			isa = PBXGroup;
 			children = (
+				2FC48A742B7D22090042485E /* Mocks */,
 				2FC48A522B7D1F2C0042485E /* SeriesScoutTests.swift */,
+				2FC48A722B7D20C50042485E /* ModelTests.swift */,
 			);
 			path = SeriesScoutTests;
 			sourceTree = "<group>";
@@ -127,6 +140,37 @@
 				2FC48A5E2B7D1F2C0042485E /* SeriesScoutUITestsLaunchTests.swift */,
 			);
 			path = SeriesScoutUITests;
+			sourceTree = "<group>";
+		};
+		2FC48A6B2B7D1FCE0042485E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2FC48A6E2B7D20250042485E /* UtellyModel.swift */,
+				2FC48A702B7D207B0042485E /* SeriesScoutRepository.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2FC48A6C2B7D1FDA0042485E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2FC48A6D2B7D1FE30042485E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2FC48A742B7D22090042485E /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2FC48A752B7D223F0042485E /* UtellySampleResponse.json */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC48A762B7D223F0042485E /* UtellySampleResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +304,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC48A6F2B7D20250042485E /* UtellyModel.swift in Sources */,
 				2FC48A432B7D1F2C0042485E /* ContentView.swift in Sources */,
 				2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */,
+				2FC48A712B7D207B0042485E /* SeriesScoutRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FC48A532B7D1F2C0042485E /* SeriesScoutTests.swift in Sources */,
+				2FC48A732B7D20C50042485E /* ModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
