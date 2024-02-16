@@ -12,8 +12,7 @@ class SeriesScoutRepositoryTests: XCTestCase, MockedRequest {
     
     func testFetchUtellyDataSuccess() {
         // Given
-        let mockedData: UtellyModel = loadJSON(filename: "UtellySampleResponse", type: UtellyModel.self)!
-        let repository = SeriesScoutRepository()
+        let repository = MockedSeriesScoutRepository()
         
         // When
         repository.fetchUtellyData { result in
