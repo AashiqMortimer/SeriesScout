@@ -10,7 +10,6 @@ import Foundation
 struct UtellyModel: Codable {
     
     struct Results: Codable {
-        
         let locations: [Locations]
         let picture: String
         let name: String
