@@ -11,15 +11,25 @@ import XCTest
 final class SeriesScoutViewModelTests: XCTestCase, MockedRequest {
 
     var viewModel: SeriesScoutViewModel!
-    var repository: SeriesScoutRepository!
+    var repository: MockedSeriesScoutRepository!
     
     override func setUp() {
         super.setUp()
-        repository = SeriesScoutRepository()
+        repository = MockedSeriesScoutRepository()
+        viewModel = SeriesScoutViewModel(repository: repository)
         
-        let dependencies = SeriesScoutViewModel.Dependencies(repository: repository)
-//        viewModel = SeriesScoutViewModel(dependencies: SeriesScoutViewModel.Dependencies.)
+    }
+    
+    override func tearDown() {
+        viewModel = nil
+        repository = nil
+        super.tearDown()
+    }
+    
+    func testViewModelReturnsExpectedValues() {
+        viewModel.fetchUtellyData()
         
+        XCTAssertEqual(viewModel.seriesName, "Bojack Horseman")
     }
 
 }

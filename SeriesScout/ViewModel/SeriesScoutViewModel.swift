@@ -9,30 +9,29 @@ import Foundation
 
 class SeriesScoutViewModel: ObservableObject {
     
-    struct Dependencies {
-        var repository: SeriesScoutRepository
-    }
-    
-    let dependencies: SeriesScoutViewModel.Dependencies
+    let repository: SeriesScoutRepositoryRepresentable
     
     @Published var utellyData: UtellyModel?
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    @Published var seriesName: String = ""
+    @Published var seriesPicture: String? = nil
+    @Published var streamingWebsite: String = ""
+    @Published var streamingWebsiteIcon: String = ""
     
-    init(dependencies: SeriesScoutViewModel.Dependencies) {
-        self.dependencies = dependencies
+    init(repository: SeriesScoutRepositoryRepresentable) {
+        self.repository = repository
     }
     
     func fetchUtellyData() {
         isLoading = true
-        dependencies
-            .repository
+        repository
             .fetchUtellyData { [weak self] result in
                 DispatchQueue.main.async {
                     self?.isLoading = false
                     switch result {
-                    case .success(let utellyModel):
-                        self?.utellyData = utellyModel
+                    case .success(let utellyData):
+                        self?.buildSeries(utellyModel: utellyData)
                     case .failure(let error):
                         self?.errorMessage = error.localizedDescription
                     }
@@ -40,29 +39,13 @@ class SeriesScoutViewModel: ObservableObject {
             }
     }
     
-    // Maybe worth turning this into a function so that it's called each time fetch is triggered. Then the variables can be constants, and can be guard lets. I should also work with optional handling.
-    
-    var results: [UtellyModel.Result] {
-        return utellyData?.results ?? []
-    }
-    
-    var seriesPicture: [String] {
-        return results.map { $0.picture }
-    }
-    
-    var seriesName: [String] {
-        return results.map { $0.name }
-    }
-    
-    var locations: [UtellyModel.Result.Locations] {
-        return results.flatMap { $0.locations }
-    }
-    
-    var streamingWebsite: [String] {
-        return locations.map { $0.platformDisplayName }
-    }
-    
-    var streamingWebsiteIcon: [String] {
-        return locations.map { $0.icon }
+    func buildSeries(utellyModel: UtellyModel) {
+        let results = utellyModel.results
+        
+        seriesName = results.map { $0.name }.first!
+        seriesPicture = results.map { $0.picture }.first! ?? "No picture loaded"
+        streamingWebsite = results.map { $0.locations.first!.platformDisplayName }.first!
+        streamingWebsiteIcon = results.map { $0.locations.first!.icon }.first!
+        
     }
 }

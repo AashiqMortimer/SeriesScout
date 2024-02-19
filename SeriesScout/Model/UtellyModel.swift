@@ -8,11 +8,11 @@
 import Foundation
 
 struct UtellyModel: Codable {
-    let results: [Result]
+    let results: [Results]
     
-    struct Result: Codable {
+    struct Results: Codable {
         let locations: [Locations]
-        let picture: String
+        let picture: String?
         let name: String
         
         struct Locations: Codable {

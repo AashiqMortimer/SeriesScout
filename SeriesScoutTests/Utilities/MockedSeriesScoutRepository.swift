@@ -8,18 +8,15 @@
 import Foundation
 @testable import SeriesScout
 
-class MockedSeriesScoutRepository {
-    private let session: URLSession
-    private let baseURL = URL(string: "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com")!
-    private let apiKey = "855daeef13msh6294ff64512c2dcp1a86dfjsn60afe6ddc0dd"
-    private let host = "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com"
+class MockedSeriesScoutRepository: SeriesScoutRepositoryRepresentable {
+    
+    internal let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
         self.session = session
     }
     
-    
-    func fetchUtellyData(completion: @escaping (Result<UtellyModel, NetworkError>) -> Void) {
+    func fetchUtellyData(completion: @escaping (Result<SeriesScout.UtellyModel, SeriesScout.NetworkError>) -> Void) {
         guard let url = mockDataURL() else {
             completion(.failure(.invalidURL))
             return

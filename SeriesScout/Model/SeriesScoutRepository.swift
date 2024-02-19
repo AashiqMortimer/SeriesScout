@@ -7,8 +7,13 @@
 
 import Foundation
 
-class SeriesScoutRepository {
-    private let session: URLSession
+protocol SeriesScoutRepositoryRepresentable {
+    func fetchUtellyData(completion: @escaping (Result<UtellyModel, NetworkError>) -> Void)
+    var session: URLSession { get }
+}
+
+class SeriesScoutRepository: SeriesScoutRepositoryRepresentable {
+    let session: URLSession
     private let baseURL = URL(string: "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com")!
     private let apiKey = "855daeef13msh6294ff64512c2dcp1a86dfjsn60afe6ddc0dd"
     private let host = "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com"
@@ -23,7 +28,8 @@ class SeriesScoutRepository {
         urlComponents?.path = "/lookup"
         urlComponents?.queryItems = [
             URLQueryItem(name: "term", value: "bojack"),
-            URLQueryItem(name: "country", value: "uk")
+            URLQueryItem(name: "country", value: "uk"),
+            URLQueryItem(name: "rapidapi-key", value: apiKey)
         ]
         
         guard let url = urlComponents?.url else {
@@ -35,6 +41,8 @@ class SeriesScoutRepository {
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "X-RapidAPI-Key")
         request.setValue(host, forHTTPHeaderField: "X-RapidAPI-Host")
+        
+        print("Request is: \(request)")
         
         let task = session.dataTask(with: request) { data, _, error in
             if let error = error {

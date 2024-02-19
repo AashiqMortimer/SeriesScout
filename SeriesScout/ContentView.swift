@@ -8,17 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var viewModel = SeriesScoutViewModel(repository: SeriesScoutRepository())
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+            Text(viewModel.seriesName)
+            Text(viewModel.streamingWebsite)
         }
         .padding()
+        .onAppear(perform: {
+            viewModel.fetchUtellyData()
+        })
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: SeriesScoutViewModel(repository: SeriesScoutRepository()))
 }
