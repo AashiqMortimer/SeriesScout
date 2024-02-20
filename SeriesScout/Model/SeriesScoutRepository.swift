@@ -9,7 +9,6 @@ import Foundation
 
 protocol SeriesScoutRepositoryRepresentable {
     func fetchUtellyData(completion: @escaping (Result<UtellyModel, NetworkError>) -> Void)
-    var session: URLSession { get }
 }
 
 class SeriesScoutRepository: SeriesScoutRepositoryRepresentable {
@@ -21,7 +20,6 @@ class SeriesScoutRepository: SeriesScoutRepositoryRepresentable {
     init(session: URLSession = .shared) {
             self.session = session
         }
-    
     
     func fetchUtellyData(completion: @escaping (Result<UtellyModel, NetworkError>) -> Void) {
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
