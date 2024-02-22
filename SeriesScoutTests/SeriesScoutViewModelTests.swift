@@ -34,6 +34,7 @@ final class SeriesScoutViewModelTests: XCTestCase {
     }
 
     func testFetchUtellyDataSuccess() throws {
+        // James: Can do self.expectation instead of line 38 (gets linked to the test case)
         let expectation = XCTestExpectation(description: "Waiting for data fetch")
         viewModel.fetchUtellyData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

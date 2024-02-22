@@ -43,7 +43,7 @@ class SeriesScoutViewModel: ObservableObject {
         let results = utellyModel.results
         
         seriesName = results.map { $0.name }.first!
-        seriesPicture = results.map { $0.picture }.first! ?? "No picture loaded"
+        seriesPicture = results.map { $0.picture }.first!
         streamingWebsite = results.map { $0.locations.first!.platformDisplayName }.first!
         streamingWebsiteIcon = results.map { $0.locations.first!.icon }.first!
         
