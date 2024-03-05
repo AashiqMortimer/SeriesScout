@@ -10,42 +10,15 @@ import SwiftUI
 struct ResultView: View {
     
     @ObservedObject var viewModel = SeriesScoutViewModel(repository: SeriesScoutRepository())
-    @State private var searchText: String = ""
-    
-    
-//    var body: some View {
-//        GeometryReader { geometry in
-//            Color(Constants.Colors.background)
-//                .ignoresSafeArea(.all)
-//            
-//            VStack(spacing: 200) {
-//                headerImage
-//                    .frame(width: geometry.size.width, alignment: .top)
-//                    .ignoresSafeArea(.all)
-//                VStack(spacing: 90) {
-//                    Text(viewModel.seriesName)
-//                        .foregroundStyle(Constants.Colors.titleColor)
-//                        .font(.largeTitle)
-//                    iconImage
-//                        .frame(width: geometry.size.width - 60)
-//                }
-//            }
-//            .onAppear(perform: {
-//                viewModel.fetchUtellyData()
-//            })
-//        }
-//    }
     
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
-                Color(Constants.Colors.background)
-                    .ignoresSafeArea(.all)
                 VStack(spacing: 200) {
                     VStack(spacing: 90) {
                         iconImage
-                            .frame(width: geometry.size.width - 60)
-                            .padding(.top, 60)
+                            .frame(width: geometry.size.width)
+                            .padding(.top, 90)
                         Text(viewModel.seriesName)
                             .foregroundStyle(Constants.Colors.titleColor)
                             .font(.largeTitle)
@@ -55,15 +28,22 @@ struct ResultView: View {
                             .ignoresSafeArea(.all)
                             .padding(.top, 76)
                     }
-                    .searchable(text: $searchText, placement: .toolbar, prompt: "Search for TV Series")
                     
                 }
+                .background(Constants.Colors.background.tint(.clear))
                 .onAppear(perform: {
-                    // Need to add an argument to this fetch so it takes $searchText and in the function, it can use this to populate the URL call:
                     viewModel.fetchUtellyData()
                 })
+                .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer, prompt: "Search for TV Series")
+                
+                .onSubmit(of: .search) {
+                    viewModel.fetchUtellyData()
+                }
             }
+            .toolbarBackground(Color.red, for: .navigationBar)
         }
+        .tint(Constants.Colors.titleColor)
+        .ignoresSafeArea()
     }
     
     var headerImage: some View {
@@ -95,6 +75,21 @@ struct ResultView: View {
             placeholder: {
                 ProgressView()
             })
+    }
+    
+    var searchBar: some View {
+        
+        
+        HStack {
+            TextField("Search", text: $viewModel.searchText)
+            
+            Button(action: {
+                viewModel.searchText = ""
+            }) {
+                Image(systemName: "magnifyingglass.circle")
+                    .foregroundColor(.black)
+            }
+        }.padding()
     }
     
     private enum Constants {

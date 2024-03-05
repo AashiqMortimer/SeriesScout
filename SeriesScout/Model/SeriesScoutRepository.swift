@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SeriesScoutRepositoryRepresentable {
-    func fetchUtellyData(completion: @escaping (Result<UtellyModel, NetworkError>) -> Void)
+    func fetchUtellyData(searchTerm: String, completion: @escaping (Result<UtellyModel, NetworkError>) -> Void)
 }
 // James: This is a service more than a repository
 class SeriesScoutRepository: SeriesScoutRepositoryRepresentable {
@@ -21,11 +21,11 @@ class SeriesScoutRepository: SeriesScoutRepositoryRepresentable {
             self.session = session
         }
     
-    func fetchUtellyData(completion: @escaping (Result<UtellyModel, NetworkError>) -> Void) {
+    func fetchUtellyData(searchTerm: String, completion: @escaping (Result<UtellyModel, NetworkError>) -> Void) {
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
         urlComponents?.path = "/lookup"
         urlComponents?.queryItems = [
-            URLQueryItem(name: "term", value: "bojack"),
+            URLQueryItem(name: "term", value: searchTerm),
             URLQueryItem(name: "country", value: "uk"),
             URLQueryItem(name: "rapidapi-key", value: apiKey)
         ]

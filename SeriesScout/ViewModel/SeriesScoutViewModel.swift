@@ -18,6 +18,7 @@ class SeriesScoutViewModel: ObservableObject {
     @Published var seriesPicture: String? = nil
     @Published var streamingWebsite: String = ""
     @Published var streamingWebsiteIcon: String = ""
+    @Published var searchText: String = "BoJack Horseman"
     
     init(repository: SeriesScoutRepositoryRepresentable) {
         self.repository = repository
@@ -26,7 +27,7 @@ class SeriesScoutViewModel: ObservableObject {
     func fetchUtellyData() {
         isLoading = true
         repository
-            .fetchUtellyData { [weak self] result in
+            .fetchUtellyData(searchTerm: searchText) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.isLoading = false
                     switch result {
