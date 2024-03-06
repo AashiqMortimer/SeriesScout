@@ -68,9 +68,11 @@ struct ResultView: View {
             content: { icon in
                 icon
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: .fit)
                     .clipped()
                     .frame(height: 100)
+                    .colorInvert()
+                    .colorMultiply(viewModel.returnBrandColor(streamingWebsite: viewModel.streamingWebsite))
             },
             placeholder: {
                 ProgressView()
