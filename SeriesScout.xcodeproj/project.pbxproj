@@ -16,7 +16,7 @@
 		2FC48A452B7D1F2C0042485E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FC48A442B7D1F2C0042485E /* Assets.xcassets */; };
 		2FC48A492B7D1F2C0042485E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FC48A482B7D1F2C0042485E /* Preview Assets.xcassets */; };
 		2FC48A6F2B7D20250042485E /* UtellyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A6E2B7D20250042485E /* UtellyModel.swift */; };
-		2FC48A712B7D207B0042485E /* SeriesScoutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A702B7D207B0042485E /* SeriesScoutRepository.swift */; };
+		2FC48A712B7D207B0042485E /* SeriesScoutNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A702B7D207B0042485E /* SeriesScoutNetworkService.swift */; };
 		2FC48A762B7D223F0042485E /* UtellySampleResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 2FC48A752B7D223F0042485E /* UtellySampleResponse.json */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +43,7 @@
 		2FC48A482B7D1F2C0042485E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2FC48A4E2B7D1F2C0042485E /* SeriesScoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeriesScoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC48A6E2B7D20250042485E /* UtellyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtellyModel.swift; sourceTree = "<group>"; };
-		2FC48A702B7D207B0042485E /* SeriesScoutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutRepository.swift; sourceTree = "<group>"; };
+		2FC48A702B7D207B0042485E /* SeriesScoutNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutNetworkService.swift; sourceTree = "<group>"; };
 		2FC48A752B7D223F0042485E /* UtellySampleResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UtellySampleResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,7 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				2FC48A6E2B7D20250042485E /* UtellyModel.swift */,
-				2FC48A702B7D207B0042485E /* SeriesScoutRepository.swift */,
+				2FC48A702B7D207B0042485E /* SeriesScoutNetworkService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,7 +271,7 @@
 				2FC48A432B7D1F2C0042485E /* ResultView.swift in Sources */,
 				2F8DCB9D2B7F9E5900466CF0 /* SeriesScoutViewModel.swift in Sources */,
 				2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */,
-				2FC48A712B7D207B0042485E /* SeriesScoutRepository.swift in Sources */,
+				2FC48A712B7D207B0042485E /* SeriesScoutNetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

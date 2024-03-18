@@ -8,7 +8,7 @@
 import Foundation
 @testable import SeriesScout
 
-class MockSeriesScoutRepository: SeriesScoutRepositoryRepresentable {
+class MockSeriesScoutRepository: SeriesScoutNetworkServiceRepresentable {
     var shouldReturnError = false
     var utellyDataToReturn: UtellyModel?
 

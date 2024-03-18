@@ -10,7 +10,7 @@ import SwiftUI
 
 class SeriesScoutViewModel: ObservableObject {
     
-    let repository: SeriesScoutRepositoryRepresentable
+    let repository: SeriesScoutNetworkServiceRepresentable
     
     @Published var utellyData: UtellyModel?
     @Published var isLoading: Bool = false
@@ -22,7 +22,7 @@ class SeriesScoutViewModel: ObservableObject {
     @Published var searchText: String = "BoJack Horseman"
     // When a number is entered as a search term, it doesn't return anything. I need to handle the int values; look into this further. 
     
-    init(repository: SeriesScoutRepositoryRepresentable) {
+    init(repository: SeriesScoutNetworkServiceRepresentable) {
         self.repository = repository
     }
     

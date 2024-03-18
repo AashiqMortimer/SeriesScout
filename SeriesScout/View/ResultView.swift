@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultView: View {
     
-    @ObservedObject var viewModel = SeriesScoutViewModel(repository: SeriesScoutRepository())
+    @ObservedObject var viewModel = SeriesScoutViewModel(repository: SeriesScoutNetworkService())
     
     var body: some View {
         NavigationStack {
@@ -104,5 +104,5 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(viewModel: SeriesScoutViewModel(repository: SeriesScoutRepository()))
+    ResultView(viewModel: SeriesScoutViewModel(repository: SeriesScoutNetworkService()))
 }

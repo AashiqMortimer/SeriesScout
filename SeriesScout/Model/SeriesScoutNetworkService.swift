@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol SeriesScoutRepositoryRepresentable {
+protocol SeriesScoutNetworkServiceRepresentable {
     func fetchUtellyData(searchTerm: String, completion: @escaping (Result<UtellyModel, NetworkError>) -> Void)
 }
-// James: This is a service more than a repository
-// What is a Network Service? What is a repository?
-class SeriesScoutRepository: SeriesScoutRepositoryRepresentable {
+
+class SeriesScoutNetworkService: SeriesScoutNetworkServiceRepresentable {
+    
     let session: URLSession
     private let baseURL = URL(string: "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com")!
     private let apiKey = "855daeef13msh6294ff64512c2dcp1a86dfjsn60afe6ddc0dd"
