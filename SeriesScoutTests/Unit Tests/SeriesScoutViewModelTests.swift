@@ -11,12 +11,12 @@ import XCTest
 final class SeriesScoutViewModelTests: XCTestCase {
 
     var viewModel: SeriesScoutViewModel!
-    var mockRepository: MockSeriesScoutRepository!
+    var mockRepository: MockSeriesScoutNetworkService!
 
     override func setUpWithError() throws {
         super.setUp()
-        mockRepository = MockSeriesScoutRepository()
-        viewModel = SeriesScoutViewModel(repository: mockRepository)
+        mockRepository = MockSeriesScoutNetworkService()
+        viewModel = SeriesScoutViewModel(networkService: mockRepository)
         
         let bundle = Bundle(for: type(of: self))
         guard let filePath = bundle.path(forResource: "UtellySampleResponse", ofType: "json") else {
@@ -52,7 +52,7 @@ final class SeriesScoutViewModelTests: XCTestCase {
     }
 }
 
-// Best of creating a set of unit tests for my "repository"
+// Best off creating a set of unit tests for my "repository"
 
 // This is checking whether my ViewModel responds correctly
 

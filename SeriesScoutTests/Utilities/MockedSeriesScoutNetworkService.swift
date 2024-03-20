@@ -8,13 +8,13 @@
 import Foundation
 @testable import SeriesScout
 
-class MockSeriesScoutRepository: SeriesScoutNetworkServiceRepresentable {
+class MockSeriesScoutNetworkService: SeriesScoutNetworkServiceRepresentable {
     var shouldReturnError = false
     var utellyDataToReturn: UtellyModel?
 
-    func fetchUtellyData(completion: @escaping (Result<SeriesScout.UtellyModel, SeriesScout.NetworkError>) -> Void) {
+    func fetchUtellyData(searchTerm: String, completion: @escaping (Result<SeriesScout.UtellyModel, SeriesScout.NetworkError>) -> Void) {
         if shouldReturnError {
-            completion(.failure(.invalidURL)) // Choose appropriate error for testing
+            completion(.failure(.invalidURL))
         } else {
             completion(.success(utellyDataToReturn!))
         }

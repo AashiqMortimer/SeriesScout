@@ -10,7 +10,7 @@ import SwiftUI
 
 class SeriesScoutViewModel: ObservableObject {
     
-    let repository: SeriesScoutNetworkServiceRepresentable
+    let networkService: SeriesScoutNetworkServiceRepresentable
     
     @Published var utellyData: UtellyModel?
     @Published var isLoading: Bool = false
@@ -20,15 +20,15 @@ class SeriesScoutViewModel: ObservableObject {
     @Published var streamingWebsite: String = ""
     @Published var streamingWebsiteIcon: String = ""
     @Published var searchText: String = "BoJack Horseman"
-    // When a number is entered as a search term, it doesn't return anything. I need to handle the int values; look into this further. 
+    //TODO: When a number is entered as a search term, it doesn't return anything. I need to handle the int values; look into this further.
     
-    init(repository: SeriesScoutNetworkServiceRepresentable) {
-        self.repository = repository
+    init(networkService: SeriesScoutNetworkServiceRepresentable) {
+        self.networkService = networkService
     }
     
     func fetchUtellyData() {
         isLoading = true
-        repository
+        networkService
             .fetchUtellyData(searchTerm: searchText) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.isLoading = false

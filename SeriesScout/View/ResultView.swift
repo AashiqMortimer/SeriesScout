@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultView: View {
     
-    @ObservedObject var viewModel = SeriesScoutViewModel(repository: SeriesScoutNetworkService())
+    @ObservedObject var viewModel = SeriesScoutViewModel(networkService: SeriesScoutNetworkService())
     
     var body: some View {
         NavigationStack {
@@ -31,6 +31,7 @@ struct ResultView: View {
                     
                 }
                 .background(Constants.Colors.background.tint(.clear))
+                //TODO: Change to a .task with a do / catch block to handle errors (requires changing fetch method)
                 .onAppear(perform: {
                     viewModel.fetchUtellyData()
                 })
@@ -104,5 +105,5 @@ struct ResultView: View {
 }
 
 #Preview {
-    ResultView(viewModel: SeriesScoutViewModel(repository: SeriesScoutNetworkService()))
+    ResultView(viewModel: SeriesScoutViewModel(networkService: SeriesScoutNetworkService()))
 }

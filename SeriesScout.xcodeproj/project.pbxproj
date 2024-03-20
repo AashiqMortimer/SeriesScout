@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2F5ABD202B86001900B8A5D6 /* MarkoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */; };
+		2F6FC3B12BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */; };
 		2F8DCB9D2B7F9E5900466CF0 /* SeriesScoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCB9C2B7F9E5900466CF0 /* SeriesScoutViewModel.swift */; };
 		2F8DCBAA2B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCBA92B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift */; };
-		2F8DCBAC2B7FC6B000466CF0 /* MockedSeriesScoutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutRepository.swift */; };
+		2F8DCBAC2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift */; };
 		2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A402B7D1F2C0042485E /* SeriesScoutApp.swift */; };
 		2FC48A432B7D1F2C0042485E /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A422B7D1F2C0042485E /* ResultView.swift */; };
 		2FC48A452B7D1F2C0042485E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FC48A442B7D1F2C0042485E /* Assets.xcassets */; };
@@ -32,9 +33,10 @@
 
 /* Begin PBXFileReference section */
 		2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MarkoOne-Regular.ttf"; path = "../../../../Downloads/Marko_One/MarkoOne-Regular.ttf"; sourceTree = "<group>"; };
+		2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutNetworkServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		2F8DCB9C2B7F9E5900466CF0 /* SeriesScoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutViewModel.swift; sourceTree = "<group>"; };
 		2F8DCBA92B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutViewModelTests.swift; sourceTree = "<group>"; };
-		2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSeriesScoutRepository.swift; sourceTree = "<group>"; };
+		2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSeriesScoutNetworkService.swift; sourceTree = "<group>"; };
 		2FC48A3D2B7D1F2C0042485E /* SeriesScout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeriesScout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC48A402B7D1F2C0042485E /* SeriesScoutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutApp.swift; sourceTree = "<group>"; };
 		2FC48A422B7D1F2C0042485E /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,22 @@
 				2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2F6FC3AE2BA8A78E00E1BD54 /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2F8DCBA92B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift */,
+			);
+			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		2F6FC3AF2BA8A79A00E1BD54 /* Integration Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */,
+			);
+			path = "Integration Tests";
 			sourceTree = "<group>";
 		};
 		2FC48A342B7D1F2C0042485E = {
@@ -117,9 +135,10 @@
 		2FC48A512B7D1F2C0042485E /* SeriesScoutTests */ = {
 			isa = PBXGroup;
 			children = (
+				2F6FC3AF2BA8A79A00E1BD54 /* Integration Tests */,
 				2FCD57032B7F76C6002A4D18 /* Utilities */,
 				2FC48A742B7D22090042485E /* Mocks */,
-				2F8DCBA92B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift */,
+				2F6FC3AE2BA8A78E00E1BD54 /* Unit Tests */,
 			);
 			path = SeriesScoutTests;
 			sourceTree = "<group>";
@@ -160,7 +179,7 @@
 		2FCD57032B7F76C6002A4D18 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutRepository.swift */,
+				2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -280,7 +299,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F8DCBAA2B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift in Sources */,
-				2F8DCBAC2B7FC6B000466CF0 /* MockedSeriesScoutRepository.swift in Sources */,
+				2F6FC3B12BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift in Sources */,
+				2F8DCBAC2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
