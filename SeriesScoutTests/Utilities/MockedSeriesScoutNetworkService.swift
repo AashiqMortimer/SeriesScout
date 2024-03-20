@@ -10,13 +10,27 @@ import Foundation
 
 class MockSeriesScoutNetworkService: SeriesScoutNetworkServiceRepresentable {
     var shouldReturnError = false
-    var utellyDataToReturn: UtellyModel?
 
     func fetchUtellyData(searchTerm: String, completion: @escaping (Result<SeriesScout.UtellyModel, SeriesScout.NetworkError>) -> Void) {
         if shouldReturnError {
             completion(.failure(.invalidURL))
         } else {
-            completion(.success(utellyDataToReturn!))
+            let decoder = JSONDecoder()
+            
+            let bundle = Bundle(for: type(of: self))
+            
+            guard let filePath = bundle.path(forResource: "UtellySampleResponse", ofType: "json") else {
+                fatalError("UtellySampleResponse.json not found")
+            }
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: filePath))
+                try completion(.success(decoder.decode(UtellyModel.self, from: data)))
+            } catch {
+                print("❌: \(error.localizedDescription)")
+                fatalError("Failed to decode JSON.")
+            }
+            
+            
         }
     }
 }

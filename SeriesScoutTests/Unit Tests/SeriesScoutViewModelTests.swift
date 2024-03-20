@@ -11,25 +11,15 @@ import XCTest
 final class SeriesScoutViewModelTests: XCTestCase {
 
     var viewModel: SeriesScoutViewModel!
-    var mockRepository: MockSeriesScoutNetworkService!
 
     override func setUpWithError() throws {
         super.setUp()
-        mockRepository = MockSeriesScoutNetworkService()
-        viewModel = SeriesScoutViewModel(networkService: mockRepository)
-        
-        let bundle = Bundle(for: type(of: self))
-        guard let filePath = bundle.path(forResource: "UtellySampleResponse", ofType: "json") else {
-            fatalError("UtellySampleResponse.json not found")
-        }
-        let data = try Data(contentsOf: URL(fileURLWithPath: filePath))
-        
-        mockRepository.utellyDataToReturn = try JSONDecoder().decode(UtellyModel.self, from: data)
+        viewModel = SeriesScoutViewModel(networkService: MockSeriesScoutNetworkService())
+        viewModel.fetchUtellyData()
     }
 
     override func tearDownWithError() throws {
         viewModel = nil
-        mockRepository = nil
         super.tearDown()
     }
 
