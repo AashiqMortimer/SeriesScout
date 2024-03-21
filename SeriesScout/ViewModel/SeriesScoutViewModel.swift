@@ -33,8 +33,9 @@ class SeriesScoutViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self?.isLoading = false
                     switch result {
-                    case .success(let utellyData):
-                        self?.buildSeries(utellyModel: utellyData)
+                    case .success(let data):
+                        self?.utellyData = data
+                        self?.buildSeries(utellyModel: data)
                     case .failure(let error):
                         self?.errorMessage = error.localizedDescription
                     }
