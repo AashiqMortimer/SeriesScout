@@ -19,7 +19,6 @@ final class SeriesScoutViewModelTests: XCTestCase {
         super.setUp()
         let mockedNetwork = MockSeriesScoutNetworkService(resource: "UtellySampleResponse")
         viewModel = SeriesScoutViewModel(networkService: mockedNetwork)
-        viewModel.fetchUtellyData()
     }
 
     override func tearDownWithError() throws {
@@ -30,6 +29,8 @@ final class SeriesScoutViewModelTests: XCTestCase {
 
     func testFetchUtellyDataSuccess() throws {
         let expectation = self.expectation(description: "Waiting for data fetch")
+        
+        viewModel.fetchUtellyData()
         
         viewModel
             .$utellyData
@@ -46,6 +47,8 @@ final class SeriesScoutViewModelTests: XCTestCase {
     func testViewModelReturnsSeriesName() throws {
         let expectation = self.expectation(description: "Waiting for data fetch")
         
+        viewModel.fetchUtellyData()
+        
         viewModel
             .$seriesName
             .dropFirst()
@@ -60,6 +63,8 @@ final class SeriesScoutViewModelTests: XCTestCase {
     
     func testViewModelReturnsStreamingWebsite() throws {
         let expectation = self.expectation(description: "Waiting for data fetch")
+        
+        viewModel.fetchUtellyData()
         
         viewModel
             .$streamingWebsite
@@ -76,6 +81,8 @@ final class SeriesScoutViewModelTests: XCTestCase {
     func testViewModelReturnsSeriesPicture() throws {
         let expectation = self.expectation(description: "Waiting for data fetch")
         
+        viewModel.fetchUtellyData()
+        
         viewModel
             .$seriesPicture
             .dropFirst()
@@ -91,6 +98,8 @@ final class SeriesScoutViewModelTests: XCTestCase {
     func testViewModelReturnsStreamingWebsiteIcon() throws {
         let expectation = self.expectation(description: "Waiting for data fetch")
         
+        viewModel.fetchUtellyData()
+        
         viewModel
             .$streamingWebsiteIcon
             .dropFirst()
@@ -105,6 +114,8 @@ final class SeriesScoutViewModelTests: XCTestCase {
     
     func testErrorMessageReturnsNil() throws {
         let expectation = self.expectation(description: "Waiting for data fetch")
+        
+        viewModel.fetchUtellyData()
         
         viewModel
             .$errorMessage
@@ -137,7 +148,30 @@ final class SeriesScoutViewModelTests: XCTestCase {
         XCTAssertEqual(google, Color.orange)
         XCTAssertEqual(youtube, Color.red)
     }
+    
+    func testViewModelStateReturnsLoading() throws {
+        XCTAssertEqual(viewModel.state, .loading)
+    }
+    
+    func testViewModelStateReturnsSuccess() throws {
+        let expectation = self.expectation(description: "Waiting for data fetch")
+        
+        viewModel.fetchUtellyData()
+        
+        viewModel
+            .$state
+            .dropFirst()
+            .sink { value in
+                XCTAssertEqual(value, .success)
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+        
+        wait(for: [expectation], timeout: 0.5)
+    }
 }
+
+//TODO: Add unit test for state returning error
 
 // Best off creating a set of unit tests for my "repository"
 

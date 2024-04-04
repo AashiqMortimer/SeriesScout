@@ -33,10 +33,7 @@ class MockSeriesScoutNetworkService: SeriesScoutNetworkServiceRepresentable {
                 try completion(.success(decoder.decode(UtellyModel.self, from: data)))
             } catch {
                 print("❌: \(error.localizedDescription)")
-                fatalError("Failed to decode JSON.")
             }
-            
-            
         }
     }
 }
