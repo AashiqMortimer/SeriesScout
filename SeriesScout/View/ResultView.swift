@@ -12,39 +12,44 @@ struct ResultView: View {
     @ObservedObject var viewModel = SeriesScoutViewModel(networkService: SeriesScoutNetworkService())
     
     var body: some View {
+        let brandColor = viewModel.returnBrandColor(streamingWebsite: viewModel.streamingWebsite)
+        
         NavigationStack {
             GeometryReader { geometry in
-                VStack(spacing: 200) {
-                    VStack(spacing: 90) {
+                VStack() {
+                    VStack() {
                         iconImage
                             .frame(width: geometry.size.width)
                             .padding(.top, 90)
-                        Text(viewModel.seriesName)
-                            .foregroundStyle(Constants.Colors.titleColor)
-                            .font(.largeTitle)
-                            .padding(.top, 50)
+                            .colorMultiply(brandColor)
+                            .saturation(1.5)
+                        Spacer()
                         headerImage
-                            .frame(width: geometry.size.width, alignment: .bottom)
-                            .ignoresSafeArea(.all)
-                            .padding(.top, 76)
+                            .frame(width: geometry.size.width)
+                        Spacer()
+                        Text(viewModel.seriesName)
+                            .foregroundStyle(brandColor.opacity(0.8))
+                            .font(.largeTitle)
+                            .bold()
+                            .saturation(1)
+                        Spacer()
                     }
                     
                 }
-                .background(Constants.Colors.background.tint(.clear))
                 //TODO: Change to a .task with a do / catch block to handle errors (requires changing fetch method)
                 .onAppear(perform: {
                     viewModel.fetchUtellyData()
                 })
-                .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer, prompt: "Search for TV Series")
-                
+                .searchable(text: $viewModel.searchText, isPresented: .constant(true), placement: .navigationBarDrawer, prompt: "Search for TV Series")
                 .onSubmit(of: .search) {
                     viewModel.fetchUtellyData()
                 }
             }
             .toolbarBackground(Color.red, for: .navigationBar)
+            .background(Constants.Colors.background.tint(.clear))
+            .edgesIgnoringSafeArea(.bottom)
         }
         .tint(Constants.Colors.titleColor)
-        .ignoresSafeArea()
     }
     
     var headerImage: some View {
@@ -56,7 +61,6 @@ struct ResultView: View {
                     .aspectRatio(contentMode: .fill)
                     .clipped()
                     .frame(height: 200)
-                    .ignoresSafeArea(.all)
             },
             placeholder: {
                 ProgressView()
@@ -73,7 +77,6 @@ struct ResultView: View {
                     .clipped()
                     .frame(height: 100)
                     .colorInvert()
-                    .colorMultiply(viewModel.returnBrandColor(streamingWebsite: viewModel.streamingWebsite))
             },
             placeholder: {
                 ProgressView()
@@ -98,7 +101,7 @@ struct ResultView: View {
     private enum Constants {
         
         enum Colors {
-            static var background: Color = Color(.appBackground)
+            static var background: Color = Color(.gray)
             static var titleColor: Color = Color(.title)
         }
     }

@@ -23,10 +23,12 @@ class SeriesScoutNetworkService: SeriesScoutNetworkServiceRepresentable {
         }
     
     func fetchUtellyData(searchTerm: String, completion: @escaping (Result<UtellyModel, NetworkError>) -> Void) {
+        var encodedSearchTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? searchTerm
+        
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
         urlComponents?.path = "/lookup"
         urlComponents?.queryItems = [
-            URLQueryItem(name: "term", value: searchTerm),
+            URLQueryItem(name: "term", value: encodedSearchTerm),
             URLQueryItem(name: "country", value: "uk"),
             URLQueryItem(name: "rapidapi-key", value: apiKey)
         ]
