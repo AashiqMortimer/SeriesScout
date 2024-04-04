@@ -23,7 +23,7 @@ class SeriesScoutNetworkService: SeriesScoutNetworkServiceRepresentable {
         }
     
     func fetchUtellyData(searchTerm: String, completion: @escaping (Result<UtellyModel, NetworkError>) -> Void) {
-        var encodedSearchTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? searchTerm
+        let encodedSearchTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? searchTerm
         
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
         urlComponents?.path = "/lookup"

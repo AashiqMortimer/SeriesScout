@@ -8,36 +8,47 @@
 import Foundation
 import SwiftUI
 
+enum SeriesScoutViewModelState {
+    case loading
+    case success
+    case failure
+}
+
 class SeriesScoutViewModel: ObservableObject {
     
     let networkService: SeriesScoutNetworkServiceRepresentable
     
     @Published var utellyData: UtellyModel?
-    @Published var isLoading: Bool = false
+    @Published var state: SeriesScoutViewModelState = .loading
     @Published var errorMessage: String?
     @Published var seriesName: String = ""
     @Published var seriesPicture: String? = nil
     @Published var streamingWebsite: String = ""
     @Published var streamingWebsiteIcon: String = ""
+    //TODO: Remove starting string and create a starting view to invite users to search (State -> welcome)
     @Published var searchText: String = "BoJack Horseman"
-    //TODO: When a number is entered as a search term, it doesn't return anything. I need to handle the int values; look into this further.
     
     init(networkService: SeriesScoutNetworkServiceRepresentable) {
         self.networkService = networkService
     }
     
     func fetchUtellyData() {
-        isLoading = true
+        state = .loading
         networkService
             .fetchUtellyData(searchTerm: searchText) { [weak self] result in
                 DispatchQueue.main.async {
-                    self?.isLoading = false
                     switch result {
                     case .success(let data):
-                        self?.utellyData = data
-                        self?.buildSeries(utellyModel: data)
+                        if !data.results.isEmpty{
+                            self?.utellyData = data
+                            self?.buildSeries(utellyModel: data)
+                            self?.state = .success
+                        } else {
+                            self?.state = .failure
+                        }
                     case .failure(let error):
                         self?.errorMessage = error.localizedDescription
+                        self?.state = .failure
                     }
                 }
             }

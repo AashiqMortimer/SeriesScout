@@ -10,22 +10,25 @@ import SwiftUI
 struct ResultView: View {
     
     @ObservedObject var viewModel = SeriesScoutViewModel(networkService: SeriesScoutNetworkService())
+    @State private var isSearchActive = false
     
     var body: some View {
         let brandColor = viewModel.returnBrandColor(streamingWebsite: viewModel.streamingWebsite)
         
-        NavigationStack {
-            GeometryReader { geometry in
-                VStack() {
+        VStack {
+            switch viewModel.state {
+            case .loading:
+                ProgressView()
+                //TODO: Could add a skeleton loading view with a flashing animation where opacity changes
+            case .success:
+                NavigationStack {
                     VStack() {
                         iconImage
-                            .frame(width: geometry.size.width)
                             .padding(.top, 90)
                             .colorMultiply(brandColor)
                             .saturation(1.5)
                         Spacer()
                         headerImage
-                            .frame(width: geometry.size.width)
                         Spacer()
                         Text(viewModel.seriesName)
                             .foregroundStyle(brandColor.opacity(0.8))
@@ -34,22 +37,30 @@ struct ResultView: View {
                             .saturation(1)
                         Spacer()
                     }
-                    
+                    .background(Constants.Colors.background.tint(.clear))
+                    .edgesIgnoringSafeArea(.bottom)
                 }
-                //TODO: Change to a .task with a do / catch block to handle errors (requires changing fetch method)
-                .onAppear(perform: {
-                    viewModel.fetchUtellyData()
-                })
-                .searchable(text: $viewModel.searchText, isPresented: .constant(true), placement: .navigationBarDrawer, prompt: "Search for TV Series")
-                .onSubmit(of: .search) {
-                    viewModel.fetchUtellyData()
-                }
+                .tint(Constants.Colors.titleColor)
+                
+            case .failure:
+                //TODO: Could use NetworkError enum (in NetworkService) to create contextual error pages. Can add an initialiser to error view to change the text dependent on the error type.
+                GenericErrorView()
             }
-            .toolbarBackground(Color.red, for: .navigationBar)
-            .background(Constants.Colors.background.tint(.clear))
-            .edgesIgnoringSafeArea(.bottom)
         }
-        .tint(Constants.Colors.titleColor)
+        .onAppear(perform: {
+            viewModel.fetchUtellyData()
+        })
+        .searchable(text: $viewModel.searchText, isPresented: $isSearchActive, placement: .navigationBarDrawer, prompt: "Search for TV Series")
+        .onSubmit(of: .search) {
+            viewModel.fetchUtellyData()
+        }
+    }
+    
+    private enum Constants {
+        enum Colors {
+            static var background: Color = Color(.gray)
+            static var titleColor: Color = Color(.title)
+        }
     }
     
     var headerImage: some View {
@@ -81,29 +92,6 @@ struct ResultView: View {
             placeholder: {
                 ProgressView()
             })
-    }
-    
-    var searchBar: some View {
-        
-        
-        HStack {
-            TextField("Search", text: $viewModel.searchText)
-            
-            Button(action: {
-                viewModel.searchText = ""
-            }) {
-                Image(systemName: "magnifyingglass.circle")
-                    .foregroundColor(.black)
-            }
-        }.padding()
-    }
-    
-    private enum Constants {
-        
-        enum Colors {
-            static var background: Color = Color(.gray)
-            static var titleColor: Color = Color(.title)
-        }
     }
 }
 

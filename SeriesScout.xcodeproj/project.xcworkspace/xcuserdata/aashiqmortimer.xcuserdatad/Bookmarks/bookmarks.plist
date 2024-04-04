@@ -3,51 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>top-level-items</key>
-	<array>
-		<dict>
-			<key>destination</key>
-			<dict>
-				<key>location-parameters</key>
-				<dict>
-					<key>EndingColumnNumber</key>
-					<string>10</string>
-					<key>EndingLineNumber</key>
-					<string>22</string>
-					<key>StartingColumnNumber</key>
-					<string>6</string>
-					<key>StartingLineNumber</key>
-					<string>22</string>
-					<key>Timestamp</key>
-					<string>732472529.031919</string>
-				</dict>
-				<key>rebasable-url</key>
-				<dict>
-					<key>base</key>
-					<string>workspace</string>
-					<key>payload</key>
-					<dict>
-						<key>relative-path</key>
-						<string>SeriesScout/ViewModel/SeriesScoutViewModel.swift</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>text-context</key>
-			<dict>
-				<key>focused</key>
-				<string>TODO</string>
-				<key>leading</key>
-				<string>    @Published var streamingWebsiteIcon: String = ""
-    @Published var searchText: String = "BoJack Horseman"
-    //</string>
-				<key>trailing</key>
-				<string>: When a number is entered as a search term, it doesn't return anything. I need to handle the int values; look into this further.
-    
-    init(networkService: SeriesScoutNetworkServiceRepresentable) {
-</string>
-			</dict>
-			<key>type</key>
-			<string>bookmark</string>
-		</dict>
-	</array>
+	<array/>
 </dict>
 </plist>
