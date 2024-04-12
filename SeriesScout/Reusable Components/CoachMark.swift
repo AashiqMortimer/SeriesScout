@@ -12,7 +12,6 @@ struct CoachMark {
     let message: String
     let messageFont: Font
     let messageColor: Color
-    let placement: Alignment
     //TODO: Removed buttonStyle as a property because I wasn't able to pass in a 'ButtonStyle' type. Need to figure out a way to make the button styling more customisable. (Note: ButtonWrapper.swift in TDA is where the styles are)
 //    var buttonStyle: ButtonStyle
     let buttonText: String
