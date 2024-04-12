@@ -15,7 +15,6 @@ struct CoachMark {
     //TODO: Removed buttonStyle as a property because I wasn't able to pass in a 'ButtonStyle' type. Need to figure out a way to make the button styling more customisable. (Note: ButtonWrapper.swift in TDA is where the styles are)
 //    var buttonStyle: ButtonStyle
     let buttonText: String
-    let lineLimit: Int
     let spacingToDirectedView: CGFloat
     
     //TODO: Currently have a SwiftUI method. Should also make a UIKit version. Use Gemini?
@@ -29,7 +28,6 @@ struct CoachMark {
                     Text(message)
                         .font(messageFont)
                         .multilineTextAlignment(.center)
-                        .lineLimit(lineLimit)
                         .foregroundColor(messageColor)
                         .frame(maxWidth: .infinity, alignment: .top)
                     Button(buttonText) {} //TODO: Code to dismiss View.

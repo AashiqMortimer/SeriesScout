@@ -15,7 +15,7 @@
 		2F8DCBAC2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift */; };
 		2F8EDAFB2BBEE85300D7785D /* GenericErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8EDAFA2BBEE85300D7785D /* GenericErrorView.swift */; };
 		2FA0C7DC2BC1D95C00D52BDD /* CoachMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */; };
-		2FA0C7E92BC1E09400D52BDD /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA0C7E82BC1E09400D52BDD /* Test.swift */; };
+		2FA0C7E92BC1E09400D52BDD /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA0C7E82BC1E09400D52BDD /* TestView.swift */; };
 		2FA0C7EB2BC1E2E700D52BDD /* Ambit-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0C7EA2BC1E2E700D52BDD /* Ambit-Bold.otf */; };
 		2FA0C7ED2BC3134600D52BDD /* TUITypeLight-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0C7EC2BC3134600D52BDD /* TUITypeLight-Regular.ttf */; };
 		2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC48A402B7D1F2C0042485E /* SeriesScoutApp.swift */; };
@@ -46,7 +46,7 @@
 		2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSeriesScoutNetworkService.swift; sourceTree = "<group>"; };
 		2F8EDAFA2BBEE85300D7785D /* GenericErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericErrorView.swift; sourceTree = "<group>"; };
 		2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMark.swift; sourceTree = "<group>"; };
-		2FA0C7E82BC1E09400D52BDD /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		2FA0C7E82BC1E09400D52BDD /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		2FA0C7EA2BC1E2E700D52BDD /* Ambit-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ambit-Bold.otf"; path = "../../../Ambit-Bold.otf"; sourceTree = "<group>"; };
 		2FA0C7EC2BC3134600D52BDD /* TUITypeLight-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TUITypeLight-Regular.ttf"; path = "../../../TUITypeLight-Regular.ttf"; sourceTree = "<group>"; };
 		2FC48A3D2B7D1F2C0042485E /* SeriesScout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeriesScout.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */,
-				2FA0C7E82BC1E09400D52BDD /* Test.swift */,
+				2FA0C7E82BC1E09400D52BDD /* TestView.swift */,
 				2F6F396A2BC3205200CECC85 /* Pointer.swift */,
 			);
 			path = "Reusable Components";
@@ -319,7 +319,7 @@
 				2FC48A432B7D1F2C0042485E /* ResultView.swift in Sources */,
 				2F8DCB9D2B7F9E5900466CF0 /* SeriesScoutViewModel.swift in Sources */,
 				2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */,
-				2FA0C7E92BC1E09400D52BDD /* Test.swift in Sources */,
+				2FA0C7E92BC1E09400D52BDD /* TestView.swift in Sources */,
 				2FC48A712B7D207B0042485E /* SeriesScoutNetworkService.swift in Sources */,
 				2F8EDAFB2BBEE85300D7785D /* GenericErrorView.swift in Sources */,
 				2F6F396B2BC3205200CECC85 /* Pointer.swift in Sources */,
