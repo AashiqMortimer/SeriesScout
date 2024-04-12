@@ -19,6 +19,8 @@ struct CoachMark {
     let lineLimit: Int
     let spacingToDirectedView: CGFloat
     
+    //TODO: Currently have a SwiftUI method. Should also make a UIKit version. Use Gemini?
+    
     func makeView() -> some View {
         ZStack(alignment: .topTrailing) {
             HStack(alignment: .top, spacing: 12) {
@@ -39,7 +41,7 @@ struct CoachMark {
             .background(.white)
             .cornerRadius(12)
             
-            Pointer().pointerView(width: 24, height: 33, alignment: .trailing)
+            PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: .topRight)
         }
         .padding(.top, 33 + spacingToDirectedView)
     }
