@@ -21,6 +21,8 @@ struct CoachMark {
     //TODO: Currently have a SwiftUI method. Should also make a UIKit version. Use Gemini?
     
     func makeView() -> some View {
+        //TODO: Add animation?
+        
         ZStack(alignment: .topTrailing) {
             HStack(alignment: .top, spacing: 12) {
                 VStack(alignment: .center, spacing: 12) {
