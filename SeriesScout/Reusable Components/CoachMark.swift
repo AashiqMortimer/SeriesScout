@@ -42,7 +42,7 @@ struct CoachMark {
             
             PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: .topRight)
         }
-        .padding(.top, 33 + spacingToDirectedView)
+        .padding(.top, 18 + spacingToDirectedView)
     }
     
     let primaryButtonStyle = PrimaryButton(
