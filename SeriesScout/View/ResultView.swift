@@ -28,6 +28,11 @@ struct ResultView: View {
                             .colorMultiply(brandColor)
                             .saturation(1.5)
                         Spacer()
+                        NavigationLink(destination: TestView()) {
+                            Text("Open TestView")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        Spacer()
                         headerImage
                         Spacer()
                         Text(viewModel.seriesName)

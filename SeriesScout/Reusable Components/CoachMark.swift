@@ -40,7 +40,7 @@ struct CoachMark {
             .background(.white)
             .cornerRadius(12)
             
-            PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: .topRight)
+            PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: .bottomLeft) //TODO: I don't want to provide pointerPlacement here, I want to do that when I build it in the view. 
         }
         .padding(.top, 18 + spacingToDirectedView)
     }

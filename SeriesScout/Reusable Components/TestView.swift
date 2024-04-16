@@ -9,16 +9,37 @@ import SwiftUI
 import UIKit
 
 struct TestView: View {
+    @StateObject private var coachMarksTracking = CoachMarksUserDefaults(viewKey: "shortlistViewCount", interactionKey: "shortlistButtonTapped")
+    
     var body: some View {
         VStack {
-            Text("Test")
+            Text("This is a test space")
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
+                .frame(height: 40)
                 .background(.red)
+                .padding(.bottom, 10)
+            Text("Visits \(coachMarksTracking.viewCount)")
+                .foregroundStyle(.white)
+                .frame(width: 250, height: 30)
+                .background(.green)
+            Text("Interacted: \(coachMarksTracking.interactionOccurred ? "Interacted" : "Not Interacted")")
+                .foregroundStyle(.white)
+                .frame(width: 250, height: 30)
+                .background(.yellow)
+            Button("Shortlist"){
+                self.coachMarksTracking.setInteraction()
+            }
+            .buttonStyle(.borderedProminent)
+            .offset(x: 145)
+            
             coachMark.makeView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.black)
+        .background(.gray)
+        .onAppear(perform: {
+            coachMarksTracking.incrementViewCount()
+        })
     }
     
     let coachMark = CoachMark(message: Constants.coachmessage,
@@ -27,30 +48,6 @@ struct TestView: View {
                               buttonText: Constants.buttonText,
                               spacingToDirectedView: 15)
     
-//    var coachMark: some View {
-//        ZStack(alignment: .topTrailing) {
-//            HStack(alignment: .top, spacing: 12) {
-//                VStack(alignment: .center, spacing: 12) {
-//                    Text("Did you know you can save your favourite holidays and add them to your shortlist?")
-//                        .font(Font.custom("TUITypeLight-Regular", size: 17))
-//                        .multilineTextAlignment(.center)
-//                        .foregroundColor(Constants.textColor)
-//                        .frame(maxWidth: .infinity, alignment: .top)
-//                    Button("Got it") {}
-//                        .buttonStyle(primaryButtonStyle)
-//                }
-//            }
-//            .padding(.horizontal, 16)
-//            .padding(.vertical, 12)
-//            .frame(width: 350, alignment: .top)
-//            .background(.white)
-//            .cornerRadius(12)
-//            
-//            PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: .topRight)
-//        }
-//        .padding(.top, 48) // Would be good to calculate this on top of the height of the pointer (pointer height) + 15
-//    }
-    
     let primaryButtonStyle = PrimaryButton(
         backgroundColor: .blue,
         foregroundColor: Color(.white),
@@ -58,6 +55,9 @@ struct TestView: View {
     )
     
     struct Constants {
+        static let userDefaultsKey = "coachMarks"
+        static let counterKey = "shortlistViewCount"
+        static let interactionKey = "hasInteractedWithShortlist"
         static let textColor: Color = Color(red: 0.11, green: 0.07, blue: 0.36)
         static let coachmessage = "Did you know you can save your favourite holidays and add them to your shortlist?"
         static let buttonText = "Got it"
