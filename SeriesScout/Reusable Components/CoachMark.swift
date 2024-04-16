@@ -12,10 +12,9 @@ struct CoachMark {
     let message: String
     let messageFont: Font
     let messageColor: Color
-    //TODO: Removed buttonStyle as a property because I wasn't able to pass in a 'ButtonStyle' type. Need to figure out a way to make the button styling more customisable. (Note: ButtonWrapper.swift in TDA is where the styles are)
-//    var buttonStyle: ButtonStyle
     let buttonText: String
     let spacingToDirectedView: CGFloat
+    let pointerPlacement: PointerPlacement
     
     //TODO: Currently have a SwiftUI method. Should also make a UIKit version. Use Gemini?
     
@@ -40,7 +39,7 @@ struct CoachMark {
             .background(.white)
             .cornerRadius(12)
             
-            PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: .bottomLeft) //TODO: I don't want to provide pointerPlacement here, I want to do that when I build it in the view. 
+            PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: pointerPlacement)
         }
         .padding(.top, 18 + spacingToDirectedView)
     }

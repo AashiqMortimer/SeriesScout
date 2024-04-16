@@ -46,7 +46,8 @@ struct TestView: View {
                               messageFont: Constants.coachFont,
                               messageColor: Constants.textColor,
                               buttonText: Constants.buttonText,
-                              spacingToDirectedView: 15)
+                              spacingToDirectedView: 15, 
+                              pointerPlacement: .topRight)
     
     let primaryButtonStyle = PrimaryButton(
         backgroundColor: .blue,
