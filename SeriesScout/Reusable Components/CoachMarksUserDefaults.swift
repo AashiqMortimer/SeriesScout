@@ -45,4 +45,11 @@ class CoachMarksUserDefaults: ObservableObject {
         interactionOccurred = true
         updateDefaults()
     }
+    
+    //TODO: Delete later, this is just for testing purposes:
+    func resetCoachMarks() {
+        viewCount = 0
+        interactionOccurred = false
+        updateDefaults()
+    }
 }

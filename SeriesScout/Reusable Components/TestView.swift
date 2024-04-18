@@ -36,6 +36,12 @@ struct TestView: View {
             if coachMarksViewModel.shouldShowCoachMark {
                 coachMark.makeView()
             }
+            
+            Button("Reset UserDefaults") {
+                coachMarksViewModel.resetCoachMarks()
+            }
+            .buttonStyle(.borderedProminent)
+            .offset(y: 272)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)

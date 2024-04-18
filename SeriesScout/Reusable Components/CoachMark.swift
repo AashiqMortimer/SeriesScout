@@ -21,6 +21,7 @@ struct CoachMark {
     
     func makeView() -> some View {
         //TODO: Add animation?
+        //TODO: Can I make this as an overlay?
         
         ZStack(alignment: .topTrailing) {
             HStack(alignment: .top, spacing: 12) {
@@ -79,5 +80,11 @@ class CoachMarksViewModel: ObservableObject {
     
     private func checkShouldShowCoachMark() {
         shouldShowCoachMark = coachMarksUserDefaults.viewCount >= viewCountThreshold && !coachMarksUserDefaults.interactionOccurred
+    }
+    
+    //TODO: Delete later, this is just for testing purposes:
+    func resetCoachMarks() {
+        coachMarksUserDefaults.resetCoachMarks()
+        checkShouldShowCoachMark()
     }
 }
