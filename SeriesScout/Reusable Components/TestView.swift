@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct TestView: View {
-    @StateObject private var coachMarksTracking = CoachMarksUserDefaults(viewKey: "shortlistViewCount", interactionKey: "shortlistButtonTapped")
+    @StateObject private var coachMarksViewModel = CoachMarksViewModel(viewKey: "shortlistViewCount", interactionKey: "shortlistButtonTapped", viewCountThreshold: 3)
     
     var body: some View {
         VStack {
@@ -19,35 +19,40 @@ struct TestView: View {
                 .frame(height: 40)
                 .background(.red)
                 .padding(.bottom, 10)
-            Text("Visits \(coachMarksTracking.viewCount)")
+            Text("Visits \(coachMarksViewModel.coachMarksUserDefaults.viewCount)")
                 .foregroundStyle(.white)
                 .frame(width: 250, height: 30)
                 .background(.green)
-            Text("Interacted: \(coachMarksTracking.interactionOccurred ? "Interacted" : "Not Interacted")")
+            Text("Interacted: \(coachMarksViewModel.coachMarksUserDefaults.interactionOccurred ? "Interacted" : "Not Interacted")")
                 .foregroundStyle(.white)
                 .frame(width: 250, height: 30)
                 .background(.yellow)
             Button("Shortlist"){
-                self.coachMarksTracking.setInteraction()
+                coachMarksViewModel.setInteractionOccurred()
             }
             .buttonStyle(.borderedProminent)
             .offset(x: 145)
             
-            coachMark.makeView()
+            if coachMarksViewModel.shouldShowCoachMark {
+                coachMark.makeView()
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
         .onAppear(perform: {
-            coachMarksTracking.incrementViewCount()
+            coachMarksViewModel.incrementViewCount()
         })
+        
+        var coachMark: CoachMark {
+            CoachMark(message: Constants.coachMessage,
+                      messageFont: Constants.coachFont,
+                      messageColor: Constants.textColor,
+                      buttonText: Constants.buttonText,
+                      spacingToDirectedView: 15,
+                      pointerPlacement: .topRight,
+                      onDismiss: coachMarksViewModel.setInteractionOccurred)
+        }
     }
-    
-    let coachMark = CoachMark(message: Constants.coachmessage,
-                              messageFont: Constants.coachFont,
-                              messageColor: Constants.textColor,
-                              buttonText: Constants.buttonText,
-                              spacingToDirectedView: 15, 
-                              pointerPlacement: .topRight)
     
     let primaryButtonStyle = PrimaryButton(
         backgroundColor: .blue,
@@ -60,7 +65,7 @@ struct TestView: View {
         static let counterKey = "shortlistViewCount"
         static let interactionKey = "hasInteractedWithShortlist"
         static let textColor: Color = Color(red: 0.11, green: 0.07, blue: 0.36)
-        static let coachmessage = "Did you know you can save your favourite holidays and add them to your shortlist?"
+        static let coachMessage = "Did you know you can save your favourite holidays and add them to your shortlist?"
         static let buttonText = "Got it"
         static let coachFont = Font.custom("TUITypeLight-Regular", size: 17)
     }

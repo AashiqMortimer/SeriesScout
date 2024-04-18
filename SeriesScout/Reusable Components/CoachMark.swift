@@ -15,6 +15,7 @@ struct CoachMark {
     let buttonText: String
     let spacingToDirectedView: CGFloat
     let pointerPlacement: PointerPlacement
+    let onDismiss: () -> Void
     
     //TODO: Currently have a SwiftUI method. Should also make a UIKit version. Use Gemini?
     
@@ -29,8 +30,10 @@ struct CoachMark {
                         .multilineTextAlignment(.center)
                         .foregroundColor(messageColor)
                         .frame(maxWidth: .infinity, alignment: .top)
-                    Button(buttonText) {} //TODO: Code to dismiss View.
-                        .buttonStyle(primaryButtonStyle)
+                    Button(buttonText) {
+                        onDismiss()
+                    }
+                    .buttonStyle(primaryButtonStyle)
                 }
             }
             .padding(.horizontal, 16)
@@ -49,4 +52,32 @@ struct CoachMark {
         foregroundColor: Color(.white),
         font: Font.custom("Ambit-Bold", size: 18)
     )
+}
+
+class CoachMarksViewModel: ObservableObject {
+    @Published var shouldShowCoachMark: Bool = false
+
+    private let viewCountThreshold: Int
+    let coachMarksUserDefaults: CoachMarksUserDefaults
+    
+    init(viewKey: String, interactionKey: String, viewCountThreshold: Int) {
+        self.viewCountThreshold = viewCountThreshold
+        self.coachMarksUserDefaults = CoachMarksUserDefaults(viewKey: viewKey, interactionKey: interactionKey)
+        
+        checkShouldShowCoachMark()
+    }
+    
+    func incrementViewCount() {
+        coachMarksUserDefaults.incrementViewCount()
+        checkShouldShowCoachMark()
+    }
+    
+    func setInteractionOccurred() {
+        coachMarksUserDefaults.setInteraction()
+        checkShouldShowCoachMark()
+    }
+    
+    private func checkShouldShowCoachMark() {
+        shouldShowCoachMark = coachMarksUserDefaults.viewCount >= viewCountThreshold && !coachMarksUserDefaults.interactionOccurred
+    }
 }
