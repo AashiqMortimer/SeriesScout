@@ -17,25 +17,24 @@ struct CoachMark {
     let pointerPlacement: PointerPlacement
     let onDismiss: () -> Void
     
-    //TODO: Currently have a SwiftUI method. Should also make a UIKit version. Use Gemini?
+    // James agreed that I will only do a SwiftUI version.
     
     func makeView() -> some View {
         //TODO: Add animation?
-        //TODO: Can I make this as an overlay?
         
         ZStack(alignment: .topTrailing) {
-            HStack(alignment: .top, spacing: 12) {
-                VStack(alignment: .center, spacing: 12) {
-                    Text(message)
-                        .font(messageFont)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(messageColor)
-                        .frame(maxWidth: .infinity, alignment: .top)
-                    Button(buttonText) {
-                        onDismiss()
-                    }
-                    .buttonStyle(primaryButtonStyle)
+            VStack(alignment: .center, spacing: 12) {
+                Text(message)
+                    .font(messageFont)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(messageColor)
+                    .frame(maxWidth: .infinity, alignment: .top)
+                    .fixedSize(horizontal: false, vertical: true)
+                
+                Button(buttonText) {
+                    onDismiss()
                 }
+                .buttonStyle(primaryButtonStyle)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
@@ -57,7 +56,7 @@ struct CoachMark {
 
 class CoachMarksViewModel: ObservableObject {
     @Published var shouldShowCoachMark: Bool = false
-
+    
     private let viewCountThreshold: Int
     let coachMarksUserDefaults: CoachMarksUserDefaults
     
@@ -86,5 +85,23 @@ class CoachMarksViewModel: ObservableObject {
     func resetCoachMarks() {
         coachMarksUserDefaults.resetCoachMarks()
         checkShouldShowCoachMark()
+    }
+}
+
+struct CoachMarkModifier: ViewModifier {
+    @Binding var shouldShowCoachMark: Bool
+    let coachMark: CoachMark
+    
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                shouldShowCoachMark ? coachMark.makeView() : nil
+            )
+    }
+}
+
+extension View {
+    func coachMark(shouldShow: Binding<Bool>, coachMark: CoachMark) -> some View {
+        modifier(CoachMarkModifier(shouldShowCoachMark: shouldShow, coachMark: coachMark))
     }
 }
