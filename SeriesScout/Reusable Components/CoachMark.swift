@@ -13,7 +13,7 @@ struct CoachMark {
     let messageFont: Font
     let messageColor: Color
     let buttonText: String
-    let pointerPlacement: PointerPlacement
+    let pointerPlacement: PointerView.PointerPlacement
     let onDismiss: () -> Void
     
     // James agreed that I will only do a SwiftUI version.
@@ -39,7 +39,7 @@ struct CoachMark {
             .background(.white)
             .cornerRadius(12)
             
-            PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: pointerPlacement)
+            PointerView(width: 24, height: 33, alignment: .trailing, pointerPlacement: pointerPlacement)
         }
     }
     

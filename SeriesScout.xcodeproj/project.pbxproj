@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F5ABD202B86001900B8A5D6 /* MarkoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */; };
-		2F6F396B2BC3205200CECC85 /* Pointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F396A2BC3205200CECC85 /* Pointer.swift */; };
+		2F6F396B2BC3205200CECC85 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F396A2BC3205200CECC85 /* PointerView.swift */; };
 		2F6FC3B12BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */; };
 		2F7578292BCC4D630090306F /* CoachMarksUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7578282BCC4D630090306F /* CoachMarksUserDefaults.swift */; };
 		2F8DCB9D2B7F9E5900466CF0 /* SeriesScoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCB9C2B7F9E5900466CF0 /* SeriesScoutViewModel.swift */; };
@@ -41,7 +41,7 @@
 
 /* Begin PBXFileReference section */
 		2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MarkoOne-Regular.ttf"; path = "../../../../Downloads/Marko_One/MarkoOne-Regular.ttf"; sourceTree = "<group>"; };
-		2F6F396A2BC3205200CECC85 /* Pointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pointer.swift; sourceTree = "<group>"; };
+		2F6F396A2BC3205200CECC85 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutNetworkServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		2F7578282BCC4D630090306F /* CoachMarksUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarksUserDefaults.swift; sourceTree = "<group>"; };
 		2F8DCB9C2B7F9E5900466CF0 /* SeriesScoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutViewModel.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 			children = (
 				2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */,
 				2FA0C7E82BC1E09400D52BDD /* TestView.swift */,
-				2F6F396A2BC3205200CECC85 /* Pointer.swift */,
+				2F6F396A2BC3205200CECC85 /* PointerView.swift */,
 				2F7578282BCC4D630090306F /* CoachMarksUserDefaults.swift */,
 				2FA6A1A72BCED18F00F8C7D6 /* ShortlistView.swift */,
 			);
@@ -330,7 +330,7 @@
 				2F8EDAFB2BBEE85300D7785D /* GenericErrorView.swift in Sources */,
 				2F7578292BCC4D630090306F /* CoachMarksUserDefaults.swift in Sources */,
 				2FA6A1A82BCED18F00F8C7D6 /* ShortlistView.swift in Sources */,
-				2F6F396B2BC3205200CECC85 /* Pointer.swift in Sources */,
+				2F6F396B2BC3205200CECC85 /* PointerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
