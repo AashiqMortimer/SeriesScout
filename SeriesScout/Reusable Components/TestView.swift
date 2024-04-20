@@ -31,13 +31,10 @@ struct TestView: View {
                 coachMarksViewModel.setInteractionOccurred()
             }
             .buttonStyle(.borderedProminent)
-            .offset(x: 145)
+            .padding(.leading, 300)
             .coachMark(shouldShow: $coachMarksViewModel.shouldShowCoachMark,
-                                   coachMark: coachMark)
-            
-//            if coachMarksViewModel.shouldShowCoachMark {
-//                coachMark.makeView()
-//            }
+                       coachMark: coachMark,
+                       spacing: 15)
             
             Button("Reset UserDefaults") {
                 coachMarksViewModel.resetCoachMarks()
@@ -56,7 +53,6 @@ struct TestView: View {
                       messageFont: Constants.coachFont,
                       messageColor: Constants.textColor,
                       buttonText: Constants.buttonText,
-                      spacingToDirectedView: 15, // Change to viewModifier?
                       pointerPlacement: .topRight,
                       onDismiss: coachMarksViewModel.setInteractionOccurred)
         }

@@ -13,15 +13,12 @@ struct CoachMark {
     let messageFont: Font
     let messageColor: Color
     let buttonText: String
-    let spacingToDirectedView: CGFloat
     let pointerPlacement: PointerPlacement
     let onDismiss: () -> Void
     
     // James agreed that I will only do a SwiftUI version.
     
     func makeView() -> some View {
-        //TODO: Add animation?
-        
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center, spacing: 12) {
                 Text(message)
@@ -44,7 +41,6 @@ struct CoachMark {
             
             PointerView(pointer: Pointer(), width: 24, height: 33, alignment: .trailing, pointerPlacement: pointerPlacement)
         }
-        .padding(.top, 18 + spacingToDirectedView)
     }
     
     let primaryButtonStyle = PrimaryButton(
@@ -91,17 +87,24 @@ class CoachMarksViewModel: ObservableObject {
 struct CoachMarkModifier: ViewModifier {
     @Binding var shouldShowCoachMark: Bool
     let coachMark: CoachMark
-    
+    let spacing: CGFloat
+
     func body(content: Content) -> some View {
         content
-            .overlay(
-                shouldShowCoachMark ? coachMark.makeView() : nil
-            )
+            .overlay(alignment: .top) {
+                if shouldShowCoachMark {
+                    GeometryReader { geometry in
+                        coachMark.makeView()
+                            .padding(.top, geometry.frame(in: .local).maxY + spacing + 23)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    }
+                }
+            }
     }
 }
 
 extension View {
-    func coachMark(shouldShow: Binding<Bool>, coachMark: CoachMark) -> some View {
-        modifier(CoachMarkModifier(shouldShowCoachMark: shouldShow, coachMark: coachMark))
+    func coachMark(shouldShow: Binding<Bool>, coachMark: CoachMark, spacing: CGFloat) -> some View {
+        modifier(CoachMarkModifier(shouldShowCoachMark: shouldShow, coachMark: coachMark, spacing: spacing))
     }
 }
