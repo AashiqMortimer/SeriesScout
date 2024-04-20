@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct TestView: View {
-    @StateObject private var coachMarksViewModel = CoachMarksViewModel(viewKey: "shortlistViewCount", interactionKey: "shortlistButtonTapped", viewCountThreshold: 3)
+    @StateObject private var coachMarksViewModel = CoachMarksViewModel(viewKey: Constants.counterKey, interactionKey: Constants.interactionKey, viewCountThreshold: 3)
     
     var body: some View {
         VStack {
@@ -33,7 +33,8 @@ struct TestView: View {
             .buttonStyle(.borderedProminent)
             .padding(.leading, 300)
             .coachMark(shouldShow: $coachMarksViewModel.shouldShowCoachMark,
-                       coachMark: coachMark,
+                       coachMark: CoachMarkFactory.shortlistCoachMark(onDismiss:
+                                                                        coachMarksViewModel.setInteractionOccurred),
                        spacing: 15)
             
             Button("Reset UserDefaults") {
@@ -47,15 +48,6 @@ struct TestView: View {
         .onAppear(perform: {
             coachMarksViewModel.incrementViewCount()
         })
-        
-        var coachMark: CoachMark {
-            CoachMark(message: Constants.coachMessage,
-                      messageFont: Constants.coachFont,
-                      messageColor: Constants.textColor,
-                      buttonText: Constants.buttonText,
-                      pointerPlacement: .topRight,
-                      onDismiss: coachMarksViewModel.setInteractionOccurred)
-        }
     }
     
     let primaryButtonStyle = PrimaryButton(
@@ -65,13 +57,8 @@ struct TestView: View {
     )
     
     struct Constants {
-        static let userDefaultsKey = "coachMarks"
         static let counterKey = "shortlistViewCount"
         static let interactionKey = "hasInteractedWithShortlist"
-        static let textColor: Color = Color(red: 0.11, green: 0.07, blue: 0.36)
-        static let coachMessage = "Did you know you can save your favourite holidays and add them to your shortlist?"
-        static let buttonText = "Got it"
-        static let coachFont = Font.custom("TUITypeLight-Regular", size: 17)
     }
 }
 

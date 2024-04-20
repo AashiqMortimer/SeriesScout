@@ -108,3 +108,24 @@ extension View {
         modifier(CoachMarkModifier(shouldShowCoachMark: shouldShow, coachMark: coachMark, spacing: spacing))
     }
 }
+
+struct CoachMarkFactory {
+    static func shortlistCoachMark(onDismiss: @escaping () -> Void) -> CoachMark {
+        CoachMark(message: Constants.shortlistMessage,
+                  messageFont: Constants.coachFont,
+                  messageColor: Constants.textColor,
+                  buttonText: Constants.buttonText,
+                  pointerPlacement: .topRight, 
+                  onDismiss: onDismiss)
+    }
+    
+    struct Constants {
+        static let userDefaultsKey = "coachMarks"
+        static let counterKey = "shortlistViewCount"
+        static let interactionKey = "hasInteractedWithShortlist"
+        static let textColor: Color = Color(red: 0.11, green: 0.07, blue: 0.36)
+        static let shortlistMessage = "Did you know you can save your favourite holidays and add them to your shortlist?"
+        static let buttonText = "Got it"
+        static let coachFont = Font.custom("TUITypeLight-Regular", size: 17)
+    }
+}
