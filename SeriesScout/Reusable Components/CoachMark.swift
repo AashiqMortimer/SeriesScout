@@ -30,6 +30,7 @@ struct CoachMark {
                 
                 Button(buttonText) {
                     onDismiss()
+                    //TODO: Currently, this is the only thing preventing users from seeing it again once it displays to them. If they navigate back and return, coachmarks will persist. I need to handle this scenario.
                 }
                 .buttonStyle(primaryButtonStyle)
             }
