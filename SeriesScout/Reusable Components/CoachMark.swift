@@ -15,14 +15,8 @@ struct CoachMark {
     // TODO: Try out TipKit
     // TODO: Look how other people have implemented tooltips to see how they are working out directions and whatnot.
     
-    
-    
-    // Remove fonts and colors from the properties: Hard code the fonts and colours into the makeView method. We won't need to change fonts and colours from coach mark to coach mark.
     let title: String
-    let titleFont: Font
     let message: String
-    let messageFont: Font
-    let messageColor: Color
     let buttonText: String
     let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is.
     let onDismiss: () -> Void
@@ -33,12 +27,12 @@ struct CoachMark {
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center, spacing: 12) {
                 Text(title)
-                    .font(titleFont)
-                    .foregroundStyle(messageColor)
+                    .font(Constants.titleFont)
+                    .foregroundStyle(Constants.messageColor)
                 Text(message)
-                    .font(messageFont)
+                    .font(Constants.messageFont)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(messageColor)
+                    .foregroundColor(Constants.messageColor)
                     .frame(maxWidth: .infinity, alignment: .top)
                     .fixedSize(horizontal: false, vertical: true)
                 
@@ -63,6 +57,12 @@ struct CoachMark {
         foregroundColor: Color(.white),
         font: Font.custom("Ambit-Bold", size: 18)
     )
+    
+    struct Constants {
+        static let titleFont = Font.custom("AmbitBold", size: 17)
+        static let messageFont = Font.custom("TUITypeLight-Regular", size: 17)
+        static let messageColor = Color(red: 0.11, green: 0.07, blue: 0.36)
+    }
 }
 
 class CoachMarksViewModel: ObservableObject {
@@ -126,26 +126,16 @@ extension View {
 
 struct CoachMarkFactory {
     static func shortlistCoachMark(onDismiss: @escaping () -> Void) -> CoachMark {
-        CoachMark(title: Constants.titleMessage, 
-                  titleFont: Constants.titleFont,
+        CoachMark(title: Constants.titleMessage,
                   message: Constants.shortlistMessage,
-                  messageFont: Constants.coachFont,
-                  messageColor: Constants.textColor,
                   buttonText: Constants.buttonText,
                   pointerPlacement: .topRight, 
                   onDismiss: onDismiss)
     }
     
     struct Constants {
-        static let userDefaultsKey = "coachMarks"
-        static let counterKey = "shortlistViewCount"
-        static let interactionKey = "hasInteractedWithShortlist"
-        static let textColor: Color = Color(red: 0.11, green: 0.07, blue: 0.36)
         static let titleMessage = "Add to your shortlist"
         static let shortlistMessage = "You can save and compare your favourite holidays by adding them to your shortlist"
         static let buttonText = "Got it"
-        static let coachFont = Font.custom("TUITypeLight-Regular", size: 17)
-        static let titleFont = Font.custom("AmbitBold", size: 17)
-//        static let titleFont = Font.title.weight(.bold)
     }
 }
