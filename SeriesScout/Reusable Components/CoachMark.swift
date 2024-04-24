@@ -9,11 +9,22 @@ import Foundation
 import SwiftUI
 
 struct CoachMark {
+    
+    // Requirements to take into consideration: Different screen sizes, scroll view
+    // TODO: Try different test view configurations to initialise it with.
+    // TODO: Try out TipKit
+    // TODO: Look how other people have implemented tooltips to see how they are working out directions and whatnot.
+    
+    
+    
+    // Remove fonts and colors from the properties: Hard code the fonts and colours into the makeView method. We won't need to change fonts and colours from coach mark to coach mark.
+    let title: String
+    let titleFont: Font
     let message: String
     let messageFont: Font
     let messageColor: Color
     let buttonText: String
-    let pointerPlacement: PointerView.PointerPlacement
+    let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is.
     let onDismiss: () -> Void
     
     // James agreed that I will only do a SwiftUI version.
@@ -21,6 +32,9 @@ struct CoachMark {
     func makeView() -> some View {
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center, spacing: 12) {
+                Text(title)
+                    .font(titleFont)
+                    .foregroundStyle(messageColor)
                 Text(message)
                     .font(messageFont)
                     .multilineTextAlignment(.center)
@@ -112,7 +126,9 @@ extension View {
 
 struct CoachMarkFactory {
     static func shortlistCoachMark(onDismiss: @escaping () -> Void) -> CoachMark {
-        CoachMark(message: Constants.shortlistMessage,
+        CoachMark(title: Constants.titleMessage, 
+                  titleFont: Constants.titleFont,
+                  message: Constants.shortlistMessage,
                   messageFont: Constants.coachFont,
                   messageColor: Constants.textColor,
                   buttonText: Constants.buttonText,
@@ -125,8 +141,11 @@ struct CoachMarkFactory {
         static let counterKey = "shortlistViewCount"
         static let interactionKey = "hasInteractedWithShortlist"
         static let textColor: Color = Color(red: 0.11, green: 0.07, blue: 0.36)
-        static let shortlistMessage = "Did you know you can save your favourite holidays and add them to your shortlist?"
+        static let titleMessage = "Add to your shortlist"
+        static let shortlistMessage = "You can save and compare your favourite holidays by adding them to your shortlist"
         static let buttonText = "Got it"
         static let coachFont = Font.custom("TUITypeLight-Regular", size: 17)
+        static let titleFont = Font.custom("AmbitBold", size: 17)
+//        static let titleFont = Font.title.weight(.bold)
     }
 }

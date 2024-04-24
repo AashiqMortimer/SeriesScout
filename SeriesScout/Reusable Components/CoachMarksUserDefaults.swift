@@ -9,6 +9,20 @@ import Foundation
 import SwiftUI
 
 class CoachMarksUserDefaults: ObservableObject {
+    
+    //TODO: Try this as a property wrapper again. (Dynamic Property Wrapper)
+    // This should negate the ViewModel: You would just have this that has the viewCount, interactionOccurred, and shouldShow
+    // WrappedValue and ProjectedValue.
+    // Wrapped is a boolean to say if it should show the coach marks or not.
+    // ProjectedValue would be my userdefaults properties that I have here as a class.
+    // Would keep this class, alongside the property wrapper.
+    
+    
+    // Ideal implementation within the View:
+    // Initialise it: @Coachmark(key: "EAT-Shortlist, threshold: 3) var showShortlistCoachMark
+    // $showShortlistCoachMark.incrementViewCounter()
+    // $showShortlistCoachMark.markInteractionOcurred()
+    
     private let viewKey: String
     private let interactionKey: String
     

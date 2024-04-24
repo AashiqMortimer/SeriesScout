@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F44BE552BD5853400C56CFA /* AmbitBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F44BE542BD5853400C56CFA /* AmbitBold.ttf */; };
 		2F5ABD202B86001900B8A5D6 /* MarkoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */; };
 		2F6F396B2BC3205200CECC85 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F396A2BC3205200CECC85 /* PointerView.swift */; };
 		2F6FC3B12BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F44BE542BD5853400C56CFA /* AmbitBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AmbitBold.ttf; sourceTree = "<group>"; };
 		2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MarkoOne-Regular.ttf"; path = "../../../../Downloads/Marko_One/MarkoOne-Regular.ttf"; sourceTree = "<group>"; };
 		2F6F396A2BC3205200CECC85 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutNetworkServiceIntegrationTests.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				2FC48A442B7D1F2C0042485E /* Assets.xcassets */,
+				2F44BE542BD5853400C56CFA /* AmbitBold.ttf */,
 				2FA0C7EA2BC1E2E700D52BDD /* Ambit-Bold.otf */,
 				2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */,
 				2FA0C7EC2BC3134600D52BDD /* TUITypeLight-Regular.ttf */,
@@ -302,6 +305,7 @@
 				2F5ABD202B86001900B8A5D6 /* MarkoOne-Regular.ttf in Resources */,
 				2FC48A492B7D1F2C0042485E /* Preview Assets.xcassets in Resources */,
 				2FC48A452B7D1F2C0042485E /* Assets.xcassets in Resources */,
+				2F44BE552BD5853400C56CFA /* AmbitBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
