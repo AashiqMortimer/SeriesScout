@@ -36,6 +36,11 @@ struct TestView: View {
                        coachMark: CoachMarkFactory.shortlistCoachMark(onDismiss:
                                                                         coachMarksViewModel.setInteractionOccurred),
                        spacing: 15)
+            Button("Reset UserDfaults") {
+                coachMarksViewModel.resetCoachMarks()
+            }
+            .buttonStyle(.borderedProminent)
+            .offset(y: 250)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
