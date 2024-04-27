@@ -9,7 +9,9 @@ import SwiftUI
 import UIKit
 
 struct TestView: View {
-    @StateObject private var coachMarksViewModel = CoachMarksViewModel(viewKey: Constants.counterKey, interactionKey: Constants.interactionKey, viewCountThreshold: 3)
+//    @StateObject private var coachMarksViewModel = CoachMarksViewModel(viewKey: Constants.counterKey, interactionKey: Constants.interactionKey, viewCountThreshold: 3)
+//    @CoachMarks(key: "EAT-Shortlist", threshold: 3) var showCoachMark
+    @CoachMarkUserDefaults(baseKey: Constants.mainKey, viewCountThreshold: 3) var coachMarks
     
     var body: some View {
         VStack {
@@ -19,25 +21,35 @@ struct TestView: View {
                 .frame(height: 40)
                 .background(.red)
                 .padding(.bottom, 10)
-            Text("Visits \(coachMarksViewModel.coachMarksUserDefaults.viewCount)")
+            Text("Visits \(coachMarks.wrappedValue[Constants.mainKey] as? Int ?? 0)")
                 .foregroundStyle(.white)
                 .frame(width: 250, height: 30)
                 .background(.green)
-            Text("Interacted: \(coachMarksViewModel.coachMarksUserDefaults.interactionOccurred ? "Interacted" : "Not Interacted")")
+            Text("Interacted: \(coachMarks.wrappedValue[Constants.mainKey] as? Bool ?? false ? "Interacted" : "Not Interacted")")
                 .foregroundStyle(.white)
                 .frame(width: 250, height: 30)
                 .background(.yellow)
             Button("Shortlist"){
-                coachMarksViewModel.setInteractionOccurred()
+//                _showCoachMark.setInteractionOccurred()
+                _coachMarks.incrementViewCount()
             }
             .buttonStyle(.borderedProminent)
             .padding(.leading, 300)
-            .coachMark(shouldShow: $coachMarksViewModel.shouldShowCoachMark,
-                       coachMark: CoachMarkFactory.shortlistCoachMark(onDismiss:
-                                                                        coachMarksViewModel.setInteractionOccurred),
-                       spacing: 15)
+            .onAppear(perform: {
+                print(UserDefaults.standard.dictionary(forKey: "coachMarks")!)
+            })
+//            .coachMark(shouldShow: $showCoachMark,
+//                       coachMark: CoachMarkFactory.shortlistCoachMark(onDismiss:
+//                                                                        $showCoachMark.setInteractionOccurred),
+//                       spacing: 15)
+            
+            if coachMarks.shouldShowCoachMark {
+                Text("Conditions are met - Show Coach Marks")
+            }
+            
             Button("Reset UserDfaults") {
-                coachMarksViewModel.resetCoachMarks()
+//                coachMarksViewModel.resetCoachMarks()
+//                _showCoachMark.resetCoachMarks()
             }
             .buttonStyle(.borderedProminent)
             .offset(y: 250)
@@ -45,7 +57,8 @@ struct TestView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
         .onAppear(perform: {
-            coachMarksViewModel.incrementViewCount()
+//            coachMarksViewModel.incrementViewCount()
+            _coachMarks.incrementViewCount()
         })
     }
     
@@ -58,6 +71,7 @@ struct TestView: View {
     struct Constants {
         static let counterKey = "shortlistViewCount"
         static let interactionKey = "hasInteractedWithShortlist"
+        static let mainKey = "EAT-Shortlist"
     }
 }
 
