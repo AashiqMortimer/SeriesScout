@@ -36,10 +36,12 @@ struct TestView: View {
             }
             .buttonStyle(.borderedProminent)
             .padding(.leading, 300)
-//            .coachMark(shouldShow: $showShortlistCoachMark,
-//                       coachMark: CoachMarkFactory.shortlistCoachMark(onDismiss:
-//                                                                        _showShortlistCoachMark.markInteractionOccurred),
-//                       spacing: 15)
+            .coachMark(shouldShow: showShortlistCoachMark,
+                       coachMark: CoachMarkFactory.shortlistCoachMark {
+                $showShortlistCoachMark.setInteraction(forKey: Constants.key)
+            },
+                       spacing: 15)
+            
             Button("Reset UserDefaults") {
                 $showShortlistCoachMark.resetCoachMarks()
             }
