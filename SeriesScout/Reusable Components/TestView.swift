@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct TestView: View {
-    @StateObject private var coachMarksViewModel = CoachMarksViewModel(viewKey: Constants.counterKey, interactionKey: Constants.interactionKey, viewCountThreshold: 3)
+    @CoachMarkWrapper(key: Constants.key, threshold: 3) var showShortlistCoachMark
     
     var body: some View {
         VStack {
@@ -19,25 +19,29 @@ struct TestView: View {
                 .frame(height: 40)
                 .background(.red)
                 .padding(.bottom, 10)
-            Text("Visits \(coachMarksViewModel.coachMarksUserDefaults.viewCount)")
+            Text("Visits \($showShortlistCoachMark.viewCounts[Constants.key + "_viewCount"] ?? 0)")
                 .foregroundStyle(.white)
                 .frame(width: 250, height: 30)
                 .background(.green)
-            Text("Interacted: \(coachMarksViewModel.coachMarksUserDefaults.interactionOccurred ? "Interacted" : "Not Interacted")")
+            Text("Interacted: \($showShortlistCoachMark.interactionFlags[Constants.key + "_interactionFlag"]?.description ?? false.description)")
                 .foregroundStyle(.white)
                 .frame(width: 250, height: 30)
                 .background(.yellow)
+            Text("Should Show: \(showShortlistCoachMark.description)")
+                .foregroundStyle(.white)
+                .frame(width: 250, height: 30)
+                .background(.black)
             Button("Shortlist"){
-                coachMarksViewModel.setInteractionOccurred()
+                $showShortlistCoachMark.setInteraction(forKey: Constants.key)
             }
             .buttonStyle(.borderedProminent)
             .padding(.leading, 300)
-            .coachMark(shouldShow: $coachMarksViewModel.shouldShowCoachMark,
-                       coachMark: CoachMarkFactory.shortlistCoachMark(onDismiss:
-                                                                        coachMarksViewModel.setInteractionOccurred),
-                       spacing: 15)
-            Button("Reset UserDfaults") {
-                coachMarksViewModel.resetCoachMarks()
+//            .coachMark(shouldShow: $showShortlistCoachMark,
+//                       coachMark: CoachMarkFactory.shortlistCoachMark(onDismiss:
+//                                                                        _showShortlistCoachMark.markInteractionOccurred),
+//                       spacing: 15)
+            Button("Reset UserDefaults") {
+                $showShortlistCoachMark.resetCoachMarks()
             }
             .buttonStyle(.borderedProminent)
             .offset(y: 250)
@@ -45,7 +49,7 @@ struct TestView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
         .onAppear(perform: {
-            coachMarksViewModel.incrementViewCount()
+            $showShortlistCoachMark.incrementViewCount(forKey: Constants.key)
         })
     }
     
@@ -56,8 +60,7 @@ struct TestView: View {
     )
     
     struct Constants {
-        static let counterKey = "shortlistViewCount"
-        static let interactionKey = "hasInteractedWithShortlist"
+        static let key = "EAT-Shortlist"
     }
 }
 

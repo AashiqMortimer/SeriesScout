@@ -65,39 +65,39 @@ struct CoachMark {
     }
 }
 
-class CoachMarksViewModel: ObservableObject {
-    @Published var shouldShowCoachMark: Bool = false
-    
-    private let viewCountThreshold: Int
-    let coachMarksUserDefaults: CoachMarksUserDefaults
-    
-    init(viewKey: String, interactionKey: String, viewCountThreshold: Int) {
-        self.viewCountThreshold = viewCountThreshold
-        self.coachMarksUserDefaults = CoachMarksUserDefaults(viewKey: viewKey, interactionKey: interactionKey)
-        
-        checkShouldShowCoachMark()
-    }
-    
-    func incrementViewCount() {
-        coachMarksUserDefaults.incrementViewCount()
-        checkShouldShowCoachMark()
-    }
-    
-    func setInteractionOccurred() {
-        coachMarksUserDefaults.setInteraction()
-        checkShouldShowCoachMark()
-    }
-    
-    private func checkShouldShowCoachMark() {
-        shouldShowCoachMark = coachMarksUserDefaults.viewCount >= viewCountThreshold && !coachMarksUserDefaults.interactionOccurred
-    }
-    
-    //TODO: Delete later, this is just for testing purposes:
-    func resetCoachMarks() {
-        coachMarksUserDefaults.resetCoachMarks()
-        checkShouldShowCoachMark()
-    }
-}
+//class CoachMarksViewModel: ObservableObject {
+//    @Published var shouldShowCoachMark: Bool = false
+//    
+//    private let viewCountThreshold: Int
+//    let coachMarksUserDefaults: CoachMarksUserDefaults
+//    
+//    init(viewKey: String, interactionKey: String, viewCountThreshold: Int) {
+//        self.viewCountThreshold = viewCountThreshold
+//        self.coachMarksUserDefaults = CoachMarksUserDefaults(viewKey: viewKey, interactionKey: interactionKey)
+//        
+//        checkShouldShowCoachMark()
+//    }
+//    
+//    func incrementViewCount() {
+//        coachMarksUserDefaults.incrementViewCount()
+//        checkShouldShowCoachMark()
+//    }
+//    
+//    func setInteractionOccurred() {
+//        coachMarksUserDefaults.setInteraction()
+//        checkShouldShowCoachMark()
+//    }
+//    
+//    private func checkShouldShowCoachMark() {
+//        shouldShowCoachMark = coachMarksUserDefaults.viewCount >= viewCountThreshold && !coachMarksUserDefaults.interactionOccurred
+//    }
+//    
+//    //TODO: Delete later, this is just for testing purposes:
+//    func resetCoachMarks() {
+//        coachMarksUserDefaults.resetCoachMarks()
+//        checkShouldShowCoachMark()
+//    }
+//}
 
 struct CoachMarkModifier: ViewModifier {
     @Binding var shouldShowCoachMark: Bool
