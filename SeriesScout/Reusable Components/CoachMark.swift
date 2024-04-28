@@ -67,14 +67,19 @@ struct CoachMarkView: View {
 struct CoachMarkModifier: ViewModifier {
     var coachMarkWrapper: CoachMarkWrapper
     let spacing: CGFloat
-    //TODO: I am hard coding the modifier to only take the shortlist coach mark from the factory: I need this to be more flexible.
+    let coachMarkType: CoachMarkFactory.CoachMarkType
 
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .top) {
                 if coachMarkWrapper.wrappedValue {
                     GeometryReader { geometry in
-                        CoachMarkFactory.shortlistCoachMark(userDefaults: coachMarkWrapper.projectedValue, key: coachMarkWrapper.keyBase)
+                        let coachMark = CoachMarkFactory.createCoachMark(
+                            type: coachMarkType,
+                            userDefaults: coachMarkWrapper.projectedValue,
+                            key: coachMarkWrapper.keyBase
+                        )
+                        coachMark
                             .padding(.top, geometry.frame(in: .local).maxY + spacing + 23)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     }
@@ -84,12 +89,23 @@ struct CoachMarkModifier: ViewModifier {
 }
 
 extension View {
-    func coachMark(coachMarkWrapper: CoachMarkWrapper, spacing: CGFloat) -> some View {
-        modifier(CoachMarkModifier(coachMarkWrapper: coachMarkWrapper, spacing: spacing))
+    func coachMark(coachMarkWrapper: CoachMarkWrapper, spacing: CGFloat, type: CoachMarkFactory.CoachMarkType) -> some View {
+        modifier(CoachMarkModifier(coachMarkWrapper: coachMarkWrapper, spacing: spacing, coachMarkType: type))
     }
 }
 
 struct CoachMarkFactory {
+    enum CoachMarkType {
+        case shortlist
+    }
+    
+    static func createCoachMark(type: CoachMarkType, userDefaults: CoachMarksUserDefaults, key: String) -> CoachMarkView {
+        switch type {
+        case .shortlist:
+            return shortlistCoachMark(userDefaults: userDefaults, key: key)
+        }
+    }
+    
     static func shortlistCoachMark(userDefaults: CoachMarksUserDefaults, key: String) -> CoachMarkView {
         CoachMarkView(title: Constants.shortlistTitle,
                       message: Constants.shortlistMessage,

@@ -36,7 +36,7 @@ struct TestView: View {
             }
             .buttonStyle(.borderedProminent)
             .padding(.leading, 300)
-            .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15)
+            .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
             
             Button("Reset UserDefaults") {
                 $showShortlistCoachMark.resetCoachMarks()
