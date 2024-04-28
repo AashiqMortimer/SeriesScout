@@ -27,10 +27,10 @@ struct TestView: View {
                 .foregroundStyle(.white)
                 .frame(width: 250, height: 30)
                 .background(.yellow)
-            Text("Should Show: \(showShortlistCoachMark.description)")
-                .foregroundStyle(.white)
-                .frame(width: 250, height: 30)
-                .background(.black)
+//            Text("Should Show: \(showShortlistCoachMark.description)")
+//                .foregroundStyle(.white)
+//                .frame(width: 250, height: 30)
+//                .background(.black)
             Button("Shortlist"){
                 $showShortlistCoachMark.setInteraction(forKey: Constants.key)
             }

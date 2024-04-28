@@ -18,7 +18,7 @@ struct CoachMarkView: View {
     let title: String
     let message: String
     let buttonText: String
-    let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is.
+    let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is. (I assume, if the view is lower down the screen, coach should point down; if it is higher, it should point up...)
     let userDefaults: CoachMarksUserDefaults
     let key: String
     
