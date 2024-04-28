@@ -6,27 +6,27 @@
 //
 
 import SwiftUI
-
-struct ShortlistView: View {
+//
+//struct ShortlistView: View {
 //    @StateObject private var coachMarks = CoachMarksUserDefaults(viewKey: "shortlistViewCount", interactionKey: "shortlistButtonTapped")
-    
-    var body: some View {
-        VStack {
-            Button(action: {
+//    
+//    var body: some View {
+//        VStack {
+//            Button(action: {
 //                coachMarks.setInteraction()
-            }) {
+//            }) {
 //                Image(systemName: coachMarks.interactionOccurred ? "star.fill" : "star")
-            }
-            
+//            }
+//            
 //            Text("View Count: \(coachMarks.viewCount)")
 //            Text("Interaction Occurred: \(coachMarks.interactionOccurred.description)")
-        }
-        .onAppear {
+//        }
+//        .onAppear {
 //            coachMarks.incrementViewCount()
-        }
-    }
-}
-
-#Preview {
-    ShortlistView()
-}
+//        }
+//    }
+//}
+//
+//#Preview {
+//    ShortlistView()
+//}

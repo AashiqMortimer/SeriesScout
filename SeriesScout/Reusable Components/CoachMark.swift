@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct CoachMark {
+struct CoachMarkView: View {
     
     // Requirements to take into consideration: Different screen sizes, scroll view
     // TODO: Try different test view configurations to initialise it with.
@@ -19,11 +19,10 @@ struct CoachMark {
     let message: String
     let buttonText: String
     let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is.
-    let onDismiss: () -> Void
+    let userDefaults: CoachMarksUserDefaults
+    let key: String
     
-    // James agreed that I will only do a SwiftUI version.
-    
-    func makeView() -> some View {
+    var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(alignment: .center, spacing: 12) {
                 Text(title)
@@ -37,7 +36,7 @@ struct CoachMark {
                     .fixedSize(horizontal: false, vertical: true)
                 
                 Button(buttonText) {
-                    onDismiss()
+                    userDefaults.setInteraction(forKey: key)
                     //TODO: Currently, this is the only thing preventing users from seeing it again once it displays to them. If they navigate back and return, coachmarks will persist. I need to handle this scenario.
                 }
                 .buttonStyle(primaryButtonStyle)
@@ -65,51 +64,22 @@ struct CoachMark {
     }
 }
 
-//class CoachMarksViewModel: ObservableObject {
-//    @Published var shouldShowCoachMark: Bool = false
-//    
-//    private let viewCountThreshold: Int
-//    let coachMarksUserDefaults: CoachMarksUserDefaults
-//    
-//    init(viewKey: String, interactionKey: String, viewCountThreshold: Int) {
-//        self.viewCountThreshold = viewCountThreshold
-//        self.coachMarksUserDefaults = CoachMarksUserDefaults(viewKey: viewKey, interactionKey: interactionKey)
-//        
-//        checkShouldShowCoachMark()
-//    }
-//    
-//    func incrementViewCount() {
-//        coachMarksUserDefaults.incrementViewCount()
-//        checkShouldShowCoachMark()
-//    }
-//    
-//    func setInteractionOccurred() {
-//        coachMarksUserDefaults.setInteraction()
-//        checkShouldShowCoachMark()
-//    }
-//    
-//    private func checkShouldShowCoachMark() {
-//        shouldShowCoachMark = coachMarksUserDefaults.viewCount >= viewCountThreshold && !coachMarksUserDefaults.interactionOccurred
-//    }
-//    
-//    //TODO: Delete later, this is just for testing purposes:
-//    func resetCoachMarks() {
-//        coachMarksUserDefaults.resetCoachMarks()
-//        checkShouldShowCoachMark()
-//    }
-//}
-
 struct CoachMarkModifier: ViewModifier {
-    var shouldShowCoachMark: CoachMarks
-    let coachMark: CoachMark
+    var coachMarkWrapper: CoachMarkWrapper
     let spacing: CGFloat
+    let coachMarkType: CoachMarkFactory.CoachMarkType
 
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .top) {
-                if shouldShowCoachMark.wrappedValue {
+                if coachMarkWrapper.wrappedValue {
                     GeometryReader { geometry in
-                        coachMark.makeView()
+                        let coachMark = CoachMarkFactory.createCoachMark(
+                            type: coachMarkType,
+                            userDefaults: coachMarkWrapper.projectedValue,
+                            key: coachMarkWrapper.keyBase
+                        )
+                        coachMark
                             .padding(.top, geometry.frame(in: .local).maxY + spacing + 23)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     }
@@ -119,22 +89,34 @@ struct CoachMarkModifier: ViewModifier {
 }
 
 extension View {
-    func coachMark(shouldShow: CoachMarks, coachMark: CoachMark, spacing: CGFloat) -> some View {
-        modifier(CoachMarkModifier(shouldShowCoachMark: shouldShow, coachMark: coachMark, spacing: spacing))
+    func coachMark(coachMarkWrapper: CoachMarkWrapper, spacing: CGFloat, type: CoachMarkFactory.CoachMarkType) -> some View {
+        modifier(CoachMarkModifier(coachMarkWrapper: coachMarkWrapper, spacing: spacing, coachMarkType: type))
     }
 }
 
 struct CoachMarkFactory {
-    static func shortlistCoachMark(onDismiss: @escaping () -> Void) -> CoachMark {
-        CoachMark(title: Constants.titleMessage,
-                  message: Constants.shortlistMessage,
-                  buttonText: Constants.buttonText,
-                  pointerPlacement: .topRight, 
-                  onDismiss: onDismiss)
+    enum CoachMarkType {
+        case shortlist
+    }
+    
+    static func createCoachMark(type: CoachMarkType, userDefaults: CoachMarksUserDefaults, key: String) -> CoachMarkView {
+        switch type {
+        case .shortlist:
+            return shortlistCoachMark(userDefaults: userDefaults, key: key)
+        }
+    }
+    
+    static func shortlistCoachMark(userDefaults: CoachMarksUserDefaults, key: String) -> CoachMarkView {
+        CoachMarkView(title: Constants.shortlistTitle,
+                      message: Constants.shortlistMessage,
+                      buttonText: Constants.buttonText,
+                      pointerPlacement: .topRight,
+                      userDefaults: userDefaults,
+                      key: key)
     }
     
     struct Constants {
-        static let titleMessage = "Add to your shortlist"
+        static let shortlistTitle = "Add to your shortlist"
         static let shortlistMessage = "You can save and compare your favourite holidays by adding them to your shortlist"
         static let buttonText = "Got it"
     }

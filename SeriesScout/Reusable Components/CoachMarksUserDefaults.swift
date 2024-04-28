@@ -9,228 +9,90 @@ import Foundation
 import SwiftUI
 
 class CoachMarksUserDefaults: ObservableObject {
+    private let defaults: UserDefaults
     
-    //TODO: Try this as a property wrapper again. (Dynamic Property Wrapper)
-    // This should negate the ViewModel: You would just have this that has the viewCount, interactionOccurred, and shouldShow
-    // WrappedValue and ProjectedValue.
-    // Wrapped is a boolean to say if it should show the coach marks or not.
-    // ProjectedValue would be my userdefaults properties that I have here as a class.
-    // Would keep this class, alongside the property wrapper.
-    
-    
-    // Ideal implementation within the View:
-    // Initialise it: @Coachmark(key: "EAT-Shortlist, threshold: 3) var showShortlistCoachMark
-    // $showShortlistCoachMark.incrementViewCounter()
-    // $showShortlistCoachMark.markInteractionOcurred()
-    
-    private let viewKey: String
-    private let interactionKey: String
-    
-    @Published var interactionOccurred: Bool = false
-    @Published var viewCount: Int = 0
-    
-    private var defaults: UserDefaults
-    
-    init(viewKey: String, interactionKey: String, defaults: UserDefaults = .standard) {
-        self.viewKey = viewKey
-        self.interactionKey = interactionKey
+    @Published private(set) var interactionFlags: [String: Bool] = [:] 
+
+    @Published private(set) var viewCounts: [String: Int] = [:] 
+
+    init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         
         if let coachMarks = defaults.dictionary(forKey: "coachMarks") {
-            interactionOccurred = coachMarks[interactionKey] as? Bool ?? false
-            viewCount = coachMarks[viewKey] as? Int ?? 0
+            viewCounts = coachMarks.compactMapValues { $0 as? Int }
+            interactionFlags = coachMarks.compactMapValues { $0 as? Bool }
         }
     }
     
     private func updateDefaults() {
-        var coachMarks = defaults.dictionary(forKey: "coachMarks") ?? [:]
-        coachMarks[viewKey] = viewCount
-        coachMarks[interactionKey] = interactionOccurred
+        var coachMarks = [String: Any]()
+        
+        let filteredViewCounts = viewCounts.filter { !$0.key.hasSuffix("_interactionFlag") }
+        coachMarks.merge(filteredViewCounts, uniquingKeysWith: { $1 })
+        
+        coachMarks.merge(interactionFlags, uniquingKeysWith: { $1 })
         defaults.set(coachMarks, forKey: "coachMarks")
     }
     
-    func incrementViewCount() {
-        viewCount += 1
-        updateDefaults()
-    }
-    
-    func setInteraction() {
-        guard !interactionOccurred else { return }
-        interactionOccurred = true
-        updateDefaults()
-    }
-    
-    //TODO: Delete later, this is just for testing purposes:
-    func resetCoachMarks() {
-        viewCount = 0
-        interactionOccurred = false
-        updateDefaults()
-    }
-}
-
-@propertyWrapper
-struct CoachMarksv2: DynamicProperty {
-    let baseKey: String
-    let threshold: Int
-    
-}
-
-//@propertyWrapper
-//struct CoachMarks: DynamicProperty {
-//    private let baseKey: String
-//    private let threshold: Int
-//    private let defaults: UserDefaults
-//
-//    @State private var interactionOccurred: Bool = false
-//    @State private var viewCount: Int = 0
-//
-//    var wrappedValue: Bool {
-//        get {
-//            // Load values from UserDefaults
-//            if let coachMarks = defaults.dictionary(forKey: "coachMarks") {
-//                viewCount = coachMarks["\(baseKey)_viewKey"] as? Int ?? 0
-//                interactionOccurred = coachMarks["\(baseKey)_interactionKey"] as? Bool ?? false
-//            }
-//
-//            // Increment, update UserDefaults, and calculate result
-//            viewCount += 1
-//            updateDefaults()
-//            let conditionalCheck = viewCount >= threshold && !interactionOccurred
-//            return conditionalCheck
-//        }
-//
-//        nonmutating set {
-//            let conditionalCheck = viewCount >= threshold && !interactionOccurred
-//            if !conditionalCheck { // Only update if coach marks have been dismissed
-//                interactionOccurred = true
-//                updateDefaults()
-//            }
-//        }
-//    }
-//
-//    var projectedValue: CoachMarks {
-//        return self
-//    }
-//
-//    init(key: String, threshold: Int, defaults: UserDefaults = .standard) {
-//        self.baseKey = key
-//        self.threshold = threshold
-//        self.defaults = defaults
-//    }
-//
-//    private func updateDefaults() {
-//        var coachMarks = defaults.dictionary(forKey: "coachMarks") ?? [:]
-//        coachMarks["\(baseKey)_viewKey"] = viewCount
-//        coachMarks["\(baseKey)_interactionKey"] = interactionOccurred
-//        defaults.set(coachMarks, forKey: "coachMarks")
-//    }
-//
-//    func incrementViewCount() {
-//        viewCount += 1
-//        updateDefaults()
-//    }
-//
-//    func setInteractionOccurred() {
-//        interactionOccurred = true
-//        updateDefaults()
-//    }
-//
-//    func resetCoachMarks() {
-//        viewCount = 0
-//        interactionOccurred = false
-//        updateDefaults()
-//    }
-//}
-
-//@propertyWrapper
-//struct CoachMarks: DynamicProperty {
-//    private let baseKey: String
-//    private let threshold: Int
-//    private let defaults: UserDefaults
-//    
-//    @State private var interactionOccurred: Bool = false
-//    @State private var viewCount: Int = 0
-//    
-//    var wrappedValue: Bool {
-//        viewCount >= threshold && !interactionOccurred
-//    }
-//    
-//    var projectedValue: Binding<Bool> {
-//        Binding(
-//            get: { self.wrappedValue },
-//            set: { newValue in
-//                if !newValue {
-//                    self.setInteractionOccurred()
-//                }
-//            }
-//        )
-//    }
-//    
-//    init(key: String, threshold: Int, defaults: UserDefaults = .standard) {
-//        self.baseKey = key
-//        self.threshold = threshold
-//        self.defaults = defaults
-//        
-//        if let coachMarks = defaults.dictionary(forKey: "coachMarks") {
-//            _interactionOccurred = State(initialValue: coachMarks["\(key)_interactionKey"] as? Bool ?? false)
-//            _viewCount = State(initialValue: coachMarks["\(key)_viewKey"] as? Int ?? 0)
-//        }
-//    }
-//    
-//    private func updateDefaults() {
-//        var coachMarks = defaults.dictionary(forKey: "coachMarks") ?? [:]
-//        coachMarks["\(baseKey)_viewKey"] = viewCount
-//        coachMarks["\(baseKey)_interactionKey"] = interactionOccurred
-//        defaults.set(coachMarks, forKey: "coachMarks")
-//    }
-//    
-//    func incrementViewCount() {
-//        viewCount += 1
-//        updateDefaults()
-//    }
-//    
-//    func setInteractionOccurred() {
-//        interactionOccurred = true
-//        updateDefaults()
-//    }
-//    
-//    func resetCoachMarks() {
-//        viewCount = 0
-//        interactionOccurred = false
-//        updateDefaults()
-//    }
-//}
-
-@propertyWrapper
-struct CoachMarkUserDefaults: DynamicProperty {
-    let baseKey: String
-    let viewCountThreshold: Int
-    private var viewKey: String { "\(baseKey)-viewKey" }
-    private var interactionKey: String { "\(baseKey)-interactionKey" }
-    
-    var wrappedValue: [String: Any] {
-        get { UserDefaults.standard.dictionary(forKey: "coachMarks") ?? [:] }
-        set { UserDefaults.standard.set(newValue, forKey: "coachMarks") }
-    }
-    
-    var shouldShowCoachMark: Bool {
-        get {
-            let viewCount = wrappedValue[viewKey] as? Int ?? 0
-            let interactionOccurred = wrappedValue[interactionKey] as? Bool ?? false
-            return viewCount >= viewCountThreshold && !interactionOccurred
+    func initialiseValues(interactionKey: String, viewKey: String) {
+        if interactionFlags[interactionKey] == nil {
+            interactionFlags[interactionKey] = false
+        }
+        
+        if viewCounts[viewKey] == nil {
+            viewCounts[viewKey] = 0
         }
     }
+
+    func incrementViewCount(forKey baseKey: String) {
+        let key = baseKey + "_viewCount"
+        viewCounts[key, default: 0] += 1
+        updateDefaults()
+    }
+
+    func setInteraction(forKey baseKey: String) {
+        let key = baseKey + "_interactionFlag"
+        interactionFlags[key] = true
+        updateDefaults()
+    }
+
+    func viewCount(forKey key: String) -> Int {
+        return viewCounts[key, default: 0]
+    }
+
+    func interactionOccurred(forKey key: String) -> Bool {
+        return interactionFlags[key, default: false]
+    }
+
+    //TODO: Delete later, this is just for testing purposes:
+    func resetCoachMarks() {
+        viewCounts = [:]
+        interactionFlags = [:]
+        updateDefaults()
+    }
+}
+
+@propertyWrapper
+struct CoachMarkWrapper: DynamicProperty {
+    let keyBase: String
+    private let threshold: Int
+    @ObservedObject private var coachMarksDefaults: CoachMarksUserDefaults
     
-    mutating func incrementViewCount() {
-        var coachMarks = wrappedValue
-        let viewCount = coachMarks[viewKey] as? Int ?? 0
-        coachMarks[viewKey] = viewCount + 1
-        wrappedValue = coachMarks
+    var wrappedValue: Bool {
+        let viewCountKey = "\(keyBase)_viewCount"
+        let interactionKey = "\(keyBase)_interactionFlag"
+        return coachMarksDefaults.viewCount(forKey: viewCountKey) >= threshold &&
+               !coachMarksDefaults.interactionOccurred(forKey: interactionKey)
     }
     
-    mutating func interactionOccurred() {
-        var coachMarks = wrappedValue
-        coachMarks[interactionKey] = true
-        wrappedValue = coachMarks
+    var projectedValue: CoachMarksUserDefaults {
+        coachMarksDefaults
+    }
+    
+    init(key: String, threshold: Int, userDefaults: CoachMarksUserDefaults = CoachMarksUserDefaults()) {
+        self.keyBase = key
+        self.threshold = threshold
+        self.coachMarksDefaults = userDefaults
+        userDefaults.initialiseValues(interactionKey: "\(key)_interactionFlag", viewKey: "\(key)_viewCount")
     }
 }
