@@ -10,6 +10,7 @@ import UIKit
 
 struct TestView: View {
     @CoachMarkWrapper(key: Constants.key, threshold: 3) var showShortlistCoachMark
+    //TODO: Can I combine the wrapper initialisation with the modifier
     
     var body: some View {
         VStack {

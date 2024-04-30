@@ -53,6 +53,9 @@ struct PointerView: View {
         static let bottomRight = PointerPlacement(offset: 109, padding: 15, direction: .pi)
         static let bottomLeft = PointerPlacement(offset: 109, padding: 300, direction: .pi)
         
+        //TODO: Read more about offset.
+        //TODO: Look at the pointer above Sort view. 
+        
         init(offset: CGFloat, padding: CGFloat, direction: Double) {
             self.offset = offset
             self.direction = direction

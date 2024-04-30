@@ -43,11 +43,14 @@ struct CoachMarkView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-            .frame(width: 350, alignment: .top)
+//            .frame(width: 350, alignment: .top)
             .background(.white)
             .cornerRadius(12)
             
+            //Iovanna: General idea behind SwiftUI development is defining rules of how you want things to display, and not setting strict framing sizes.
+            
             PointerView(width: 24, height: 33, alignment: .trailing, pointerPlacement: pointerPlacement)
+            //TODO: Look at Binoy's implementation of sorting in Excursions. 
         }
     }
     
@@ -65,6 +68,9 @@ struct CoachMarkView: View {
 }
 
 struct CoachMarkModifier: ViewModifier {
+    //TODO: Separate the modifier for the pop up vs the content within.
+    // The modifier can just handle the pop up and sizing. I can then pass a View into them. 
+    
     var coachMarkWrapper: CoachMarkWrapper
     let spacing: CGFloat
     let coachMarkType: CoachMarkFactory.CoachMarkType
