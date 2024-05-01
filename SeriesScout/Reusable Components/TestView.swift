@@ -44,6 +44,7 @@ struct TestView: View {
             }
             .buttonStyle(.borderedProminent)
             .offset(y: 250)
+//            .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)

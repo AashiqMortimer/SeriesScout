@@ -88,6 +88,7 @@ struct CoachMarkModifier: ViewModifier {
                         coachMark
                             .padding(.top, geometry.frame(in: .local).maxY + spacing + 23)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        //TODO: Initialise Pointer here and place it in the center of the view it is modifying
                     }
                 }
             }
