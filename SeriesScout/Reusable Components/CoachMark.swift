@@ -71,9 +71,11 @@ struct CoachMarkModifier: ViewModifier {
     //TODO: Separate the modifier for the pop up vs the content within.
     // The modifier can just handle the pop up and sizing. I can then pass a View into them. 
     
-    var coachMarkWrapper: CoachMarkWrapper
+    var coachMarkWrapper: CoachMark
     let spacing: CGFloat
     let coachMarkType: CoachMarkFactory.CoachMarkType
+//    let anchorView: View
+    //TODO: For the dimmer effect: Have an anchorView property in the modifier. Pass in an element which would be the view that I am modifying. Instead of applying this viewModifier to the Shortlist Button, I will be applying it to the overall VStack for the TestView body. That way, this view modifier will be able to modify the background property for the entire screen. The AnchorView will be the Shortlist button which I will handle in the below code. 
 
     func body(content: Content) -> some View {
         content
@@ -96,7 +98,7 @@ struct CoachMarkModifier: ViewModifier {
 }
 
 extension View {
-    func coachMark(coachMarkWrapper: CoachMarkWrapper, spacing: CGFloat, type: CoachMarkFactory.CoachMarkType) -> some View {
+    func coachMark(coachMarkWrapper: CoachMark, spacing: CGFloat, type: CoachMarkFactory.CoachMarkType) -> some View {
         modifier(CoachMarkModifier(coachMarkWrapper: coachMarkWrapper, spacing: spacing, coachMarkType: type))
     }
 }

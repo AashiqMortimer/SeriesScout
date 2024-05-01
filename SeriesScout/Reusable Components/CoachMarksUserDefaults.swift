@@ -73,7 +73,7 @@ class CoachMarksUserDefaults: ObservableObject {
 }
 
 @propertyWrapper
-struct CoachMarkWrapper: DynamicProperty {
+struct CoachMark: DynamicProperty {
     let keyBase: String
     private let threshold: Int
     @ObservedObject private var coachMarksDefaults: CoachMarksUserDefaults
