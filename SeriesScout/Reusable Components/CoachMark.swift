@@ -16,40 +16,37 @@ struct CoachMarkView: View {
     let title: String
     let message: String
     let buttonText: String
-//    let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is. (I assume, if the view is lower down the screen, coach should point down; if it is higher, it should point up...)
+    //    let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is. (I assume, if the view is lower down the screen, coach should point down; if it is higher, it should point up...)
     let userDefaults: CoachMarksUserDefaults
     let key: String
     
     var body: some View {
-//        ZStack(alignment: .topTrailing) {
-            VStack(alignment: .center, spacing: 12) {
-                Text(title)
-                    .font(Constants.titleFont)
-                    .foregroundStyle(Constants.messageColor)
-                Text(message)
-                    .font(Constants.messageFont)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Constants.messageColor)
-                    .frame(maxWidth: .infinity, alignment: .top)
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                Button(buttonText) {
-                    userDefaults.setInteraction(forKey: key)
-                    //TODO: Currently, this is the only thing preventing users from seeing it again once it displays to them. If they navigate back and return, coachmarks will persist. I need to handle this scenario.
-                }
-                .buttonStyle(primaryButtonStyle)
+        VStack(alignment: .center, spacing: 12) {
+            Text(title)
+                .font(Constants.titleFont)
+                .foregroundStyle(Constants.messageColor)
+                .frame(maxWidth: .infinity)
+            Text(message)
+                .font(Constants.messageFont)
+                .multilineTextAlignment(.center)
+                .foregroundColor(Constants.messageColor)
+                .lineLimit(2)
+            
+            Button(buttonText) {
+                userDefaults.setInteraction(forKey: key)
+                //TODO: Currently, this is the only thing preventing users from seeing it again once it displays to them. If they navigate back and return, coachmarks will persist. I need to handle this scenario.
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-//            .frame(width: 350, alignment: .top)
-            .background(.white)
-            .cornerRadius(12)
-            
-            //Iovanna: General idea behind SwiftUI development is defining rules of how you want things to display, and not setting strict framing sizes.
-            
-//            PointerView(width: 24, height: 33, alignment: .trailing, pointerPlacement: pointerPlacement)
-            //TODO: Look at Binoy's implementation of sorting in Excursions. 
-//        }
+            .buttonStyle(primaryButtonStyle)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        //            .frame(width: 350, alignment: .top)
+        .background(.white)
+        .cornerRadius(12)
+        
+        //Iovanna: General idea behind SwiftUI development is defining rules of how you want things to display, and not setting strict framing sizes.
+        
+        //TODO: Look at Binoy's implementation of sorting in Excursions.
     }
     
     let primaryButtonStyle = PrimaryButton(
@@ -72,12 +69,12 @@ struct CoachMarkModifier: ViewModifier {
     var coachMarkWrapper: CoachMark
     let spacing: CGFloat
     let coachMarkType: CoachMarkFactory.CoachMarkType
-//    let anchorView: View
-    //TODO: For the dimmer effect: Have an anchorView property in the modifier. Pass in an element which would be the view that I am modifying. Instead of applying this viewModifier to the Shortlist Button, I will be applying it to the overall VStack for the TestView body. That way, this view modifier will be able to modify the background property for the entire screen. The AnchorView will be the Shortlist button which I will handle in the below code. 
+    
+    //TODO: For the dimmer effect: Have an anchorView property in the modifier. Pass in an element which would be the view that I am modifying. Instead of applying this viewModifier to the Shortlist Button, I will be applying it to the overall VStack for the TestView body. That way, this view modifier will be able to modify the background property for the entire screen. The AnchorView will be the Shortlist button which I will handle in the below code.
 
     func body(content: Content) -> some View {
         content
-            .overlay { // Appearing behind views, why??
+            .overlay {
                 if coachMarkWrapper.wrappedValue {
                     GeometryReader { proxy in
                         let pointerHeight: CGFloat = 33
@@ -86,7 +83,10 @@ struct CoachMarkModifier: ViewModifier {
                         let screenMidY = UIScreen.main.bounds.height / 2
                         let globalMidY = proxy.frame(in: .global).midY
                         
-                        let yPosition = proxy.frame(in: .local).midY + pointerHeight + spacing
+                        let yPosition = globalMidY < screenMidY ? 
+                        proxy.frame(in: .local).midY + pointerHeight + spacing :
+                        proxy.frame(in: .local).midY - pointerHeight + spacing + proxy.frame(in: .local).height
+                        
                         let rotation = globalMidY < screenMidY ? Angle(degrees: 0) : Angle(degrees: 180)
                         
                         let coachMark = CoachMarkFactory.createCoachMark(
@@ -95,18 +95,23 @@ struct CoachMarkModifier: ViewModifier {
                             key: coachMarkWrapper.keyBase
                         )
                         ZStack {
+                            // I need to get that 123 value based on the height of the coach mark
+                            
                             coachMark
-                                .padding(.top, proxy.frame(in: .local).maxY + spacing + 23)
-//                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                                .position(
+                                    x: proxy.frame(in: .local).midX,
+                                    y: globalMidY < screenMidY ?
+                                    yPosition + (pointerHeight / 2) + (123 / 2) :
+                                        yPosition - (pointerHeight / 2) - (123 / 2) - (pointerHeight * 2)
+                                )
+                            
                             Triangle()
                                 .frame(width: pointerWidth, height: pointerHeight)
                                 .position(x: proxy.frame(in: .local).midX,
                                           y: yPosition)
-                                .rotationEffect(rotation)
+                                .rotationEffect(rotation, anchor: .top)
                                 .foregroundStyle(.white)
                         }
-                        
-                        //TODO: Initialise Pointer here and place it in the center of the view it is modifying
                     }
                 }
             }
@@ -158,9 +163,10 @@ struct TestView2: View {
                     $showShortlistCoachMark.setInteraction(forKey: Constants.key)
                 }
                 .buttonStyle(.borderedProminent)
-                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+//                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 
-                Text("Test")
+                Text("Test313313131313133131")
+//                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 
                 
                 Text("This is a test space")
@@ -185,7 +191,6 @@ struct TestView2: View {
                         $showShortlistCoachMark.setInteraction(forKey: Constants.key)
                     }
                     .buttonStyle(.borderedProminent)
-        //            .padding(.leading, 300)
                     .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 }
             }
@@ -200,20 +205,12 @@ struct TestView2: View {
                 .buttonStyle(.borderedProminent)
 //                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
             }
-            
-            
-            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
         .onAppear(perform: {
             $showShortlistCoachMark.incrementViewCount(forKey: Constants.key)
         })
-    }
-    
-    var button1: some View {
-        Button("Button 1") {}
-            .buttonStyle(.borderedProminent)
     }
     
     let primaryButtonStyle = PrimaryButton(
