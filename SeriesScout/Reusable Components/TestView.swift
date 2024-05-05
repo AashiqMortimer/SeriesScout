@@ -14,43 +14,67 @@ struct TestView: View {
     
     var body: some View {
         VStack {
-            Text("This is a test space")
-                .foregroundStyle(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 40)
-                .background(.red)
-                .padding(.bottom, 10)
-            Text("Visits \($showShortlistCoachMark.viewCounts[Constants.key + "_viewCount"] ?? 0)")
-                .foregroundStyle(.white)
-                .frame(width: 250, height: 30)
-                .background(.green)
-            Text("Interacted: \($showShortlistCoachMark.interactionFlags[Constants.key + "_interactionFlag"]?.description ?? false.description)")
-                .foregroundStyle(.white)
-                .frame(width: 250, height: 30)
-                .background(.yellow)
-//            Text("Should Show: \(showShortlistCoachMark.description)")
-//                .foregroundStyle(.white)
-//                .frame(width: 250, height: 30)
-//                .background(.black)
-            Button("Shortlist"){
-                $showShortlistCoachMark.setInteraction(forKey: Constants.key)
+            VStack(spacing: 10) {
+                Button("Top Screen Button"){
+                    $showShortlistCoachMark.setInteraction(forKey: Constants.key)
+                }
+                .buttonStyle(.borderedProminent)
+                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+                
+                Text("Test")
+                
+                
+                Text("This is a test space")
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 40)
+                    .background(.red)
+                    .padding(.bottom, 10)
+                    
+                Text("Visits \($showShortlistCoachMark.viewCounts[Constants.key + "_viewCount"] ?? 0)")
+                    .foregroundStyle(.white)
+                    .frame(width: 250, height: 30)
+                    .background(.green)
+                Text("Interacted: \($showShortlistCoachMark.interactionFlags[Constants.key + "_interactionFlag"]?.description ?? false.description)")
+                    .foregroundStyle(.white)
+                    .frame(width: 250, height: 30)
+                    .background(.yellow)
+                HStack(spacing: 200) {
+                    Text("Nothing")
+                        .hidden()
+                    Button("Shortlist"){
+                        $showShortlistCoachMark.setInteraction(forKey: Constants.key)
+                    }
+                    .buttonStyle(.borderedProminent)
+        //            .padding(.leading, 300)
+                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+                }
             }
-            .buttonStyle(.borderedProminent)
-            .padding(.leading, 300)
-            .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+            .frame(height: 600)
             
-            Button("Reset UserDefaults") {
-                $showShortlistCoachMark.resetCoachMarks()
+            VStack(spacing: 20) {
+                Text("Nothing")
+                    .hidden()
+                Button("Reset UserDefaults") {
+                    $showShortlistCoachMark.resetCoachMarks()
+                }
+                .buttonStyle(.borderedProminent)
+//                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
             }
-            .buttonStyle(.borderedProminent)
-            .offset(y: 250)
-//            .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+            
+            
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
         .onAppear(perform: {
             $showShortlistCoachMark.incrementViewCount(forKey: Constants.key)
         })
+    }
+    
+    var button1: some View {
+        Button("Button 1") {}
+            .buttonStyle(.borderedProminent)
     }
     
     let primaryButtonStyle = PrimaryButton(

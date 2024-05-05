@@ -32,6 +32,10 @@ struct ResultView: View {
                             Text("Open TestView")
                         }
                         .buttonStyle(.borderedProminent)
+                        NavigationLink(destination: GeometryReaderTestView()) {
+                            Text("Open PointerTest")
+                        }
+                        .buttonStyle(.borderedProminent)
                         Spacer()
                         headerImage
                         Spacer()

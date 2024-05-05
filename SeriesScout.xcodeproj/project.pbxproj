@@ -13,6 +13,7 @@
 		2F6F396B2BC3205200CECC85 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F396A2BC3205200CECC85 /* PointerView.swift */; };
 		2F6FC3B12BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */; };
 		2F7578292BCC4D630090306F /* CoachMarksUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7578282BCC4D630090306F /* CoachMarksUserDefaults.swift */; };
+		2F867ED32BE54ACB00ECC1ED /* GeometryReaderTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F867ED22BE54ACB00ECC1ED /* GeometryReaderTestView.swift */; };
 		2F8DCB9D2B7F9E5900466CF0 /* SeriesScoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCB9C2B7F9E5900466CF0 /* SeriesScoutViewModel.swift */; };
 		2F8DCBAA2B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCBA92B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift */; };
 		2F8DCBAC2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift */; };
@@ -48,6 +49,7 @@
 		2F6F396A2BC3205200CECC85 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		2F6FC3B02BA8A81900E1BD54 /* SeriesScoutNetworkServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutNetworkServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		2F7578282BCC4D630090306F /* CoachMarksUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarksUserDefaults.swift; sourceTree = "<group>"; };
+		2F867ED22BE54ACB00ECC1ED /* GeometryReaderTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryReaderTestView.swift; sourceTree = "<group>"; };
 		2F8DCB9C2B7F9E5900466CF0 /* SeriesScoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutViewModel.swift; sourceTree = "<group>"; };
 		2F8DCBA92B7FAB2700466CF0 /* SeriesScoutViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesScoutViewModelTests.swift; sourceTree = "<group>"; };
 		2F8DCBAB2B7FC6B000466CF0 /* MockedSeriesScoutNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSeriesScoutNetworkService.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				2F7578282BCC4D630090306F /* CoachMarksUserDefaults.swift */,
 				2FA6A1A72BCED18F00F8C7D6 /* ShortlistView.swift */,
 				2F2DE36D2BE008FC00636A0E /* TipKit.swift */,
+				2F867ED22BE54ACB00ECC1ED /* GeometryReaderTestView.swift */,
 			);
 			path = "Reusable Components";
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				2FC48A6F2B7D20250042485E /* UtellyModel.swift in Sources */,
 				2FA0C7DC2BC1D95C00D52BDD /* CoachMark.swift in Sources */,
 				2FC48A432B7D1F2C0042485E /* ResultView.swift in Sources */,
+				2F867ED32BE54ACB00ECC1ED /* GeometryReaderTestView.swift in Sources */,
 				2F8DCB9D2B7F9E5900466CF0 /* SeriesScoutViewModel.swift in Sources */,
 				2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */,
 				2FA0C7E92BC1E09400D52BDD /* TestView.swift in Sources */,

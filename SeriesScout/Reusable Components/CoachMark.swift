@@ -12,18 +12,16 @@ struct CoachMarkView: View {
     
     // Requirements to take into consideration: Different screen sizes, scroll view
     // TODO: Try different test view configurations to initialise it with.
-    // TODO: Try out TipKit
-    // TODO: Look how other people have implemented tooltips to see how they are working out directions and whatnot.
     
     let title: String
     let message: String
     let buttonText: String
-    let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is. (I assume, if the view is lower down the screen, coach should point down; if it is higher, it should point up...)
+//    let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is. (I assume, if the view is lower down the screen, coach should point down; if it is higher, it should point up...)
     let userDefaults: CoachMarksUserDefaults
     let key: String
     
     var body: some View {
-        ZStack(alignment: .topTrailing) {
+//        ZStack(alignment: .topTrailing) {
             VStack(alignment: .center, spacing: 12) {
                 Text(title)
                     .font(Constants.titleFont)
@@ -49,9 +47,9 @@ struct CoachMarkView: View {
             
             //Iovanna: General idea behind SwiftUI development is defining rules of how you want things to display, and not setting strict framing sizes.
             
-            PointerView(width: 24, height: 33, alignment: .trailing, pointerPlacement: pointerPlacement)
+//            PointerView(width: 24, height: 33, alignment: .trailing, pointerPlacement: pointerPlacement)
             //TODO: Look at Binoy's implementation of sorting in Excursions. 
-        }
+//        }
     }
     
     let primaryButtonStyle = PrimaryButton(
@@ -79,21 +77,40 @@ struct CoachMarkModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .overlay(alignment: .top) {
+            .overlay { // Appearing behind views, why??
                 if coachMarkWrapper.wrappedValue {
-                    GeometryReader { geometry in
+                    GeometryReader { proxy in
+                        let pointerHeight: CGFloat = 33
+                        let pointerWidth: CGFloat = 35
+                        
+                        let screenMidY = UIScreen.main.bounds.height / 2
+                        let globalMidY = proxy.frame(in: .global).midY
+                        
+                        let yPosition = proxy.frame(in: .local).midY + pointerHeight + spacing
+                        let rotation = globalMidY < screenMidY ? Angle(degrees: 0) : Angle(degrees: 180)
+                        
                         let coachMark = CoachMarkFactory.createCoachMark(
                             type: coachMarkType,
                             userDefaults: coachMarkWrapper.projectedValue,
                             key: coachMarkWrapper.keyBase
                         )
-                        coachMark
-                            .padding(.top, geometry.frame(in: .local).maxY + spacing + 23)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        ZStack {
+                            coachMark
+                                .padding(.top, proxy.frame(in: .local).maxY + spacing + 23)
+//                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                            Triangle()
+                                .frame(width: pointerWidth, height: pointerHeight)
+                                .position(x: proxy.frame(in: .local).midX,
+                                          y: yPosition)
+                                .rotationEffect(rotation)
+                                .foregroundStyle(.white)
+                        }
+                        
                         //TODO: Initialise Pointer here and place it in the center of the view it is modifying
                     }
                 }
             }
+            .zIndex(1)
     }
 }
 
@@ -119,7 +136,6 @@ struct CoachMarkFactory {
         CoachMarkView(title: Constants.shortlistTitle,
                       message: Constants.shortlistMessage,
                       buttonText: Constants.buttonText,
-                      pointerPlacement: .topRight,
                       userDefaults: userDefaults,
                       key: key)
     }
@@ -129,4 +145,88 @@ struct CoachMarkFactory {
         static let shortlistMessage = "You can save and compare your favourite holidays by adding them to your shortlist"
         static let buttonText = "Got it"
     }
+}
+
+struct TestView2: View {
+    @CoachMark(key: Constants.key, threshold: 0) var showShortlistCoachMark
+    //TODO: Can I combine the wrapper initialisation with the modifier
+    
+    var body: some View {
+        VStack {
+            VStack(spacing: 10) {
+                Button("Top Screen Button"){
+                    $showShortlistCoachMark.setInteraction(forKey: Constants.key)
+                }
+                .buttonStyle(.borderedProminent)
+                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+                
+                Text("Test")
+                
+                
+                Text("This is a test space")
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 40)
+                    .background(.red)
+                    .padding(.bottom, 10)
+                    
+                Text("Visits \($showShortlistCoachMark.viewCounts[Constants.key + "_viewCount"] ?? 0)")
+                    .foregroundStyle(.white)
+                    .frame(width: 250, height: 30)
+                    .background(.green)
+                Text("Interacted: \($showShortlistCoachMark.interactionFlags[Constants.key + "_interactionFlag"]?.description ?? false.description)")
+                    .foregroundStyle(.white)
+                    .frame(width: 250, height: 30)
+                    .background(.yellow)
+                HStack(spacing: 200) {
+                    Text("Nothing")
+                        .hidden()
+                    Button("Shortlist"){
+                        $showShortlistCoachMark.setInteraction(forKey: Constants.key)
+                    }
+                    .buttonStyle(.borderedProminent)
+        //            .padding(.leading, 300)
+                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+                }
+            }
+            .frame(height: 600)
+            
+            VStack(spacing: 20) {
+                Text("Nothing")
+                    .hidden()
+                Button("Reset UserDefaults") {
+                    $showShortlistCoachMark.resetCoachMarks()
+                }
+                .buttonStyle(.borderedProminent)
+//                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+            }
+            
+            
+            
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.gray)
+        .onAppear(perform: {
+            $showShortlistCoachMark.incrementViewCount(forKey: Constants.key)
+        })
+    }
+    
+    var button1: some View {
+        Button("Button 1") {}
+            .buttonStyle(.borderedProminent)
+    }
+    
+    let primaryButtonStyle = PrimaryButton(
+        backgroundColor: .blue,
+        foregroundColor: Color(.white),
+        font: Font.custom("Ambit-Bold", size: 18)
+    )
+    
+    struct Constants {
+        static let key = "EAT-Shortlist-Test"
+    }
+}
+
+#Preview {
+    TestView2()
 }
