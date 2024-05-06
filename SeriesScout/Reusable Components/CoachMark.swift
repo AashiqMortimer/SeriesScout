@@ -31,24 +31,25 @@ struct CoachMarkView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Constants.messageColor)
                 .lineLimit(2)
+                .frame(maxWidth: 295)
             
             Button(buttonText) {
                 userDefaults.setInteraction(forKey: key)
                 //TODO: Currently, this is the only thing preventing users from seeing it again once it displays to them. If they navigate back and return, coachmarks will persist. I need to handle this scenario.
             }
             .buttonStyle(primaryButtonStyle)
+            
+            Spacer()
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        //        .frame(width: 350, alignment: .top)
+        .padding(.horizontal, 24)
+        .padding(.vertical, 24)
+        .fixedSize(horizontal: true, vertical: true)
         .background(.white)
         .cornerRadius(12)
         .background(GeometryReader { proxy in
             Color.clear.preference(key: CoachMarkHeightKey.self, value: proxy.size.height)
         })
         //Iovanna: General idea behind SwiftUI development is defining rules of how you want things to display, and not setting strict framing sizes.
-        
-        //TODO: Look at Binoy's implementation of sorting in Excursions.
     }
     
     let primaryButtonStyle = PrimaryButton(
@@ -65,10 +66,10 @@ struct CoachMarkView: View {
 }
 
 struct CoachMarkHeightKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0 // Notice the change here
+    static var defaultValue: CGFloat = 0
     
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = nextValue() // Update the inout value
+        value = nextValue()
     }
 }
 
@@ -85,7 +86,7 @@ struct CoachMarkModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay {
-                if coachMarkWrapper.wrappedValue && coachMarkWrapper.projectedValue.coachMarkHeight != 0 {
+                if coachMarkWrapper.wrappedValue /* && coachMarkWrapper.projectedValue.coachMarkHeight != 0*/ {
                     GeometryReader { proxy in
                         let pointerHeight: CGFloat = 33
                         let pointerWidth: CGFloat = 35
@@ -176,7 +177,7 @@ struct TestView2: View {
                     $showShortlistCoachMark.setInteraction(forKey: Constants.key)
                 }
                 .buttonStyle(.borderedProminent)
-                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+//                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 
                 Text("Test313313131313133131")
 //                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
