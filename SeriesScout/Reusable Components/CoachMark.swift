@@ -40,10 +40,12 @@ struct CoachMarkView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        //            .frame(width: 350, alignment: .top)
+        //        .frame(width: 350, alignment: .top)
         .background(.white)
         .cornerRadius(12)
-        
+        .background(GeometryReader { proxy in
+            Color.clear.preference(key: CoachMarkHeightKey.self, value: proxy.size.height)
+        })
         //Iovanna: General idea behind SwiftUI development is defining rules of how you want things to display, and not setting strict framing sizes.
         
         //TODO: Look at Binoy's implementation of sorting in Excursions.
@@ -62,6 +64,14 @@ struct CoachMarkView: View {
     }
 }
 
+struct CoachMarkHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0 // Notice the change here
+    
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue() // Update the inout value
+    }
+}
+
 struct CoachMarkModifier: ViewModifier {
     //TODO: Separate the modifier for the pop up vs the content within.
     // The modifier can just handle the pop up and sizing. I can then pass a View into them. 
@@ -75,7 +85,7 @@ struct CoachMarkModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay {
-                if coachMarkWrapper.wrappedValue {
+                if coachMarkWrapper.wrappedValue && coachMarkWrapper.projectedValue.coachMarkHeight != 0 {
                     GeometryReader { proxy in
                         let pointerHeight: CGFloat = 33
                         let pointerWidth: CGFloat = 35
@@ -95,14 +105,14 @@ struct CoachMarkModifier: ViewModifier {
                             key: coachMarkWrapper.keyBase
                         )
                         ZStack {
-                            // I need to get that 123 value based on the height of the coach mark
+                            let coachMarkHeight = coachMarkWrapper.projectedValue.coachMarkHeight ?? 0
                             
                             coachMark
                                 .position(
                                     x: proxy.frame(in: .local).midX,
                                     y: globalMidY < screenMidY ?
-                                    yPosition + (pointerHeight / 2) + (123 / 2) :
-                                        yPosition - (pointerHeight / 2) - (123 / 2) - (pointerHeight * 2)
+                                    yPosition + (pointerHeight / 2) + (coachMarkHeight / 2) :
+                                        yPosition - (pointerHeight / 2) - (coachMarkHeight / 2) - (pointerHeight * 2)
                                 )
                             
                             Triangle()
@@ -114,6 +124,9 @@ struct CoachMarkModifier: ViewModifier {
                         }
                     }
                 }
+            }
+            .onPreferenceChange(CoachMarkHeightKey.self) { newHeight in
+                coachMarkWrapper.projectedValue.coachMarkHeight = newHeight
             }
             .zIndex(1)
     }
@@ -163,7 +176,7 @@ struct TestView2: View {
                     $showShortlistCoachMark.setInteraction(forKey: Constants.key)
                 }
                 .buttonStyle(.borderedProminent)
-//                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 
                 Text("Test313313131313133131")
 //                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
