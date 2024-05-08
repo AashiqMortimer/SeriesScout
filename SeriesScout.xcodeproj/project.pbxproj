@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F2DE36E2BE008FC00636A0E /* TipKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2DE36D2BE008FC00636A0E /* TipKit.swift */; };
+		2F3108762BE9392C00799115 /* TDAProjCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3108752BE9392C00799115 /* TDAProjCode.swift */; };
 		2F44BE552BD5853400C56CFA /* AmbitBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F44BE542BD5853400C56CFA /* AmbitBold.ttf */; };
 		2F5ABD202B86001900B8A5D6 /* MarkoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */; };
 		2F6F396B2BC3205200CECC85 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F396A2BC3205200CECC85 /* PointerView.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		2F2DE36D2BE008FC00636A0E /* TipKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipKit.swift; sourceTree = "<group>"; };
+		2F3108752BE9392C00799115 /* TDAProjCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDAProjCode.swift; sourceTree = "<group>"; };
 		2F44BE542BD5853400C56CFA /* AmbitBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AmbitBold.ttf; sourceTree = "<group>"; };
 		2F5ABD1F2B86001900B8A5D6 /* MarkoOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MarkoOne-Regular.ttf"; path = "../../../../Downloads/Marko_One/MarkoOne-Regular.ttf"; sourceTree = "<group>"; };
 		2F6F396A2BC3205200CECC85 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				2FA6A1A72BCED18F00F8C7D6 /* ShortlistView.swift */,
 				2F2DE36D2BE008FC00636A0E /* TipKit.swift */,
 				2F867ED22BE54ACB00ECC1ED /* GeometryReaderTestView.swift */,
+				2F3108752BE9392C00799115 /* TDAProjCode.swift */,
 			);
 			path = "Reusable Components";
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				2F8DCB9D2B7F9E5900466CF0 /* SeriesScoutViewModel.swift in Sources */,
 				2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */,
 				2FA0C7E92BC1E09400D52BDD /* TestView.swift in Sources */,
+				2F3108762BE9392C00799115 /* TDAProjCode.swift in Sources */,
 				2FC48A712B7D207B0042485E /* SeriesScoutNetworkService.swift in Sources */,
 				2F8EDAFB2BBEE85300D7785D /* GenericErrorView.swift in Sources */,
 				2F2DE36E2BE008FC00636A0E /* TipKit.swift in Sources */,

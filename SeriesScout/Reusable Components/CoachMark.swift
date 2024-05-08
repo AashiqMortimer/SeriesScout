@@ -90,8 +90,9 @@ struct CoachMarkModifier: ViewModifier {
                     GeometryReader { proxy in
                         let pointerHeight: CGFloat = 33
                         let pointerWidth: CGFloat = 35
+                        // GeometryReader: Frame gives you measurements in super view coordinate system. Bounds does the opposite: Coordinates based on its own coordinate system. 0,0 -> MaxY, MaxX. Worth learning more, play around with the difference in Playgrounds.
                         
-                        let screenMidY = UIScreen.main.bounds.height / 2
+                        let screenMidY = proxy.frame(in: .local).midY / 2 // Better off not using UIScreen measurements. Need to decide where the button is based on its coordinates.
                         let globalMidY = proxy.frame(in: .global).midY
                         
                         let yPosition = globalMidY < screenMidY ? 
@@ -105,8 +106,20 @@ struct CoachMarkModifier: ViewModifier {
                             userDefaults: coachMarkWrapper.projectedValue,
                             key: coachMarkWrapper.keyBase
                         )
+                        
+                        // These do not work: I will try my own solution in Playground.
+                        // Need to decide what to calculate based on button's coordinates: what can SwiftUI calculate for you.
+                        
+                        let screenCenterX = UIScreen.main.bounds.width / 2
+                        let buttonCenterX = proxy.frame(in: .global).midX
+                        let differenceX = screenCenterX - buttonCenterX
+                        let coachMarkXPosition = UIDevice.currentDeviceIsPhone() ? screenCenterX : buttonCenterX + differenceX
+
+                        // Adjust the x-axis position based on the device type and target view offset
+                        
                         ZStack {
-                            let coachMarkHeight = coachMarkWrapper.projectedValue.coachMarkHeight ?? 0
+                            let coachMarkHeight = coachMarkWrapper.projectedValue.coachMarkHeight ?? 175
+                            
                             
                             coachMark
                                 .position(
