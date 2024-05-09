@@ -92,7 +92,7 @@ struct CoachMarkModifier: ViewModifier {
                         let pointerWidth: CGFloat = 35
                         // GeometryReader: Frame gives you measurements in super view coordinate system. Bounds does the opposite: Coordinates based on its own coordinate system. 0,0 -> MaxY, MaxX. Worth learning more, play around with the difference in Playgrounds.
                         
-                        let screenMidY = proxy.frame(in: .local).midY / 2 // Better off not using UIScreen measurements. Need to decide where the button is based on its coordinates.
+                        let screenMidY = UIScreen.main.bounds.height / 2 // Better off not using UIScreen measurements. Need to decide where the button is based on its coordinates.
                         let globalMidY = proxy.frame(in: .global).midY
                         
                         let yPosition = globalMidY < screenMidY ? 
@@ -190,7 +190,7 @@ struct TestView2: View {
                     $showShortlistCoachMark.setInteraction(forKey: Constants.key)
                 }
                 .buttonStyle(.borderedProminent)
-//                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 
                 Text("Test313313131313133131")
 //                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
@@ -218,7 +218,7 @@ struct TestView2: View {
                         $showShortlistCoachMark.setInteraction(forKey: Constants.key)
                     }
                     .buttonStyle(.borderedProminent)
-                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+//                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 }
             }
             .frame(height: 600)
