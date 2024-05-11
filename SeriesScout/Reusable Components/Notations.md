@@ -27,7 +27,7 @@ GeometryReader: Frame gives you measurements in super view coordinate system. Bo
 ## CoachMarksUserDefaults / CoachMark:
 
 
-- [ x ] Rename CoachMarkWrapper to @CoachMark
+- [x] Rename CoachMarkWrapper to @CoachMark
 - [ ] Instead of projectedValue as CoachMarksUserDefaults, have an object that manages the CoachMarksUserDefaults itself:
 
 Struct within CoachMarkWrapper, struct CoachMarkValue
