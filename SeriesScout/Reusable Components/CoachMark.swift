@@ -75,7 +75,7 @@ struct CoachMarkHeightKey: PreferenceKey {
 
 struct CoachMarkModifier: ViewModifier {
     //TODO: Separate the modifier for the pop up vs the content within.
-    // The modifier can just handle the pop up and sizing. I can then pass a View into them. 
+    // The modifier can just handle the pop up and sizing. I can then pass a View into them.
     
     var coachMarkWrapper: CoachMark
     let spacing: CGFloat
@@ -92,6 +92,7 @@ struct CoachMarkModifier: ViewModifier {
                         let pointerWidth: CGFloat = 35
                         // GeometryReader: Frame gives you measurements in super view coordinate system. Bounds does the opposite: Coordinates based on its own coordinate system. 0,0 -> MaxY, MaxX. Worth learning more, play around with the difference in Playgrounds.
                         
+                        // Issue: I can't seem to read where the screen midpoint is without using UIScreen. GeometryReader in this context only provides me with the CoachMark X, Y coordinates.
                         let screenMidY = UIScreen.main.bounds.height / 2 // Better off not using UIScreen measurements. Need to decide where the button is based on its coordinates.
                         let globalMidY = proxy.frame(in: .global).midY
                         
@@ -119,8 +120,12 @@ struct CoachMarkModifier: ViewModifier {
                         
                         ZStack {
                             let coachMarkHeight = coachMarkWrapper.projectedValue.coachMarkHeight ?? 175
+//
                             
+//                            content.view.window?.windowScene?.screen.bounds.height
+//                            UIHostingController(rootView: "coachMark").rootView
                             
+                            // Can change the x coordinate to UIScreen.main.bounds.width but it's not precise enough
                             coachMark
                                 .position(
                                     x: proxy.frame(in: .local).midX,
@@ -190,7 +195,7 @@ struct TestView2: View {
                     $showShortlistCoachMark.setInteraction(forKey: Constants.key)
                 }
                 .buttonStyle(.borderedProminent)
-                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+//                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 
                 Text("Test313313131313133131")
 //                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
@@ -218,7 +223,7 @@ struct TestView2: View {
                         $showShortlistCoachMark.setInteraction(forKey: Constants.key)
                     }
                     .buttonStyle(.borderedProminent)
-//                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
+                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 }
             }
             .frame(height: 600)
