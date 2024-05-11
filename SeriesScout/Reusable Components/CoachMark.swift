@@ -10,13 +10,9 @@ import SwiftUI
 
 struct CoachMarkView: View {
     
-    // Requirements to take into consideration: Different screen sizes, scroll view
-    // TODO: Try different test view configurations to initialise it with.
-    
     let title: String
     let message: String
     let buttonText: String
-    //    let pointerPlacement: PointerView.PointerPlacement // Recommend against doing this: Have a preferred location: Left, Right, Top or Bottom. It needs to be dynamic so that it changes according to where the view is. (I assume, if the view is lower down the screen, coach should point down; if it is higher, it should point up...)
     let userDefaults: CoachMarksUserDefaults
     let key: String
     
@@ -35,7 +31,6 @@ struct CoachMarkView: View {
             
             Button(buttonText) {
                 userDefaults.setInteraction(forKey: key)
-                //TODO: Currently, this is the only thing preventing users from seeing it again once it displays to them. If they navigate back and return, coachmarks will persist. I need to handle this scenario.
             }
             .buttonStyle(primaryButtonStyle)
             
@@ -49,7 +44,6 @@ struct CoachMarkView: View {
         .background(GeometryReader { proxy in
             Color.clear.preference(key: CoachMarkHeightKey.self, value: proxy.size.height)
         })
-        //Iovanna: General idea behind SwiftUI development is defining rules of how you want things to display, and not setting strict framing sizes.
     }
     
     let primaryButtonStyle = PrimaryButton(
@@ -74,23 +68,17 @@ struct CoachMarkHeightKey: PreferenceKey {
 }
 
 struct CoachMarkModifier: ViewModifier {
-    //TODO: Separate the modifier for the pop up vs the content within.
-    // The modifier can just handle the pop up and sizing. I can then pass a View into them.
-    
     var coachMarkWrapper: CoachMark
     let spacing: CGFloat
     let coachMarkType: CoachMarkFactory.CoachMarkType
-    
-    //TODO: For the dimmer effect: Have an anchorView property in the modifier. Pass in an element which would be the view that I am modifying. Instead of applying this viewModifier to the Shortlist Button, I will be applying it to the overall VStack for the TestView body. That way, this view modifier will be able to modify the background property for the entire screen. The AnchorView will be the Shortlist button which I will handle in the below code.
 
     func body(content: Content) -> some View {
         content
             .overlay {
-                if coachMarkWrapper.wrappedValue /* && coachMarkWrapper.projectedValue.coachMarkHeight != 0*/ {
+                if coachMarkWrapper.wrappedValue {
                     GeometryReader { proxy in
                         let pointerHeight: CGFloat = 33
                         let pointerWidth: CGFloat = 35
-                        // GeometryReader: Frame gives you measurements in super view coordinate system. Bounds does the opposite: Coordinates based on its own coordinate system. 0,0 -> MaxY, MaxX. Worth learning more, play around with the difference in Playgrounds.
                         
                         // Issue: I can't seem to read where the screen midpoint is without using UIScreen. GeometryReader in this context only provides me with the CoachMark X, Y coordinates.
                         let screenMidY = UIScreen.main.bounds.height / 2 // Better off not using UIScreen measurements. Need to decide where the button is based on its coordinates.
@@ -120,7 +108,6 @@ struct CoachMarkModifier: ViewModifier {
                         
                         ZStack {
                             let coachMarkHeight = coachMarkWrapper.projectedValue.coachMarkHeight ?? 175
-//
                             
 //                            content.view.window?.windowScene?.screen.bounds.height
 //                            UIHostingController(rootView: "coachMark").rootView
@@ -200,7 +187,6 @@ struct TestView2: View {
                 Text("Test313313131313133131")
 //                    .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
                 
-                
                 Text("This is a test space")
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
@@ -244,12 +230,6 @@ struct TestView2: View {
             $showShortlistCoachMark.incrementViewCount(forKey: Constants.key)
         })
     }
-    
-    let primaryButtonStyle = PrimaryButton(
-        backgroundColor: .blue,
-        foregroundColor: Color(.white),
-        font: Font.custom("Ambit-Bold", size: 18)
-    )
     
     struct Constants {
         static let key = "EAT-Shortlist-Test"
