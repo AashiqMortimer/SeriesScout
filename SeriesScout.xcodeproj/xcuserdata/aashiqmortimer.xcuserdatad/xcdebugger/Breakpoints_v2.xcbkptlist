@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.IDETestFailureBreakpoint">
          <BreakpointContent
             uuid = "89F406F1-D8CD-4BB4-91C7-C66DA847157F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             condition = "let seriesName = viewModel.seriesName"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
