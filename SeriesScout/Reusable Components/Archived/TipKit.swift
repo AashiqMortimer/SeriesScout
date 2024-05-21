@@ -41,12 +41,14 @@ struct TipKitTestView: View {
                 .frame(width: 250, height: 30)
                 .background(.yellow)
 //                .popoverTip(tip).tipViewStyle(CustomTip())
-            Button("Shortlist"){
-                
+            HStack(spacing: 200) {
+                Text("Nothing")
+                    .hidden()
+                Button("Shortlist"){
+                }
+                .buttonStyle(.borderedProminent)
+                .popoverTip(tip).tipViewStyle(CustomTip())
             }
-            .buttonStyle(.borderedProminent)
-            .padding(.leading, 300)
-            .popoverTip(tip).tipViewStyle(CustomTip())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
@@ -120,6 +122,7 @@ struct CustomTip: TipViewStyle {
         }
         .padding()
         .background(.white)
+        .accentColor(.white)
     }
 }
 

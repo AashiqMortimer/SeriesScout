@@ -23,6 +23,10 @@
 		2F9AB6BA2BEFE1D700CC2C61 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 2F9AB6B92BEFE1D700CC2C61 /* InlineSnapshotTesting */; };
 		2F9AB6BC2BEFE1D700CC2C61 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 2F9AB6BB2BEFE1D700CC2C61 /* SnapshotTesting */; };
 		2F9AB6C02BEFE29700CC2C61 /* CoachMarkViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB6BF2BEFE29700CC2C61 /* CoachMarkViewTests.swift */; };
+		2F9AB78C2BF39F2C00CC2C61 /* SearchResultCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB78B2BF39F2C00CC2C61 /* SearchResultCardView.swift */; };
+		2F9AB78E2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB78D2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift */; };
+		2F9AB7902BF3A9F800CC2C61 /* ZStacksAndScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB78F2BF3A9F800CC2C61 /* ZStacksAndScrollView.swift */; };
+		2F9AB7B12BF7753A00CC2C61 /* ModalVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB7B02BF7753A00CC2C61 /* ModalVersion.swift */; };
 		2FA0C7DC2BC1D95C00D52BDD /* CoachMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */; };
 		2FA0C7EB2BC1E2E700D52BDD /* Ambit-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0C7EA2BC1E2E700D52BDD /* Ambit-Bold.otf */; };
 		2FA0C7ED2BC3134600D52BDD /* TUITypeLight-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0C7EC2BC3134600D52BDD /* TUITypeLight-Regular.ttf */; };
@@ -61,6 +65,10 @@
 		2F9AB6B32BEFC3EA00CC2C61 /* CoachMarksUserDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarksUserDefaultsTests.swift; sourceTree = "<group>"; };
 		2F9AB6B72BEFD13200CC2C61 /* Notations.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notations.md; sourceTree = "<group>"; };
 		2F9AB6BF2BEFE29700CC2C61 /* CoachMarkViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkViewTests.swift; sourceTree = "<group>"; };
+		2F9AB78B2BF39F2C00CC2C61 /* SearchResultCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCardView.swift; sourceTree = "<group>"; };
+		2F9AB78D2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRatingOverviewView.swift; sourceTree = "<group>"; };
+		2F9AB78F2BF3A9F800CC2C61 /* ZStacksAndScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStacksAndScrollView.swift; sourceTree = "<group>"; };
+		2F9AB7B02BF7753A00CC2C61 /* ModalVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalVersion.swift; sourceTree = "<group>"; };
 		2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMark.swift; sourceTree = "<group>"; };
 		2FA0C7EA2BC1E2E700D52BDD /* Ambit-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ambit-Bold.otf"; path = "../../../Ambit-Bold.otf"; sourceTree = "<group>"; };
 		2FA0C7EC2BC3134600D52BDD /* TUITypeLight-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TUITypeLight-Regular.ttf"; path = "../../../TUITypeLight-Regular.ttf"; sourceTree = "<group>"; };
@@ -159,11 +167,22 @@
 			path = CoachMarks;
 			sourceTree = "<group>";
 		};
+		2F9AB78A2BF39EF200CC2C61 /* TDAClone */ = {
+			isa = PBXGroup;
+			children = (
+				2F9AB78B2BF39F2C00CC2C61 /* SearchResultCardView.swift */,
+				2F9AB78D2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift */,
+				2F9AB78F2BF3A9F800CC2C61 /* ZStacksAndScrollView.swift */,
+			);
+			path = TDAClone;
+			sourceTree = "<group>";
+		};
 		2FA0C7DA2BC1D93300D52BDD /* Reusable Components */ = {
 			isa = PBXGroup;
 			children = (
 				2F9AB6B12BEFC25700CC2C61 /* Archived */,
 				2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */,
+				2F9AB7B02BF7753A00CC2C61 /* ModalVersion.swift */,
 				2F7578282BCC4D630090306F /* CoachMarksUserDefaults.swift */,
 				2F3108752BE9392C00799115 /* TDAProjCode.swift */,
 				2F9AB6B72BEFD13200CC2C61 /* Notations.md */,
@@ -192,6 +211,7 @@
 		2FC48A3F2B7D1F2C0042485E /* SeriesScout */ = {
 			isa = PBXGroup;
 			children = (
+				2F9AB78A2BF39EF200CC2C61 /* TDAClone */,
 				2FA0C7DA2BC1D93300D52BDD /* Reusable Components */,
 				2F5ABD1E2B85FFE000B8A5D6 /* Resources */,
 				2FC48A6D2B7D1FE30042485E /* View */,
@@ -378,15 +398,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F9AB7B12BF7753A00CC2C61 /* ModalVersion.swift in Sources */,
 				2FC48A6F2B7D20250042485E /* UtellyModel.swift in Sources */,
 				2FA0C7DC2BC1D95C00D52BDD /* CoachMark.swift in Sources */,
 				2FC48A432B7D1F2C0042485E /* ResultView.swift in Sources */,
 				2F867ED32BE54ACB00ECC1ED /* GeometryReaderTestView.swift in Sources */,
 				2F8DCB9D2B7F9E5900466CF0 /* SeriesScoutViewModel.swift in Sources */,
+				2F9AB78E2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift in Sources */,
 				2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */,
+				2F9AB7902BF3A9F800CC2C61 /* ZStacksAndScrollView.swift in Sources */,
 				2F3108762BE9392C00799115 /* TDAProjCode.swift in Sources */,
 				2FC48A712B7D207B0042485E /* SeriesScoutNetworkService.swift in Sources */,
 				2F8EDAFB2BBEE85300D7785D /* GenericErrorView.swift in Sources */,
+				2F9AB78C2BF39F2C00CC2C61 /* SearchResultCardView.swift in Sources */,
 				2F2DE36E2BE008FC00636A0E /* TipKit.swift in Sources */,
 				2F7578292BCC4D630090306F /* CoachMarksUserDefaults.swift in Sources */,
 				2F6F396B2BC3205200CECC85 /* PointerView.swift in Sources */,

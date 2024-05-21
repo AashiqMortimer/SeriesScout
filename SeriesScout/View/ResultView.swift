@@ -32,8 +32,12 @@ struct ResultView: View {
                             Text("Open TestView")
                         }
                         .buttonStyle(.borderedProminent)
-                        NavigationLink(destination: GeometryReaderTestView()) {
-                            Text("Open PointerTest")
+                        NavigationLink(destination: TestView3()) {
+                            Text("Open ModalVersion")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        NavigationLink(destination: ExampleView()) {
+                            Text("Open SearchCard")
                         }
                         .buttonStyle(.borderedProminent)
                         Spacer()
