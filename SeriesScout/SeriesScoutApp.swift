@@ -11,7 +11,7 @@ import SwiftUI
 struct SeriesScoutApp: App {
     var body: some Scene {
         WindowGroup {
-            ResultView(viewModel: SeriesScoutViewModel(networkService: SeriesScoutNetworkService()))
+            ResultView(viewModel: SeriesScoutViewModel(networkService: SeriesScoutNetworkService())).environmentObject(CoachMarksUserDefaults())
         }
     }
 }

@@ -32,11 +32,7 @@ struct ResultView: View {
                             Text("Open TestView")
                         }
                         .buttonStyle(.borderedProminent)
-                        NavigationLink(destination: TestView3()) {
-                            Text("Open ModalVersion")
-                        }
-                        .buttonStyle(.borderedProminent)
-                        NavigationLink(destination: ExampleView()) {
+                        NavigationLink(destination: ExampleView().environmentObject(CoachMarksUserDefaults())) {
                             Text("Open SearchCard")
                         }
                         .buttonStyle(.borderedProminent)

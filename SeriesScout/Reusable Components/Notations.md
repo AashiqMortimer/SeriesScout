@@ -35,3 +35,12 @@ Struct within CoachMarkWrapper, struct CoachMarkValue
 This will have the methods: setInteraction and incrementViewCount
 Idea behind this is that it will have access to the keyBase so we wouldnt have to pass that each time in the view.
 projectedValue can point to CoachMarkValue
+
+
+## James Latest Notes:
+
+- [ ] Rename anything with 'wrapper' in it. Happy with modifier
+- [ ] Get rid of factory and instantiate view directly
+
+Potentially use the feature flag that Diogo presents on Monday's iOS Chapter meeting.
+

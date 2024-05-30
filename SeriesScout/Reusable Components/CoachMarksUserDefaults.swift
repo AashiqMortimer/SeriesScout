@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 
 class CoachMarksUserDefaults: ObservableObject {
+    
+    // Change to: CoachMarksStorage
+    // Initialiser 
+    
     private let defaults: UserDefaults
     
     @Published private(set) var interactionFlags: [String: Bool] = [:] 

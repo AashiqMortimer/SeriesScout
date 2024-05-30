@@ -59,75 +59,75 @@ struct CoachMarkView: View {
     }
 }
 
-struct CoachMarkHeightKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = nextValue()
-    }
-}
-
-struct CoachMarkModifier: ViewModifier {
-    var coachMarkWrapper: CoachMark
-    let spacing: CGFloat
-    let coachMarkType: CoachMarkFactory.CoachMarkType
-    let coachedFeature: CGRect
-
-    func body(content: Content) -> some View {
-        content
-            .overlay {
-                GeometryReader { proxy in
-                    let screenMidY = proxy.frame(in: .global).midY
-                    let buttonMidY = coachedFeature.midY
-                    let isButtonInTopHalf = buttonMidY < screenMidY
-
-                    let pointerHeight: CGFloat = 33
-                    let coachMarkHeight = coachMarkWrapper.projectedValue.coachMarkHeight ?? 175
-                    let totalHeight = pointerHeight + coachMarkHeight + spacing
-
-                    let yPosition = isButtonInTopHalf ?
-                        buttonMidY + totalHeight :
-                        buttonMidY - totalHeight
-
-                    let rotation = isButtonInTopHalf ? Angle(degrees: 0) : Angle(degrees: 180)
-
-                    let coachMark = CoachMarkFactory.createCoachMark(
-                        type: coachMarkType,
-                        userDefaults: coachMarkWrapper.projectedValue,
-                        key: coachMarkWrapper.keyBase
-                    )
-
-                    let screenCenterX = proxy.frame(in: .global).midX
-
-                    ZStack {
-                        coachMark
-                            .position(
-                                x: screenCenterX,
-                                y: isButtonInTopHalf ?
-                                yPosition - (pointerHeight / 2) :
-                                    yPosition + (pointerHeight / 2)
-                            )
-
-                        Triangle()
-                            .frame(width: 35, height: pointerHeight)
-                            .position(x: screenCenterX, y: yPosition)
-                            .rotationEffect(rotation, anchor: .top)
-                            .foregroundStyle(.white)
-                    }
-                }
-                .onPreferenceChange(CoachMarkHeightKey.self) { newHeight in
-                    coachMarkWrapper.projectedValue.coachMarkHeight = newHeight
-                }
-                .zIndex(1)
-            }
-    }
-}
-
-extension View {
-    func coachMark(coachMarkWrapper: CoachMark, spacing: CGFloat, type: CoachMarkFactory.CoachMarkType, coachedFeature: CGRect) -> some View {
-        modifier(CoachMarkModifier(coachMarkWrapper: coachMarkWrapper, spacing: spacing, coachMarkType: type, coachedFeature: coachedFeature))
-    }
-}
+//struct CoachMarkHeightKey: PreferenceKey {
+//    static var defaultValue: CGFloat = 0
+//    
+//    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+//        value = nextValue()
+//    }
+//}
+//
+//struct CoachMarkModifier: ViewModifier {
+//    var coachMarkWrapper: CoachMark
+//    let spacing: CGFloat
+//    let coachMarkType: CoachMarkFactory.CoachMarkType
+//    let coachedFeature: CGRect
+//
+//    func body(content: Content) -> some View {
+//        content
+//            .overlay {
+//                GeometryReader { proxy in
+//                    let screenMidY = proxy.frame(in: .global).midY
+//                    let buttonMidY = coachedFeature.midY
+//                    let isButtonInTopHalf = buttonMidY < screenMidY
+//
+//                    let pointerHeight: CGFloat = 33
+//                    let coachMarkHeight = coachMarkWrapper.projectedValue.coachMarkHeight ?? 175
+//                    let totalHeight = pointerHeight + coachMarkHeight + spacing
+//
+//                    let yPosition = isButtonInTopHalf ?
+//                        buttonMidY + totalHeight :
+//                        buttonMidY - totalHeight
+//
+//                    let rotation = isButtonInTopHalf ? Angle(degrees: 0) : Angle(degrees: 180)
+//
+//                    let coachMark = CoachMarkFactory.createCoachMark(
+//                        type: coachMarkType,
+//                        userDefaults: coachMarkWrapper.projectedValue,
+//                        key: coachMarkWrapper.keyBase
+//                    )
+//
+//                    let screenCenterX = proxy.frame(in: .global).midX
+//
+//                    ZStack {
+//                        coachMark
+//                            .position(
+//                                x: screenCenterX,
+//                                y: isButtonInTopHalf ?
+//                                yPosition - (pointerHeight / 2) :
+//                                    yPosition + (pointerHeight / 2)
+//                            )
+//
+//                        Triangle()
+//                            .frame(width: 35, height: pointerHeight)
+//                            .position(x: screenCenterX, y: yPosition)
+//                            .rotationEffect(rotation, anchor: .top)
+//                            .foregroundStyle(.white)
+//                    }
+//                }
+//                .onPreferenceChange(CoachMarkHeightKey.self) { newHeight in
+//                    coachMarkWrapper.projectedValue.coachMarkHeight = newHeight
+//                }
+//                .zIndex(1)
+//            }
+//    }
+//}
+//
+//extension View {
+//    func coachMark(coachMarkWrapper: CoachMark, spacing: CGFloat, type: CoachMarkFactory.CoachMarkType, coachedFeature: CGRect) -> some View {
+//        modifier(CoachMarkModifier(coachMarkWrapper: coachMarkWrapper, spacing: spacing, coachMarkType: type, coachedFeature: coachedFeature))
+//    }
+//}
 
 struct CoachMarkFactory {
     enum CoachMarkType {
@@ -219,7 +219,7 @@ struct TestView2: View {
         .onAppear(perform: {
             $showShortlistCoachMark.incrementViewCount(forKey: Constants.key)
         })
-        .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist, coachedFeature: buttonFrame)
+//        .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist, coachedFeature: buttonFrame)
     }
     
     struct Constants {
