@@ -40,7 +40,7 @@ projectedValue can point to CoachMarkValue
 ## James Latest Notes:
 
 - [x] Rename anything with 'wrapper' in it. Happy with modifier
-- [ ] Get rid of factory and instantiate view directly
+- [x] Get rid of factory and instantiate view directly
 - [ ] Update unit and snapshot tests
 
 Potentially use the feature flag that Diogo presents on Monday's iOS Chapter meeting.

@@ -13,8 +13,7 @@ struct CoachMarkView: View {
     let title: String
     let message: String
     let buttonText: String
-    let userDefaults: CoachMarksUserDefaults
-    let key: String
+    let storage: CoachMark
     
     var body: some View {
         VStack(alignment: .center, spacing: 12) {
@@ -30,7 +29,7 @@ struct CoachMarkView: View {
                 .frame(maxWidth: 295, maxHeight: .infinity)
             
             Button(buttonText) {
-                userDefaults.setInteraction(forKey: key)
+                storage.projectedValue.setInteraction(forKey: storage.keyBase)
             }
             .buttonStyle(primaryButtonStyle)
             
@@ -56,32 +55,32 @@ struct CoachMarkView: View {
     }
 }
 
-struct CoachMarkFactory {
-    enum CoachMarkType {
-        case shortlist
-    }
-    
-    static func createCoachMark(type: CoachMarkType, userDefaults: CoachMarksUserDefaults, key: String) -> CoachMarkView {
-        switch type {
-        case .shortlist:
-            return shortlistCoachMark(userDefaults: userDefaults, key: key)
-        }
-    }
-    
-    static func shortlistCoachMark(userDefaults: CoachMarksUserDefaults, key: String) -> CoachMarkView {
-        CoachMarkView(title: Constants.shortlistTitle,
-                      message: Constants.shortlistMessage,
-                      buttonText: Constants.buttonText,
-                      userDefaults: userDefaults,
-                      key: key)
-    }
-    
-    struct Constants {
-        static let shortlistTitle = "Add to your shortlist"
-        static let shortlistMessage = "You can save and compare your favourite holidays by adding them to your shortlist"
-        static let buttonText = "Got it"
-    }
-}
+//struct CoachMarkFactory {
+//    enum CoachMarkType {
+//        case shortlist
+//    }
+//    
+//    static func createCoachMark(type: CoachMarkType, userDefaults: CoachMarksUserDefaults, key: String) -> CoachMarkView {
+//        switch type {
+//        case .shortlist:
+//            return shortlistCoachMark(userDefaults: userDefaults, key: key)
+//        }
+//    }
+//    
+//    static func shortlistCoachMark(userDefaults: CoachMarksUserDefaults, key: String) -> CoachMarkView {
+//        CoachMarkView(title: Constants.shortlistTitle,
+//                      message: Constants.shortlistMessage,
+//                      buttonText: Constants.buttonText,
+//                      userDefaults: userDefaults,
+//                      key: key)
+//    }
+//    
+//    struct Constants {
+//        static let shortlistTitle = "Add to your shortlist"
+//        static let shortlistMessage = "You can save and compare your favourite holidays by adding them to your shortlist"
+//        static let buttonText = "Got it"
+//    }
+//}
 
 struct TestView2: View {
     @CoachMark(key: Constants.key, threshold: 0) var showShortlistCoachMark

@@ -10,20 +10,20 @@ import SwiftUI
 
 struct CoachMarkModifier: ViewModifier {
     //TODO: Remove CoachMarkFactory way of doing things. Instead, values should be initialised from a ViewModel, or within a view, to avoid FirebaseWrapper type scenario. This currently violates the open/close principle for SOLID as I have to modify the base class of Factory to add extra features. Explore other SOLID principles too, how I've separated stuff out.
-    let coachMarkType: CoachMarkFactory.CoachMarkType
     var coachMarkStorage: CoachMark?
+    let title: String
+    let message: String
+    let buttonText: String
     private var shouldShowCoachMark: Bool {
         coachMarkStorage?.wrappedValue ?? false
     }
     
     func body(content: Content) -> some View {
-        
         // Note: We're protecting the code here; if we don't have a coach mark, we will never show an empty coachmark or view. Another option would have been to inject an empty coach mark into the factory. But if somebody changes the code in the future, we have the risk of it appearing. This way, we can prevent that happening.
-        
         if let coachMark = coachMarkStorage {
             content
                 .popover(isPresented: .constant(shouldShowCoachMark), content: {
-                    CoachMarkFactory.createCoachMark(type: coachMarkType, userDefaults: coachMark.projectedValue, key: coachMark.keyBase)
+                    CoachMarkView(title: title, message: message, buttonText: buttonText, storage: coachMark)
                         .presentationCompactAdaptation(.popover)
                         .presentationBackground(.white)
                 })
@@ -34,8 +34,8 @@ struct CoachMarkModifier: ViewModifier {
 }
 
 extension View {
-    func coachMark(coachMarkType: CoachMarkFactory.CoachMarkType, coachMarkStorage: CoachMark?) -> some View {
-        modifier(CoachMarkModifier(coachMarkType: coachMarkType, coachMarkStorage: coachMarkStorage))
+    func coachMark(coachMarkStorage: CoachMark?, title: String, message: String, buttonText: String) -> some View {
+        modifier(CoachMarkModifier(coachMarkStorage: coachMarkStorage, title: title, message: message, buttonText: buttonText))
     }
 }
 
@@ -65,14 +65,24 @@ struct SearchCard: View {
                         .resizable()
                 }
                 .frame(width: 50, height: 50)
-                .coachMark(coachMarkType: .shortlist,
-                           coachMarkStorage: coachMark)
+//                .coachMark(coachMarkType: .shortlist,
+//                           coachMarkStorage: coachMark)
+                .coachMark(coachMarkStorage: coachMark, 
+                           title: Constants.shortlistTitle,
+                           message: Constants.shortlistMessage,
+                           buttonText: Constants.buttonText)
             }
             
             Text("Eiffel Tower")
         }
         .padding()
         .border(.red)
+    }
+    
+    struct Constants {
+        static let shortlistTitle = "Add to your shortlist"
+        static let shortlistMessage = "You can save and compare your favourite holidays by adding them to your shortlist"
+        static let buttonText = "Got it"
     }
 }
 
