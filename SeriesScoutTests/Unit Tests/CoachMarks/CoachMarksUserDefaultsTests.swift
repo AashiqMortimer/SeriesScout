@@ -32,7 +32,6 @@ final class CoachMarksUserDefaultsTests: XCTestCase {
         coachMarksUserDefaults.initialiseValues(interactionKey: interactionKey, viewKey: viewKey)
         XCTAssertFalse(coachMarksUserDefaults.interactionOccurred(forKey: interactionKey))
         XCTAssertEqual(coachMarksUserDefaults.viewCount(forKey: viewKey), 0)
-        XCTAssertNil(coachMarksUserDefaults.coachMarkHeight)
     }
     
     func testIncrementViewCount() {

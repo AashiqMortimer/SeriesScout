@@ -17,9 +17,7 @@ class CoachMarksUserDefaults: ObservableObject {
     
     @Published private(set) var interactionFlags: [String: Bool] = [:] 
 
-    @Published private(set) var viewCounts: [String: Int] = [:] 
-    
-    @Published var coachMarkHeight: CGFloat? = nil
+    @Published private(set) var viewCounts: [String: Int] = [:]
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults

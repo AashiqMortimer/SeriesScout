@@ -40,6 +40,9 @@ struct CoachMarkView: View {
         .fixedSize(horizontal: true, vertical: true)
         .background(.white)
         .cornerRadius(12)
+        .onDisappear(perform: {
+            storage.projectedValue.setInteraction(forKey: storage.keyBase)
+        })
     }
     
     let primaryButtonStyle = PrimaryButton(
