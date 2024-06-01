@@ -13,7 +13,7 @@ import SwiftUI
 final class CoachMarkViewTests: XCTestCase {
     
     func testCoachMarkView() {
-        let view = CoachMarkView(title: "Title", message: "This is a coach mark", buttonText: "Got it", userDefaults: CoachMarksUserDefaults(), key: "testKey")
+        let view = CoachMarkView(title: "Title", message: "This is a coach mark", buttonText: "Got it", storage: CoachMark(key: "testKey", threshold: 0))
         
         assertSnapshot(of: view, as: .image)
     }

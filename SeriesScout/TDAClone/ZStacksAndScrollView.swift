@@ -65,8 +65,6 @@ struct SearchCard: View {
                         .resizable()
                 }
                 .frame(width: 50, height: 50)
-//                .coachMark(coachMarkType: .shortlist,
-//                           coachMarkStorage: coachMark)
                 .coachMark(coachMarkStorage: coachMark, 
                            title: Constants.shortlistTitle,
                            message: Constants.shortlistMessage,
