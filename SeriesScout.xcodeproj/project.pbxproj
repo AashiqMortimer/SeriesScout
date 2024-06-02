@@ -26,7 +26,7 @@
 		2F9AB6C02BEFE29700CC2C61 /* CoachMarkViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB6BF2BEFE29700CC2C61 /* CoachMarkViewTests.swift */; };
 		2F9AB78C2BF39F2C00CC2C61 /* SearchResultCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB78B2BF39F2C00CC2C61 /* SearchResultCardView.swift */; };
 		2F9AB78E2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB78D2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift */; };
-		2F9AB7902BF3A9F800CC2C61 /* ZStacksAndScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB78F2BF3A9F800CC2C61 /* ZStacksAndScrollView.swift */; };
+		2F9AB7902BF3A9F800CC2C61 /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB78F2BF3A9F800CC2C61 /* ExampleView.swift */; };
 		2F9AB7B12BF7753A00CC2C61 /* ModalVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AB7B02BF7753A00CC2C61 /* ModalVersion.swift */; };
 		2FA0C7DC2BC1D95C00D52BDD /* CoachMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */; };
 		2FA0C7EB2BC1E2E700D52BDD /* Ambit-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0C7EA2BC1E2E700D52BDD /* Ambit-Bold.otf */; };
@@ -69,7 +69,7 @@
 		2F9AB6BF2BEFE29700CC2C61 /* CoachMarkViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkViewTests.swift; sourceTree = "<group>"; };
 		2F9AB78B2BF39F2C00CC2C61 /* SearchResultCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCardView.swift; sourceTree = "<group>"; };
 		2F9AB78D2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsRatingOverviewView.swift; sourceTree = "<group>"; };
-		2F9AB78F2BF3A9F800CC2C61 /* ZStacksAndScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZStacksAndScrollView.swift; sourceTree = "<group>"; };
+		2F9AB78F2BF3A9F800CC2C61 /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		2F9AB7B02BF7753A00CC2C61 /* ModalVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalVersion.swift; sourceTree = "<group>"; };
 		2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMark.swift; sourceTree = "<group>"; };
 		2FA0C7EA2BC1E2E700D52BDD /* Ambit-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ambit-Bold.otf"; path = "../../../Ambit-Bold.otf"; sourceTree = "<group>"; };
@@ -138,9 +138,13 @@
 		2F9AB6B12BEFC25700CC2C61 /* Archived */ = {
 			isa = PBXGroup;
 			children = (
+				2F9AB7B02BF7753A00CC2C61 /* ModalVersion.swift */,
 				2F2DE36D2BE008FC00636A0E /* TipKit.swift */,
 				2F6F396A2BC3205200CECC85 /* PointerView.swift */,
 				2F867ED22BE54ACB00ECC1ED /* GeometryReaderTestView.swift */,
+				2F9A61452C07643000B1D356 /* EnvironmentObject.swift */,
+				2F9AB78D2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift */,
+				2F9AB78B2BF39F2C00CC2C61 /* SearchResultCardView.swift */,
 			);
 			path = Archived;
 			sourceTree = "<group>";
@@ -172,10 +176,6 @@
 		2F9AB78A2BF39EF200CC2C61 /* TDAClone */ = {
 			isa = PBXGroup;
 			children = (
-				2F9AB78B2BF39F2C00CC2C61 /* SearchResultCardView.swift */,
-				2F9AB78D2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift */,
-				2F9AB78F2BF3A9F800CC2C61 /* ZStacksAndScrollView.swift */,
-				2F9A61452C07643000B1D356 /* EnvironmentObject.swift */,
 			);
 			path = TDAClone;
 			sourceTree = "<group>";
@@ -185,9 +185,9 @@
 			children = (
 				2F9AB6B12BEFC25700CC2C61 /* Archived */,
 				2FA0C7DB2BC1D95C00D52BDD /* CoachMark.swift */,
-				2F9AB7B02BF7753A00CC2C61 /* ModalVersion.swift */,
 				2F7578282BCC4D630090306F /* CoachMarksUserDefaults.swift */,
 				2F3108752BE9392C00799115 /* TDAProjCode.swift */,
+				2F9AB78F2BF3A9F800CC2C61 /* ExampleView.swift */,
 				2F9AB6B72BEFD13200CC2C61 /* Notations.md */,
 			);
 			path = "Reusable Components";
@@ -410,7 +410,7 @@
 				2F9A61462C07643000B1D356 /* EnvironmentObject.swift in Sources */,
 				2F9AB78E2BF3A14800CC2C61 /* ResultsRatingOverviewView.swift in Sources */,
 				2FC48A412B7D1F2C0042485E /* SeriesScoutApp.swift in Sources */,
-				2F9AB7902BF3A9F800CC2C61 /* ZStacksAndScrollView.swift in Sources */,
+				2F9AB7902BF3A9F800CC2C61 /* ExampleView.swift in Sources */,
 				2F3108762BE9392C00799115 /* TDAProjCode.swift in Sources */,
 				2FC48A712B7D207B0042485E /* SeriesScoutNetworkService.swift in Sources */,
 				2F8EDAFB2BBEE85300D7785D /* GenericErrorView.swift in Sources */,

@@ -48,24 +48,14 @@ class CoachMarksUserDefaults: ObservableObject {
         }
     }
 
-    func incrementViewCount(forKey baseKey: String) {
-        let key = baseKey + "_viewCount"
-        viewCounts[key, default: 0] += 1
+    func incrementViewCount(for coachMark: CoachMark) {
+        viewCounts[coachMark.viewCountKey, default: 0] += 1
         updateDefaults()
     }
 
-    func setInteraction(forKey baseKey: String) {
-        let key = baseKey + "_interactionFlag"
-        interactionFlags[key] = true
+    func setInteraction(for coachMark: CoachMark) {
+        interactionFlags[coachMark.interactionFlagKey] = true
         updateDefaults()
-    }
-
-    func viewCount(forKey key: String) -> Int {
-        return viewCounts[key, default: 0]
-    }
-
-    func interactionOccurred(forKey key: String) -> Bool {
-        return interactionFlags[key, default: false]
     }
 
     //TODO: Delete later, this is just for testing purposes:
@@ -83,20 +73,27 @@ struct CoachMark: DynamicProperty {
     @ObservedObject private var coachMarksDefaults: CoachMarksUserDefaults
     
     var wrappedValue: Bool {
-        let viewCountKey = "\(keyBase)_viewCount"
-        let interactionKey = "\(keyBase)_interactionFlag"
-        return coachMarksDefaults.viewCount(forKey: viewCountKey) >= threshold &&
-               !coachMarksDefaults.interactionOccurred(forKey: interactionKey)
+        return coachMarksDefaults.viewCounts[self.viewCountKey, default: 0] >= 
+        threshold &&
+        !coachMarksDefaults.interactionFlags[self.interactionFlagKey, default: false]
     }
     
     var projectedValue: CoachMarksUserDefaults {
         coachMarksDefaults
     }
     
+    var viewCountKey: String {
+        return "\(keyBase)_viewCount"
+    }
+    
+    var interactionFlagKey: String {
+        return "\(keyBase)_interactionFlag"
+    }
+    
     init(key: String, threshold: Int, userDefaults: CoachMarksUserDefaults = CoachMarksUserDefaults()) {
         self.keyBase = key
         self.threshold = threshold
         self.coachMarksDefaults = userDefaults
-        userDefaults.initialiseValues(interactionKey: "\(key)_interactionFlag", viewKey: "\(key)_viewCount")
+        userDefaults.initialiseValues(interactionKey: interactionFlagKey, viewKey: viewCountKey)
     }
 }

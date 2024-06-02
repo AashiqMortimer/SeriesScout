@@ -26,6 +26,7 @@ struct CoachMarkModifier: ViewModifier {
                     CoachMarkView(title: title, message: message, buttonText: buttonText, storage: coachMark)
                         .presentationCompactAdaptation(.popover)
                         .presentationBackground(.white)
+                        .interactiveDismissDisabled() // This prevents any motion so may not be ideal
                 })
         } else {
             content
@@ -86,7 +87,7 @@ struct SearchCard: View {
 
 struct ExampleView: View {
     
-    @CoachMark(key: "TestCoachMark", threshold: 0) var showCoachMark
+    @CoachMark(key: "TestCoachMark", threshold: 3) var showCoachMark
     
     var body: some View {
         ScrollView {
@@ -115,6 +116,11 @@ struct ExampleView: View {
             
             // When moving to TDA, check the index for ForEach and use that.
         }
+        .onAppear(perform: {
+            $showCoachMark.incrementViewCount(for: _showCoachMark)
+            print("View: \($showCoachMark.viewCounts)")
+            print("Interaction: \($showCoachMark.interactionFlags)")
+        })
     }
 }
 

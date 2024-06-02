@@ -27,34 +27,32 @@ final class CoachMarksUserDefaultsTests: XCTestCase {
     }
     
     func testInitialisedValues() {
-        let interactionKey = "test_interactionFlag"
-        let viewKey = "test_viewCount"
-        coachMarksUserDefaults.initialiseValues(interactionKey: interactionKey, viewKey: viewKey)
-        XCTAssertFalse(coachMarksUserDefaults.interactionOccurred(forKey: interactionKey))
-        XCTAssertEqual(coachMarksUserDefaults.viewCount(forKey: viewKey), 0)
+        let coachMark = CoachMark(key: "test", threshold: 0, userDefaults: coachMarksUserDefaults)
+        XCTAssertFalse(coachMarksUserDefaults.interactionFlags[coachMark.interactionFlagKey, default: false])
+        XCTAssertEqual(coachMarksUserDefaults.viewCounts[coachMark.viewCountKey, default: 0], 0)
     }
     
     func testIncrementViewCount() {
-        let baseKey = "test"
-        coachMarksUserDefaults.incrementViewCount(forKey: baseKey)
-        XCTAssertEqual(coachMarksUserDefaults.viewCount(forKey: baseKey + "_viewCount"), 1)
+        let coachMark = CoachMark(key: "test", threshold: 0, userDefaults: coachMarksUserDefaults)
+        coachMarksUserDefaults.incrementViewCount(for: coachMark)
+        XCTAssertEqual(coachMarksUserDefaults.viewCounts[coachMark.viewCountKey, default: 0], 1)
         XCTAssertEqual(userDefaults.dictionary(forKey: "coachMarks")?.keys.first, "test_viewCount")
     }
     
     func testSetInteraction() {
-        let baseKey = "test"
-        coachMarksUserDefaults.setInteraction(forKey: baseKey)
-        XCTAssertTrue(coachMarksUserDefaults.interactionOccurred(forKey: baseKey + "_interactionFlag"))
+        let coachMark = CoachMark(key: "test", threshold: 0, userDefaults: coachMarksUserDefaults)
+        coachMarksUserDefaults.setInteraction(for: coachMark)
+        XCTAssertTrue(coachMarksUserDefaults.interactionFlags[coachMark.interactionFlagKey, default: false])
         XCTAssertEqual(userDefaults.dictionary(forKey: "coachMarks")?.keys.first, "test_interactionFlag")
     }
     
     func testResetCoachMarks() {
-        let baseKey = "test"
-        coachMarksUserDefaults.incrementViewCount(forKey: baseKey)
-        coachMarksUserDefaults.setInteraction(forKey: baseKey)
+        let coachMark = CoachMark(key: "test", threshold: 0, userDefaults: coachMarksUserDefaults)
+        coachMarksUserDefaults.incrementViewCount(for: coachMark)
+        coachMarksUserDefaults.setInteraction(for: coachMark)
         coachMarksUserDefaults.resetCoachMarks()
-        XCTAssertEqual(coachMarksUserDefaults.viewCount(forKey: baseKey + "_viewCount"), 0)
-        XCTAssertFalse(coachMarksUserDefaults.interactionOccurred(forKey: baseKey + "_interactionFlag"))
+        XCTAssertEqual(coachMarksUserDefaults.viewCounts[coachMark.viewCountKey, default: 0], 0)
+        XCTAssertFalse(coachMarksUserDefaults.interactionFlags[coachMark.interactionFlagKey, default: false])
     }
     
     func testWrappedValueReturnsFalseInitially() {
@@ -65,14 +63,17 @@ final class CoachMarksUserDefaultsTests: XCTestCase {
     func testWrappedValueReturnsTrueAfterThresholdMet() {
         let coachMark = CoachMark(key: "myKey", threshold: 2, userDefaults: coachMarksUserDefaults)
         for _ in 0..<2 { // Increment view count twice
-            coachMark.projectedValue.incrementViewCount(forKey: "myKey")
+            coachMarksUserDefaults.incrementViewCount(for: coachMark)
         }
         XCTAssertTrue(coachMark.wrappedValue)
     }
     
     func testWrappedValueHidesAfterInteraction() {
         let coachMark = CoachMark(key: "myKey", threshold: 2, userDefaults: coachMarksUserDefaults)
-        coachMark.projectedValue.setInteraction(forKey: "myKey")
+        for _ in 0..<2 { // Increment view count twice
+            coachMarksUserDefaults.incrementViewCount(for: coachMark)
+        }
+        coachMarksUserDefaults.setInteraction(for: coachMark)
         XCTAssertFalse(coachMark.wrappedValue)
     }
 }

@@ -29,7 +29,7 @@ struct CoachMarkView: View {
                 .frame(maxWidth: 295, maxHeight: .infinity)
             
             Button(buttonText) {
-                storage.projectedValue.setInteraction(forKey: storage.keyBase)
+                storage.projectedValue.setInteraction(for: storage)
             }
             .buttonStyle(primaryButtonStyle)
             
@@ -41,7 +41,7 @@ struct CoachMarkView: View {
         .background(.white)
         .cornerRadius(12)
         .onDisappear(perform: {
-            storage.projectedValue.setInteraction(forKey: storage.keyBase)
+            storage.projectedValue.setInteraction(for: storage)
         })
     }
     
@@ -94,7 +94,7 @@ struct TestView2: View {
         VStack {
             VStack(spacing: 10) {
                 Button("Top Screen Button"){
-                    $showShortlistCoachMark.setInteraction(forKey: Constants.key)
+                    $showShortlistCoachMark.setInteraction(for: _showShortlistCoachMark)
                 }
                 .buttonStyle(.borderedProminent)
 //                .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist)
@@ -121,7 +121,7 @@ struct TestView2: View {
                     Text("Nothing")
                         .hidden()
                     Button("Shortlist"){
-                        $showShortlistCoachMark.setInteraction(forKey: Constants.key)
+                        $showShortlistCoachMark.setInteraction(for: _showShortlistCoachMark)
                     }
                     .background(GeometryReader { geometry in
                         Color.clear.onAppear {
@@ -146,7 +146,7 @@ struct TestView2: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
         .onAppear(perform: {
-            $showShortlistCoachMark.incrementViewCount(forKey: Constants.key)
+            $showShortlistCoachMark.incrementViewCount(for: _showShortlistCoachMark)
         })
 //        .coachMark(coachMarkWrapper: _showShortlistCoachMark, spacing: 15, type: .shortlist, coachedFeature: buttonFrame)
     }

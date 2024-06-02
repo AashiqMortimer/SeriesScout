@@ -8,56 +8,56 @@
 import Foundation
 import SwiftUI
 
-struct CoachMarkViewModal: View {
-    
-    let title: String
-    let message: String
-    let buttonText: String
-    let userDefaults: CoachMarksUserDefaults
-    let key: String
-    
-    var body: some View {
-        VStack(alignment: .center, spacing: 12) {
-            Text(title)
-                .font(Constants.titleFont)
-                .foregroundStyle(Constants.messageColor)
-                .frame(maxWidth: .infinity)
-            Text(message)
-                .font(Constants.messageFont)
-                .multilineTextAlignment(.center)
-                .foregroundColor(Constants.messageColor)
-                .lineLimit(2)
-                .frame(maxWidth: 295)
-            
-            Button(buttonText) {
-                userDefaults.setInteraction(forKey: key)
-            }
-            .buttonStyle(primaryButtonStyle)
-            
-//            Spacer()
-        }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 24)
-//        .fixedSize(horizontal: true, vertical: true)
-        .background(.white)
-        .cornerRadius(12)
-//        .background(GeometryReader { proxy in
-//            Color.clear.preference(key: CoachMarkHeightKey.self, value: proxy.size.height)
-//        })
-    }
-    
-    let primaryButtonStyle = PrimaryButton(
-        backgroundColor: .blue,
-        foregroundColor: Color(.white),
-        font: Font.custom("Ambit-Bold", size: 18)
-    )
-    
-    struct Constants {
-        static let titleFont = Font.custom("AmbitBold", size: 17)
-        static let messageFont = Font.custom("TUITypeLight-Regular", size: 17)
-        static let messageColor = Color(red: 0.11, green: 0.07, blue: 0.36)
-    }
-}
+//struct CoachMarkViewModal: View {
+//    
+//    let title: String
+//    let message: String
+//    let buttonText: String
+//    let userDefaults: CoachMarksUserDefaults
+//    let key: String
+//    
+//    var body: some View {
+//        VStack(alignment: .center, spacing: 12) {
+//            Text(title)
+//                .font(Constants.titleFont)
+//                .foregroundStyle(Constants.messageColor)
+//                .frame(maxWidth: .infinity)
+//            Text(message)
+//                .font(Constants.messageFont)
+//                .multilineTextAlignment(.center)
+//                .foregroundColor(Constants.messageColor)
+//                .lineLimit(2)
+//                .frame(maxWidth: 295)
+//            
+//            Button(buttonText) {
+//                userDefaults.setInteraction(forKey: key)
+//            }
+//            .buttonStyle(primaryButtonStyle)
+//            
+////            Spacer()
+//        }
+//        .padding(.horizontal, 24)
+//        .padding(.vertical, 24)
+////        .fixedSize(horizontal: true, vertical: true)
+//        .background(.white)
+//        .cornerRadius(12)
+////        .background(GeometryReader { proxy in
+////            Color.clear.preference(key: CoachMarkHeightKey.self, value: proxy.size.height)
+////        })
+//    }
+//    
+//    let primaryButtonStyle = PrimaryButton(
+//        backgroundColor: .blue,
+//        foregroundColor: Color(.white),
+//        font: Font.custom("Ambit-Bold", size: 18)
+//    )
+//    
+//    struct Constants {
+//        static let titleFont = Font.custom("AmbitBold", size: 17)
+//        static let messageFont = Font.custom("TUITypeLight-Regular", size: 17)
+//        static let messageColor = Color(red: 0.11, green: 0.07, blue: 0.36)
+//    }
+//}
 
 //struct CoachMarkModalModifier: ViewModifier {
 //    var coachMarkWrapper: CoachMark
