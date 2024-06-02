@@ -26,7 +26,7 @@ struct CoachMarkView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Constants.messageColor)
                 .lineLimit(2)
-                .frame(maxWidth: 295, maxHeight: .infinity)
+                .frame(maxWidth: 315, maxHeight: .infinity)
             
             Button(buttonText) {
                 storage.projectedValue.setInteraction(for: storage)
@@ -123,12 +123,8 @@ struct TestView2: View {
                     Button("Shortlist"){
                         $showShortlistCoachMark.setInteraction(for: _showShortlistCoachMark)
                     }
-                    .background(GeometryReader { geometry in
-                        Color.clear.onAppear {
-                            buttonFrame = geometry.frame(in: .global)
-                        }
-                    }) // TODO: This is a good interim solution: With this, I should definitely be able to overlap everything with a modifier that is applied to the whole view. Then, I wonder if I might be able to position it centrally by not feeding in its frame for the x axis.
                     .buttonStyle(.borderedProminent)
+                    .coachMark(coachMarkStorage: _showShortlistCoachMark, title: "Test", message: "Test shortlist button", buttonText: "Got it")
                 }
             }
             .frame(height: 600)

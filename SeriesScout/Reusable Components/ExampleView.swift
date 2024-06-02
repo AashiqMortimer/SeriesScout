@@ -26,7 +26,7 @@ struct CoachMarkModifier: ViewModifier {
                     CoachMarkView(title: title, message: message, buttonText: buttonText, storage: coachMark)
                         .presentationCompactAdaptation(.popover)
                         .presentationBackground(.white)
-                        .interactiveDismissDisabled() // This prevents any motion so may not be ideal
+//                        .interactiveDismissDisabled() // This prevents any motion so may not be ideal
                 })
         } else {
             content
