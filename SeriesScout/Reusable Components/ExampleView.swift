@@ -10,27 +10,41 @@ import SwiftUI
 
 struct CoachMarkModifier: ViewModifier {
     // Diss Note: Removed CoachMarkFactory way of doing things. Instead, values should be initialised from a ViewModel, or within a view, to avoid FirebaseWrapper type scenario. This currently violates the open/close principle for SOLID as I have to modify the base class of Factory to add extra features. Explore other SOLID principles too, how I've separated stuff out.
+    @State private var showPopover = false
     var coachMarkStorage: CoachMark?
     let title: String
     let message: String
     let buttonText: String
     private var shouldShowCoachMark: Bool {
         coachMarkStorage?.wrappedValue ?? false
-    } // Diss Note: Makes this easier to read rather than just handling coachMarkStorage optional value in code below. Can display alternative way of doing it that's less intuitive.
+    }
     var isEnabled: Bool
     
     func body(content: Content) -> some View {
         // Note: We're protecting the code here; if we don't have a coach mark, we will never show an empty coachmark or view. Another option would have been to inject an empty coach mark into the factory. But if somebody changes the code in the future, we have the risk of it appearing. This way, we can prevent that happening.
         if let coachMark = coachMarkStorage, isEnabled {
             content
-                .popover(isPresented: .constant(shouldShowCoachMark), content: {
+                .popover(isPresented: .constant(shouldShowCoachMark && showPopover), content: {
                     CoachMarkView(title: title, message: message, buttonText: buttonText, storage: coachMark)
                         .presentationCompactAdaptation(.popover)
                         .presentationBackground(.white)
 //                        .interactiveDismissDisabled() // This prevents any motion so may not be ideal
                 })
+                .onAppear(perform: {
+                    handleDelay()
+                })
         } else {
             content
+        }
+    }
+    
+    private func handleDelay() {
+        if shouldShowCoachMark {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                showPopover = true
+            }
+        } else {
+            showPopover = false
         }
     }
 }
