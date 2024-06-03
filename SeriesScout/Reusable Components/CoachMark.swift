@@ -124,7 +124,7 @@ struct TestView2: View {
                         $showShortlistCoachMark.setInteraction(for: _showShortlistCoachMark)
                     }
                     .buttonStyle(.borderedProminent)
-                    .coachMark(coachMarkStorage: _showShortlistCoachMark, title: "Test", message: "Test shortlist button", buttonText: "Got it")
+//                    .coachMark(coachMarkStorage: _showShortlistCoachMark, title: "Test", message: "Test shortlist button", buttonText: "Got it", isEnabled: <#Bool#>)
                 }
             }
             .frame(height: 600)

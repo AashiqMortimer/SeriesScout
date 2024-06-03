@@ -9,18 +9,19 @@ import Foundation
 import SwiftUI
 
 struct CoachMarkModifier: ViewModifier {
-    //TODO: Remove CoachMarkFactory way of doing things. Instead, values should be initialised from a ViewModel, or within a view, to avoid FirebaseWrapper type scenario. This currently violates the open/close principle for SOLID as I have to modify the base class of Factory to add extra features. Explore other SOLID principles too, how I've separated stuff out.
+    // Diss Note: Removed CoachMarkFactory way of doing things. Instead, values should be initialised from a ViewModel, or within a view, to avoid FirebaseWrapper type scenario. This currently violates the open/close principle for SOLID as I have to modify the base class of Factory to add extra features. Explore other SOLID principles too, how I've separated stuff out.
     var coachMarkStorage: CoachMark?
     let title: String
     let message: String
     let buttonText: String
     private var shouldShowCoachMark: Bool {
         coachMarkStorage?.wrappedValue ?? false
-    }
+    } // Diss Note: Makes this easier to read rather than just handling coachMarkStorage optional value in code below. Can display alternative way of doing it that's less intuitive.
+    var isEnabled: Bool
     
     func body(content: Content) -> some View {
         // Note: We're protecting the code here; if we don't have a coach mark, we will never show an empty coachmark or view. Another option would have been to inject an empty coach mark into the factory. But if somebody changes the code in the future, we have the risk of it appearing. This way, we can prevent that happening.
-        if let coachMark = coachMarkStorage {
+        if let coachMark = coachMarkStorage, isEnabled {
             content
                 .popover(isPresented: .constant(shouldShowCoachMark), content: {
                     CoachMarkView(title: title, message: message, buttonText: buttonText, storage: coachMark)
@@ -35,8 +36,8 @@ struct CoachMarkModifier: ViewModifier {
 }
 
 extension View {
-    func coachMark(coachMarkStorage: CoachMark?, title: String, message: String, buttonText: String) -> some View {
-        modifier(CoachMarkModifier(coachMarkStorage: coachMarkStorage, title: title, message: message, buttonText: buttonText))
+    func coachMark(coachMarkStorage: CoachMark?, title: String, message: String, buttonText: String, isEnabled: Bool) -> some View {
+        modifier(CoachMarkModifier(coachMarkStorage: coachMarkStorage, title: title, message: message, buttonText: buttonText, isEnabled: isEnabled))
     }
 }
 
@@ -45,10 +46,11 @@ struct SearchCard: View {
     @State var buttonTapped: Bool = false // Ignore this
     
     var coachMark: CoachMark?
+    var isEnabled: Bool
     
-    init(coachMark: CoachMark? = nil) {
-        self.coachMark = coachMark
-    }
+//    init(coachMark: CoachMark? = nil) {
+//        self.coachMark = coachMark
+//    }
     
     var body: some View {
         VStack {
@@ -69,7 +71,8 @@ struct SearchCard: View {
                 .coachMark(coachMarkStorage: coachMark, 
                            title: Constants.shortlistTitle,
                            message: Constants.shortlistMessage,
-                           buttonText: Constants.buttonText)
+                           buttonText: Constants.buttonText,
+                           isEnabled: isEnabled)
             }
             
             Text("Eiffel Tower")
@@ -87,7 +90,7 @@ struct SearchCard: View {
 
 struct ExampleView: View {
     
-    @CoachMark(key: "TestCoachMark", threshold: 3) var showCoachMark
+    @CoachMark(key: "TestCoachMark", threshold: 0) var showCoachMark
     
     var body: some View {
         ScrollView {
@@ -102,25 +105,39 @@ struct ExampleView: View {
             Text("Should Show: \(showCoachMark.description)")
                 .foregroundStyle(.red)
             
-            SearchCard()
-            SearchCard(coachMark: _showCoachMark)
-            SearchCard()
-            SearchCard()
-            SearchCard()
-            SearchCard()
-            SearchCard()
-            SearchCard()
-            SearchCard()
-            SearchCard()
-            SearchCard()
+            //TODO: Change to ForEach and see how I would replicate this.
             
-            // When moving to TDA, check the index for ForEach and use that.
+            ForEach(0..<11, id: \.self) { index in
+                SearchCard(coachMark: _showCoachMark, isEnabled: index == 1)
+                    .onAppear(perform: {
+                        if index == 10 {
+                            $showCoachMark.incrementViewCount(for: _showCoachMark)
+                            print("View: \($showCoachMark.viewCounts)")
+                            print("Interaction: \($showCoachMark.interactionFlags)")
+                        }
+                    })
+            }
         }
-        .onAppear(perform: {
-            $showCoachMark.incrementViewCount(for: _showCoachMark)
-            print("View: \($showCoachMark.viewCounts)")
-            print("Interaction: \($showCoachMark.interactionFlags)")
-        })
+            
+            //            SearchCard()
+            //            SearchCard(coachMark: _showCoachMark)
+            //            SearchCard()
+            //            SearchCard()
+            //            SearchCard()
+            //            SearchCard()
+            //            SearchCard()
+            //            SearchCard()
+            //            SearchCard()
+            //            SearchCard()
+            //            SearchCard()
+            //
+            //            // When moving to TDA, check the index for ForEach and use that.
+            //        }
+            //        .onAppear(perform: {
+            //            $showCoachMark.incrementViewCount(for: _showCoachMark)
+            //            print("View: \($showCoachMark.viewCounts)")
+            //            print("Interaction: \($showCoachMark.interactionFlags)")
+            //        })
     }
 }
 
